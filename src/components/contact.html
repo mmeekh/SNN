@@ -1,0 +1,201 @@
+<!-- ===================================
+     SWORD NEST - CONTACT SECTION
+     Interactive Contact Component
+     =================================== -->
+
+<section class="contact-section" id="contact">
+    <!-- Contact Header -->
+    <div class="contact-header">
+        <div class="header-content">
+            <h2 class="section-title">
+                <span class="title-accent">İletişime</span> Geçin
+            </h2>
+            <p class="section-subtitle">
+                <span class="highlight">Dinamik & Yaratıcı</span> 
+                <span class="ai-text">yapay zeka</span> çözümleriniz için bugün başlayalım
+            </p>
+        </div>
+        
+        <div class="contact-stats">
+            <div class="stat-item">
+                <div class="stat-icon">⚡</div>
+                <div class="stat-text">
+                    <span class="stat-number">24 Saat</span>
+                    <span class="stat-label">İçinde Yanıt</span>
+                </div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-icon">🎯</div>
+                <div class="stat-text">
+                    <span class="stat-number">Ücretsiz</span>
+                    <span class="stat-label">Danışmanlık</span>
+                </div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-icon">🚀</div>
+                <div class="stat-text">
+                    <span class="stat-number">Hızlı</span>
+                    <span class="stat-label">Prototip</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main Contact Content -->
+    <div class="contact-content">
+        <!-- Contact Form -->
+        <div class="contact-form-container">
+            <div class="form-header">
+                <h3 class="form-title">Projenizi Anlatan</h3>
+                <p class="form-subtitle">Sizin için en uygun <span class="ai-text">AI çözümünü</span> birlikte tasarlayalım</p>
+            </div>
+            
+            <form class="contact-form" id="contactForm">
+                <div class="form-grid">
+                    <!-- Personal Info -->
+                    <div class="form-group">
+                        <label for="fullName" class="form-label">
+                            <span class="label-text">Ad Soyad</span>
+                            <span class="label-required">*</span>
+                        </label>
+                        <input 
+                            type="text" 
+                            id="fullName" 
+                            name="fullName" 
+                            class="form-input" 
+                            placeholder="Adınız ve soyadınız"
+                            required
+                        >
+                        <div class="form-error" id="fullNameError"></div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="email" class="form-label">
+                            <span class="label-text">E-posta</span>
+                            <span class="label-required">*</span>
+                        </label>
+                        <input 
+                            type="email" 
+                            id="email" 
+                            name="email" 
+                            class="form-input" 
+                            placeholder="ornek@firma.com"
+                            required
+                        >
+                        <div class="form-error" id="emailError"></div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="phone" class="form-label">
+                            <span class="label-text">Telefon</span>
+                        </label>
+                        <input 
+                            type="tel" 
+                            id="phone" 
+                            name="phone" 
+                            class="form-input" 
+                            placeholder="+90 5XX XXX XX XX"
+                        >
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="company" class="form-label">
+                            <span class="label-text">Şirket</span>
+                        </label>
+                        <input 
+                            type="text" 
+                            id="company" 
+                            name="company" 
+                            class="form-input" 
+                            placeholder="Şirket adınız"
+                        >
+                    </div>
+                </div>
+                
+                <!-- Project Type -->
+                <div class="form-group full-width">
+                    <label for="projectType" class="form-label">
+                        <span class="label-text">Hangi AI çözümü ile ilgileniyorsunuz?</span>
+                        <span class="label-required">*</span>
+                    </label>
+                    <select id="projectType" name="projectType" class="form-select" required>
+                        <option value="">Seçiniz...</option>
+                        <option value="chatbot">🤖 AI Chatbot Geliştirme</option>
+                        <option value="data-analysis">📊 Veri Analizi & Machine Learning</option>
+                        <option value="computer-vision">👁️ Görüntü İşleme & Computer Vision</option>
+                        <option value="automation">⚙️ İş Süreçleri Otomasyonu</option>
+                        <option value="nlp">💬 Doğal Dil İşleme (NLP)</option>
+                        <option value="custom">🎯 Özel AI Çözümü</option>
+                        <option value="consulting">💡 AI Danışmanlık</option>
+                    </select>
+                    <div class="form-error" id="projectTypeError"></div>
+                </div>
+                
+                <!-- Budget Range -->
+                <div class="form-group full-width">
+                    <label for="budget" class="form-label">
+                        <span class="label-text">Bütçe Aralığı</span>
+                    </label>
+                    <select id="budget" name="budget" class="form-select">
+                        <option value="">Seçiniz...</option>
+                        <option value="small">💰 10K - 50K TL</option>
+                        <option value="medium">💼 50K - 150K TL</option>
+                        <option value="large">🏢 150K - 500K TL</option>
+                        <option value="enterprise">🏛️ 500K+ TL</option>
+                        <option value="discuss">🤝 Görüşmek İsterim</option>
+                    </select>
+                </div>
+                
+                <!-- Timeline -->
+                <div class="form-group full-width">
+                    <label for="timeline" class="form-label">
+                        <span class="label-text">Proje Tamamlanma Süresi</span>
+                    </label>
+                    <select id="timeline" name="timeline" class="form-select">
+                        <option value="">Seçiniz...</option>
+                        <option value="urgent">🚀 Acil (1-2 hafta)</option>
+                        <option value="fast">⚡ Hızlı (1 ay)</option>
+                        <option value="normal">📅 Normal (2-3 ay)</option>
+                        <option value="flexible">🕒 Esnek (3+ ay)</option>
+                    </select>
+                </div>
+                
+                <!-- Project Description -->
+                <div class="form-group full-width">
+                    <label for="message" class="form-label">
+                        <span class="label-text">Proje Detayları</span>
+                        <span class="label-required">*</span>
+                    </label>
+                    <textarea 
+                        id="message" 
+                        name="message" 
+                        class="form-textarea" 
+                        placeholder="Projenizi detaylı olarak anlatın. Hangi problemi çözmek istiyorsunuz? Mevcut sistemleriniz neler? Beklentileriniz nedir?"
+                        rows="6"
+                        required
+                    ></textarea>
+                    <div class="form-error" id="messageError"></div>
+                    <div class="character-count">
+                        <span id="charCount">0</span> / 1000 karakter
+                    </div>
+                </div>
+                
+                <!-- GDPR Consent -->
+                <div class="form-group full-width">
+                    <div class="checkbox-container">
+                        <input type="checkbox" id="gdprConsent" name="gdprConsent" class="form-checkbox" required>
+                        <label for="gdprConsent" class="checkbox-label">
+                            <span class="checkbox-text">
+                                Kişisel verilerimin işlenmesine ve 
+                                <a href="#" class="link">Gizlilik Politikası</a>'nı kabul ediyorum.
+                                <span class="label-required">*</span>
+                            </span>
+                        </label>
+                    </div>
+                    <div class="form-error" id="gdprError"></div>
+                </div>
+                
+                <!-- Marketing Consent -->
+                <div class="form-group full-width">
+                    <div class="checkbox-container">
+                        <input type="checkbox" id="marketingCons

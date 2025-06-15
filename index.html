@@ -1,0 +1,475 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sword Nest - Yapay Zeka Çözümleri</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            background: #0F0F0F;
+            color: #F3F4F6;
+            overflow-x: hidden;
+            cursor: none;
+        }
+
+        /* Dark Overlay */
+        .dark-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.7);
+            z-index: 1;
+            pointer-events: none;
+        }
+
+        /* Mouse Spotlight Effect */
+        .spotlight {
+            position: fixed;
+            width: 300px;
+            height: 300px;
+            border-radius: 50%;
+            background: radial-gradient(circle, transparent 0%, rgba(0, 0, 0, 0.9) 70%);
+            pointer-events: none;
+            z-index: 2;
+            transform: translate(-50%, -50%);
+            transition: all 0.1s ease;
+            mix-blend-mode: multiply;
+        }
+
+        /* Sword Container - Absolute Foreground */
+        .sword-container {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            z-index: 9999;
+            pointer-events: none;
+            width: 2000px;
+            height: 2400px;
+        }
+
+        .sword-image {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            filter: drop-shadow(0 0 20px #38BDF8) drop-shadow(0 0 40px #38BDF8) drop-shadow(0 0 60px rgba(56, 189, 248, 0.3));
+            animation: swordGlow 3s ease-in-out infinite alternate;
+        }
+
+        @keyframes swordGlow {
+            0% {
+                filter: drop-shadow(0 0 20px #38BDF8) drop-shadow(0 0 40px #38BDF8) drop-shadow(0 0 60px rgba(56, 189, 248, 0.3));
+            }
+            100% {
+                filter: drop-shadow(0 0 30px #38BDF8) drop-shadow(0 0 60px #38BDF8) drop-shadow(0 0 90px rgba(56, 189, 248, 0.5));
+            }
+        }
+
+        /* Title Reveal */
+        .hero-title {
+            position: fixed;
+            top: 15%;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 3;
+            text-align: center;
+            opacity: 0;
+            animation: titleReveal 2s ease-out 1s forwards;
+            transition: all 0.3s ease;
+        }
+
+        .hero-title h1 {
+            font-size: 3.5rem;
+            font-weight: bold;
+            color: #38BDF8;
+            text-shadow: 0 0 20px rgba(56, 189, 248, 0.5);
+            margin-bottom: 0.5rem;
+        }
+
+        .hero-title .subtitle {
+            font-size: 1.2rem;
+            color: #9CA3AF;
+            letter-spacing: 2px;
+        }
+
+        @keyframes titleReveal {
+            0% {
+                opacity: 0;
+                transform: translateX(-50%) translateY(50px);
+            }
+            100% {
+                opacity: 1;
+                transform: translateX(-50%) translateY(0);
+            }
+        }
+
+        /* Content Sections */
+        .content-wrapper {
+            position: relative;
+            z-index: 3;
+            min-height: 500vh;
+            padding: 100vh 0;
+        }
+
+        .section {
+            min-height: 100vh;
+            padding: 4rem 2rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 5rem 0;
+        }
+
+        .section-content {
+            max-width: 1200px;
+            width: 100%;
+            display: grid;
+            grid-template-columns: 1fr 300px 1fr;
+            gap: 4rem;
+            align-items: center;
+        }
+
+        .left-content, .right-content {
+            background: rgba(15, 15, 15, 0.9);
+            padding: 3rem;
+            border-radius: 15px;
+            border: 1px solid #9CA3AF;
+            backdrop-filter: blur(10px);
+        }
+
+        .left-content h2, .right-content h2 {
+            font-size: 2.5rem;
+            color: #38BDF8;
+            margin-bottom: 1.5rem;
+            text-shadow: 0 0 10px rgba(56, 189, 248, 0.3);
+        }
+
+        .left-content p, .right-content p {
+            font-size: 1.1rem;
+            line-height: 1.8;
+            color: #F3F4F6;
+            margin-bottom: 1.5rem;
+        }
+
+        .highlight {
+            color: #F97316;
+            font-weight: bold;
+        }
+
+        .ai-focus {
+            color: #38BDF8;
+            font-weight: bold;
+        }
+
+        /* Video Sections */
+        .video-section {
+            background: rgba(15, 15, 15, 0.95);
+            border: 2px solid #38BDF8;
+            border-radius: 20px;
+            padding: 2rem;
+            text-align: center;
+            box-shadow: 0 0 30px rgba(56, 189, 248, 0.2);
+        }
+
+        .video-placeholder {
+            width: 100%;
+            height: 250px;
+            background: linear-gradient(45deg, #0F0F0F, #9CA3AF);
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #38BDF8;
+            font-size: 1.2rem;
+            margin-bottom: 1rem;
+            border: 1px solid #38BDF8;
+        }
+
+        /* Call to Action */
+        .cta-button {
+            background: linear-gradient(45deg, #F97316, #38BDF8);
+            color: white;
+            padding: 1rem 2rem;
+            border: none;
+            border-radius: 25px;
+            font-size: 1.1rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 15px rgba(249, 115, 22, 0.3);
+        }
+
+        .cta-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(249, 115, 22, 0.5);
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .section-content {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+            
+            .sword-container {
+                width: 1400px;
+                height: 1800px;
+            }
+            
+            .hero-title h1 {
+                font-size: 2.5rem;
+            }
+            
+            .left-content, .right-content {
+                padding: 2rem;
+            }
+        }
+
+        /* Custom Cursor */
+        .custom-cursor {
+            position: fixed;
+            width: 20px;
+            height: 20px;
+            border: 2px solid #38BDF8;
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 10000;
+            transform: translate(-50%, -50%);
+            transition: all 0.1s ease;
+            background: rgba(56, 189, 248, 0.1);
+        }
+    </style>
+</head>
+<body>
+    <!-- Dark Overlay -->
+    <div class="dark-overlay"></div>
+    
+    <!-- Mouse Spotlight -->
+    <div class="spotlight"></div>
+    
+    <!-- Custom Cursor -->
+    <div class="custom-cursor"></div>
+    
+    <!-- Sword Animation (Absolute Foreground) -->
+    <div class="sword-container">
+        <img src="assets/images/sword-rotation/0001.png" alt="Sword" class="sword-image" id="swordImage">
+    </div>
+    
+    <!-- Hero Title -->
+    <div class="hero-title">
+        <h1>SWORD NEST</h1>
+        <p class="subtitle">YAPAY ZEKA ÇÖZÜMLERİ</p>
+    </div>
+    
+    <!-- Content Wrapper -->
+    <div class="content-wrapper">
+        <!-- About Section -->
+        <section class="section">
+            <div class="section-content">
+                <div class="left-content">
+                    <h2>Dinamik & Yaratıcı</h2>
+                    <p>Sword Nest olarak, <span class="ai-focus">yapay zeka</span> teknolojilerinin gücünü kullanarak işletmenizin dijital dönüşümünde öncü çözümler sunuyoruz.</p>
+                    <p>Her proje, keskin bir kılıç gibi <span class="highlight">hassas</span> ve <span class="highlight">etkili</span> şekilde tasarlanır.</p>
+                </div>
+                <div></div> <!-- Center space for sword -->
+                <div class="right-content">
+                    <h2>AI Çözümleri</h2>
+                    <p><span class="ai-focus">Yapay zeka</span> algoritmaları, makine öğrenmesi modelleri ve derin öğrenme sistemleri ile işletmenizin verimliliğini artırıyoruz.</p>
+                    <p>Geleceğin teknolojisini bugünden işletmenize entegre ediyoruz.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Services Section -->
+        <section class="section">
+            <div class="section-content">
+                <div class="left-content">
+                    <h2>Hizmetlerimiz</h2>
+                    <p>• <span class="ai-focus">AI Chatbot</span> Geliştirme</p>
+                    <p>• Veri Analizi ve <span class="ai-focus">Makine Öğrenmesi</span></p>
+                    <p>• Otomatik İçerik Üretimi</p>
+                    <p>• <span class="ai-focus">Görüntü İşleme</span> Sistemleri</p>
+                </div>
+                <div></div>
+                <div class="right-content">
+                    <h2>Teknolojilerimiz</h2>
+                    <p>• Python & TensorFlow</p>
+                    <p>• <span class="ai-focus">OpenAI GPT</span> Integration</p>
+                    <p>• Computer Vision</p>
+                    <p>• Natural Language Processing</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Video Demo 1 -->
+        <section class="section">
+            <div class="section-content">
+                <div class="video-section">
+                    <h2>Demo 1: AI Chatbot</h2>
+                    <div class="video-placeholder">
+                        YouTube Video Placeholder
+                        <br>
+                        <small>Embed your first demo video here</small>
+                    </div>
+                    <p>Akıllı chatbot çözümlerimizin canlı demonstrasyonu</p>
+                </div>
+                <div></div>
+                <div></div>
+            </div>
+        </section>
+
+        <!-- Video Demo 2 -->
+        <section class="section">
+            <div class="section-content">
+                <div></div>
+                <div></div>
+                <div class="video-section">
+                    <h2>Demo 2: Veri Analizi</h2>
+                    <div class="video-placeholder">
+                        YouTube Video Placeholder
+                        <br>
+                        <small>Embed your second demo video here</small>
+                    </div>
+                    <p>Makine öğrenmesi ile veri analizi süreçleri</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Video Demo 3 -->
+        <section class="section">
+            <div class="section-content">
+                <div class="video-section">
+                    <h2>Demo 3: Görüntü İşleme</h2>
+                    <div class="video-placeholder">
+                        YouTube Video Placeholder
+                        <br>
+                        <small>Embed your third demo video here</small>
+                    </div>
+                    <p>AI destekli görüntü tanıma ve işleme sistemleri</p>
+                </div>
+                <div></div>
+                <div></div>
+            </div>
+        </section>
+
+        <!-- Video Demo 4 -->
+        <section class="section">
+            <div class="section-content">
+                <div></div>
+                <div></div>
+                <div class="video-section">
+                    <h2>Demo 4: Otomasyon</h2>
+                    <div class="video-placeholder">
+                        YouTube Video Placeholder
+                        <br>
+                        <small>Embed your fourth demo video here</small>
+                    </div>
+                    <p>İş süreçlerinde AI otomasyon çözümleri</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Contact Section -->
+        <section class="section">
+            <div class="section-content">
+                <div class="left-content">
+                    <h2>İletişim</h2>
+                    <p>Projeleriniz için <span class="ai-focus">yapay zeka</span> çözümlerimizi keşfedin.</p>
+                    <p><span class="highlight">Dinamik & Yaratıcı</span> yaklaşımımızla birlikte çalışalım.</p>
+                    <button class="cta-button">Hemen İletişime Geçin</button>
+                </div>
+                <div></div>
+                <div class="right-content">
+                    <h2>Sword Nest</h2>
+                    <p>Her çözüm, bir sanat eseri gibi özenle işlenir.</p>
+                    <p>Teknoloji ve yaratıcılığın mükemmel birleşimi ile geleceği inşa ediyoruz.</p>
+                    <p><span class="ai-focus">Yapay Zeka</span> • <span class="highlight">İnovasyon</span> • <span class="ai-focus">Başarı</span></p>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <script>
+        // Sword rotation animation
+        let currentSwordIndex = 1;
+        const totalSwordImages = 120;
+        const swordImage = document.getElementById('swordImage');
+        
+        function updateSwordImage() {
+            // Çok daha hızlı dönüş - scroll'un 30%'inde tüm resimleri göster
+            const scrollPercent = Math.min(window.scrollY / (document.body.scrollHeight * 0.3), 1);
+            const imageIndex = Math.min(Math.floor(scrollPercent * totalSwordImages) + 1, totalSwordImages);
+            
+            if (imageIndex !== currentSwordIndex && imageIndex >= 1) {
+                currentSwordIndex = imageIndex;
+                const imageNumber = String(currentSwordIndex).padStart(4, '0');
+                swordImage.src = `assets/images/sword-rotation/${imageNumber}.png`;
+            }
+        }
+
+        // Mouse spotlight effect
+        const spotlight = document.querySelector('.spotlight');
+        const cursor = document.querySelector('.custom-cursor');
+        
+        function updateSpotlight(e) {
+            const x = e.clientX;
+            const y = e.clientY;
+            
+            spotlight.style.left = x + 'px';
+            spotlight.style.top = y + 'px';
+            
+            cursor.style.left = x + 'px';
+            cursor.style.top = y + 'px';
+        }
+
+        // Enhanced scroll-based effects
+        function updateScrollEffects() {
+            const scrollPercent = window.scrollY / (document.body.scrollHeight - window.innerHeight);
+            const glowIntensity = 0.3 + (scrollPercent * 0.7);
+            
+            // Kılıç glow efekti
+            swordImage.style.filter = `
+                drop-shadow(0 0 ${20 * glowIntensity}px #38BDF8) 
+                drop-shadow(0 0 ${40 * glowIntensity}px #38BDF8) 
+                drop-shadow(0 0 ${60 * glowIntensity}px rgba(56, 189, 248, ${glowIntensity}))
+            `;
+            
+            // Yazıyı hareket ettir
+            const heroTitle = document.querySelector('.hero-title');
+            if (window.scrollY > 100) {
+                heroTitle.style.opacity = '0';
+                heroTitle.style.transform = 'translateX(-50%) translateY(-50px)';
+            } else {
+                heroTitle.style.opacity = '1';
+                heroTitle.style.transform = 'translateX(-50%) translateY(0)';
+            }
+        }
+
+        // Event listeners
+        window.addEventListener('scroll', () => {
+            updateSwordImage();
+            updateScrollEffects();
+        });
+
+        window.addEventListener('mousemove', updateSpotlight);
+
+        // Initialize
+        updateSwordImage();
+        updateScrollEffects();
+
+        // Smooth scrolling for better experience
+        document.addEventListener('DOMContentLoaded', function() {
+            document.documentElement.style.scrollBehavior = 'smooth';
+        });
+    </script>
+</body>
+</html>
