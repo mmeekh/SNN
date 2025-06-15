@@ -198,4 +198,957 @@
                 <!-- Marketing Consent -->
                 <div class="form-group full-width">
                     <div class="checkbox-container">
-                        <input type="checkbox" id="marketingCons
+                        <input type="checkbox" id="marketingConsent" name="marketingConsent" class="form-checkbox">
+                        <label for="marketingConsent" class="checkbox-label">
+                            <span class="checkbox-text">
+                                AI teknolojileri hakkında güncellemeler almak istiyorum.
+                            </span>
+                        </label>
+                    </div>
+                </div>
+                
+                <!-- Submit Button -->
+                <div class="form-submit">
+                    <button type="submit" class="submit-button" id="submitButton">
+                        <span class="button-icon">🗡️</span>
+                        <span class="button-text">Projeyi Başlat</span>
+                        <span class="button-loader"></span>
+                    </button>
+                    <p class="submit-note">
+                        24 saat içinde size özel AI çözüm önerimizi paylaşacağız.
+                    </p>
+                </div>
+            </form>
+        </div>
+        
+        <!-- Contact Info Sidebar -->
+        <div class="contact-info">
+            <div class="info-card">
+                <div class="card-header">
+                    <h4 class="card-title">Doğrudan İletişim</h4>
+                    <p class="card-subtitle">Hemen konuşmaya başlayalım</p>
+                </div>
+                
+                <div class="contact-methods">
+                    <a href="mailto:hello@swordnest.ai" class="contact-method">
+                        <div class="method-icon">📧</div>
+                        <div class="method-info">
+                            <span class="method-label">E-posta</span>
+                            <span class="method-value">hello@swordnest.ai</span>
+                        </div>
+                    </a>
+                    
+                    <a href="tel:+905551234567" class="contact-method">
+                        <div class="method-icon">📞</div>
+                        <div class="method-info">
+                            <span class="method-label">Telefon</span>
+                            <span class="method-value">+90 555 123 45 67</span>
+                        </div>
+                    </a>
+                    
+                    <a href="https://wa.me/905551234567" class="contact-method" target="_blank">
+                        <div class="method-icon">💬</div>
+                        <div class="method-info">
+                            <span class="method-label">WhatsApp</span>
+                            <span class="method-value">Anında Mesaj</span>
+                        </div>
+                    </a>
+                    
+                    <div class="contact-method">
+                        <div class="method-icon">📍</div>
+                        <div class="method-info">
+                            <span class="method-label">Konum</span>
+                            <span class="method-value">İstanbul, Türkiye</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="social-links">
+                    <h5 class="social-title">Sosyal Medya</h5>
+                    <div class="social-buttons">
+                        <a href="#" class="social-button linkedin" aria-label="LinkedIn">
+                            <span class="social-icon">💼</span>
+                        </a>
+                        <a href="#" class="social-button twitter" aria-label="Twitter">
+                            <span class="social-icon">🐦</span>
+                        </a>
+                        <a href="#" class="social-button github" aria-label="GitHub">
+                            <span class="social-icon">💻</span>
+                        </a>
+                        <a href="#" class="social-button youtube" aria-label="YouTube">
+                            <span class="social-icon">📺</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- FAQ Quick Answers -->
+            <div class="faq-card">
+                <h4 class="card-title">Sık Sorulan Sorular</h4>
+                
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <span class="faq-icon">❓</span>
+                        <span class="faq-text">Proje süresi ne kadar?</span>
+                    </div>
+                    <div class="faq-answer">
+                        Proje karmaşıklığına göre 2 hafta - 6 ay arası değişir.
+                    </div>
+                </div>
+                
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <span class="faq-icon">💰</span>
+                        <span class="faq-text">Fiyatlandırma nasıl?</span>
+                    </div>
+                    <div class="faq-answer">
+                        İhtiyacınıza özel teklif hazırlıyoruz. Ücretsiz danışmanlık mevcut.
+                    </div>
+                </div>
+                
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <span class="faq-icon">🛠️</span>
+                        <span class="faq-text">Teknik destek var mı?</span>
+                    </div>
+                    <div class="faq-answer">
+                        Evet, 7/24 teknik destek ve sistem bakımı sağlıyoruz.
+                    </div>
+                </div>
+                
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <span class="faq-icon">🚀</span>
+                        <span class="faq-text">Demo görebilir miyim?</span>
+                    </div>
+                    <div class="faq-answer">
+                        Tabii! Canlı demo oturumu için randevu alabilirsiniz.
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Success Modal -->
+    <div class="modal-overlay" id="successModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <div class="success-icon">✅</div>
+                <h3 class="modal-title">Mesajınız Gönderildi!</h3>
+            </div>
+            <div class="modal-body">
+                <p class="modal-text">
+                    Teşekkürler! Mesajınızı aldık ve 24 saat içinde 
+                    size özel <span class="ai-text">AI çözüm önerimizi</span> 
+                    e-posta ile göndereceğiz.
+                </p>
+                <div class="next-steps">
+                    <h4>Sonraki Adımlar:</h4>
+                    <ul>
+                        <li>✓ Proje analizi yapacağız</li>
+                        <li>✓ Özel çözüm önerisi hazırlayacağız</li>
+                        <li>✓ Size uygun zaman diliminde arayacağız</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="modal-button" onclick="closeSuccessModal()">
+                    Tamam
+                </button>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Contact Section Styles -->
+<style>
+/* ===== CONTACT SECTION STYLES ===== */
+.contact-section {
+    position: relative;
+    z-index: 3;
+    padding: 6rem 2rem;
+    min-height: 100vh;
+    background: linear-gradient(135deg, rgba(15, 15, 15, 0.95), rgba(30, 30, 30, 0.95));
+}
+
+/* Contact Header */
+.contact-header {
+    text-align: center;
+    margin-bottom: 4rem;
+}
+
+.header-content {
+    max-width: 600px;
+    margin: 0 auto 3rem;
+}
+
+.section-title {
+    font-size: 3rem;
+    font-weight: bold;
+    color: #F3F4F6;
+    margin-bottom: 1rem;
+    line-height: 1.2;
+}
+
+.title-accent {
+    color: #38BDF8;
+    text-shadow: 0 0 20px rgba(56, 189, 248, 0.5);
+}
+
+.section-subtitle {
+    font-size: 1.3rem;
+    color: #9CA3AF;
+    line-height: 1.6;
+}
+
+.highlight {
+    color: #F97316;
+    font-weight: bold;
+}
+
+.ai-text {
+    color: #38BDF8;
+    font-weight: bold;
+}
+
+/* Contact Stats */
+.contact-stats {
+    display: flex;
+    justify-content: center;
+    gap: 3rem;
+    flex-wrap: wrap;
+}
+
+.stat-item {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.stat-icon {
+    font-size: 2.5rem;
+}
+
+.stat-text {
+    display: flex;
+    flex-direction: column;
+}
+
+.stat-number {
+    font-size: 1.3rem;
+    font-weight: bold;
+    color: #38BDF8;
+}
+
+.stat-label {
+    font-size: 0.9rem;
+    color: #9CA3AF;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+/* Main Contact Content */
+.contact-content {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 2fr 400px 1fr;
+    gap: 4rem;
+    align-items: start;
+}
+
+/* Contact Form */
+.contact-form-container {
+    background: rgba(15, 15, 15, 0.9);
+    padding: 3rem;
+    border-radius: 20px;
+    border: 1px solid #9CA3AF;
+    backdrop-filter: blur(10px);
+    position: relative;
+    overflow: hidden;
+}
+
+.contact-form-container::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 4px;
+    background: linear-gradient(90deg, #F97316, #38BDF8);
+}
+
+.form-header {
+    text-align: center;
+    margin-bottom: 2.5rem;
+}
+
+.form-title {
+    font-size: 2rem;
+    color: #F3F4F6;
+    margin-bottom: 0.5rem;
+    font-weight: bold;
+}
+
+.form-subtitle {
+    font-size: 1.1rem;
+    color: #9CA3AF;
+    line-height: 1.6;
+}
+
+/* Form Grid */
+.form-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.5rem;
+    margin-bottom: 1.5rem;
+}
+
+.form-group {
+    position: relative;
+}
+
+.form-group.full-width {
+    grid-column: 1 / -1;
+}
+
+/* Form Labels */
+.form-label {
+    display: block;
+    margin-bottom: 0.5rem;
+    font-weight: 500;
+    color: #F3F4F6;
+}
+
+.label-required {
+    color: #F97316;
+    margin-left: 2px;
+}
+
+/* Form Inputs */
+.form-input,
+.form-select,
+.form-textarea {
+    width: 100%;
+    padding: 1rem 1.25rem;
+    background: rgba(30, 30, 30, 0.8);
+    border: 1px solid #9CA3AF;
+    border-radius: 10px;
+    color: #F3F4F6;
+    font-size: 1rem;
+    transition: all 0.3s ease;
+    backdrop-filter: blur(5px);
+}
+
+.form-input:focus,
+.form-select:focus,
+.form-textarea:focus {
+    outline: none;
+    border-color: #38BDF8;
+    box-shadow: 0 0 0 3px rgba(56, 189, 248, 0.1);
+    background: rgba(30, 30, 30, 0.95);
+}
+
+.form-input::placeholder,
+.form-textarea::placeholder {
+    color: #6B7280;
+}
+
+.form-select {
+    cursor: pointer;
+}
+
+.form-textarea {
+    resize: vertical;
+    min-height: 120px;
+    font-family: inherit;
+    line-height: 1.6;
+}
+
+/* Character Count */
+.character-count {
+    text-align: right;
+    font-size: 0.85rem;
+    color: #6B7280;
+    margin-top: 0.5rem;
+}
+
+/* Checkbox Styling */
+.checkbox-container {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.75rem;
+}
+
+.form-checkbox {
+    width: 18px;
+    height: 18px;
+    accent-color: #38BDF8;
+    margin-top: 2px;
+}
+
+.checkbox-label {
+    cursor: pointer;
+    line-height: 1.5;
+    color: #9CA3AF;
+    font-size: 0.95rem;
+}
+
+.checkbox-text .link {
+    color: #38BDF8;
+    text-decoration: underline;
+}
+
+.checkbox-text .link:hover {
+    color: #F97316;
+}
+
+/* Form Errors */
+.form-error {
+    color: #F97316;
+    font-size: 0.85rem;
+    margin-top: 0.5rem;
+    min-height: 1.2rem;
+}
+
+/* Submit Button */
+.form-submit {
+    text-align: center;
+    margin-top: 2rem;
+}
+
+.submit-button {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 1.25rem 3rem;
+    background: linear-gradient(45deg, #F97316, #38BDF8);
+    color: white;
+    border: none;
+    border-radius: 30px;
+    font-size: 1.2rem;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+    box-shadow: 0 5px 20px rgba(249, 115, 22, 0.3);
+}
+
+.submit-button:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 30px rgba(249, 115, 22, 0.5);
+}
+
+.submit-button:disabled {
+    opacity: 0.7;
+    cursor: not-allowed;
+    transform: none;
+}
+
+.button-loader {
+    display: none;
+    width: 20px;
+    height: 20px;
+    border: 2px solid transparent;
+    border-top: 2px solid white;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+}
+
+.submit-button.loading .button-text {
+    display: none;
+}
+
+.submit-button.loading .button-loader {
+    display: block;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+.submit-note {
+    margin-top: 1rem;
+    font-size: 0.9rem;
+    color: #6B7280;
+    line-height: 1.5;
+}
+
+/* Contact Info Sidebar */
+.contact-info {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+}
+
+.info-card,
+.faq-card {
+    background: rgba(15, 15, 15, 0.9);
+    padding: 2rem;
+    border-radius: 15px;
+    border: 1px solid #9CA3AF;
+    backdrop-filter: blur(10px);
+}
+
+.card-header {
+    margin-bottom: 1.5rem;
+}
+
+.card-title {
+    font-size: 1.5rem;
+    color: #38BDF8;
+    margin-bottom: 0.5rem;
+    font-weight: bold;
+}
+
+.card-subtitle {
+    color: #9CA3AF;
+    font-size: 0.95rem;
+}
+
+/* Contact Methods */
+.contact-methods {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    margin-bottom: 2rem;
+}
+
+.contact-method {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 1rem;
+    background: rgba(30, 30, 30, 0.5);
+    border-radius: 10px;
+    text-decoration: none;
+    color: #F3F4F6;
+    transition: all 0.3s ease;
+    border: 1px solid transparent;
+}
+
+.contact-method:hover {
+    background: rgba(56, 189, 248, 0.1);
+    border-color: #38BDF8;
+    transform: translateX(5px);
+}
+
+.method-icon {
+    font-size: 1.5rem;
+    width: 40px;
+    text-align: center;
+}
+
+.method-info {
+    display: flex;
+    flex-direction: column;
+}
+
+.method-label {
+    font-size: 0.85rem;
+    color: #9CA3AF;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.method-value {
+    font-size: 1rem;
+    color: #F3F4F6;
+    font-weight: 500;
+}
+
+/* Social Links */
+.social-links {
+    border-top: 1px solid #4B5563;
+    padding-top: 1.5rem;
+}
+
+.social-title {
+    color: #9CA3AF;
+    font-size: 1rem;
+    margin-bottom: 1rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.social-buttons {
+    display: flex;
+    gap: 1rem;
+}
+
+.social-button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 45px;
+    height: 45px;
+    background: rgba(30, 30, 30, 0.8);
+    border-radius: 10px;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    border: 1px solid #4B5563;
+}
+
+.social-button:hover {
+    background: #38BDF8;
+    border-color: #38BDF8;
+    transform: translateY(-2px);
+}
+
+.social-icon {
+    font-size: 1.2rem;
+}
+
+/* FAQ Section */
+.faq-item {
+    margin-bottom: 1rem;
+    border-bottom: 1px solid #374151;
+    padding-bottom: 1rem;
+}
+
+.faq-item:last-child {
+    border-bottom: none;
+    margin-bottom: 0;
+    padding-bottom: 0;
+}
+
+.faq-question {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    margin-bottom: 0.5rem;
+    cursor: pointer;
+}
+
+.faq-icon {
+    font-size: 1rem;
+}
+
+.faq-text {
+    font-weight: 500;
+    color: #F3F4F6;
+    font-size: 0.95rem;
+}
+
+.faq-answer {
+    color: #9CA3AF;
+    font-size: 0.9rem;
+    line-height: 1.5;
+    margin-left: 1.75rem;
+}
+
+/* Success Modal */
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.8);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 10000;
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.3s ease;
+}
+
+.modal-overlay.show {
+    opacity: 1;
+    visibility: visible;
+}
+
+.modal-content {
+    background: #0F0F0F;
+    border: 2px solid #38BDF8;
+    border-radius: 20px;
+    padding: 2.5rem;
+    max-width: 500px;
+    width: 90%;
+    text-align: center;
+    transform: scale(0.9);
+    transition: transform 0.3s ease;
+}
+
+.modal-overlay.show .modal-content {
+    transform: scale(1);
+}
+
+.modal-header {
+    margin-bottom: 1.5rem;
+}
+
+.success-icon {
+    font-size: 4rem;
+    margin-bottom: 1rem;
+}
+
+.modal-title {
+    font-size: 1.8rem;
+    color: #38BDF8;
+    font-weight: bold;
+}
+
+.modal-body {
+    margin-bottom: 2rem;
+}
+
+.modal-text {
+    color: #F3F4F6;
+    font-size: 1.1rem;
+    line-height: 1.6;
+    margin-bottom: 1.5rem;
+}
+
+.next-steps {
+    background: rgba(56, 189, 248, 0.1);
+    padding: 1.5rem;
+    border-radius: 10px;
+    border: 1px solid #38BDF8;
+}
+
+.next-steps h4 {
+    color: #38BDF8;
+    margin-bottom: 1rem;
+    font-size: 1.1rem;
+}
+
+.next-steps ul {
+    list-style: none;
+    padding: 0;
+}
+
+.next-steps li {
+    color: #F3F4F6;
+    margin-bottom: 0.5rem;
+    font-size: 0.95rem;
+}
+
+.modal-button {
+    background: linear-gradient(45deg, #F97316, #38BDF8);
+    color: white;
+    border: none;
+    padding: 1rem 2rem;
+    border-radius: 25px;
+    font-size: 1.1rem;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.modal-button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(249, 115, 22, 0.3);
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .contact-content {
+        grid-template-columns: 1fr;
+        gap: 2rem;
+    }
+    
+    .form-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .contact-form-container {
+        padding: 2rem;
+    }
+    
+    .contact-stats {
+        flex-direction: column;
+        align-items: center;
+        gap: 1.5rem;
+    }
+    
+    .section-title {
+        font-size: 2.5rem;
+    }
+    
+    .modal-content {
+        padding: 2rem;
+        margin: 1rem;
+    }
+}
+</style>
+
+<script>
+// Contact Form JavaScript
+document.addEventListener('DOMContentLoaded', function() {
+    const form = document.getElementById('contactForm');
+    const submitButton = document.getElementById('submitButton');
+    const messageTextarea = document.getElementById('message');
+    const charCount = document.getElementById('charCount');
+    
+    // Character counter
+    messageTextarea.addEventListener('input', function() {
+        const count = this.value.length;
+        charCount.textContent = count;
+        
+        if (count > 1000) {
+            charCount.style.color = '#F97316';
+        } else {
+            charCount.style.color = '#6B7280';
+        }
+    });
+    
+    // Form validation
+    function validateField(field, errorElement, validationFn) {
+        const isValid = validationFn(field.value);
+        
+        if (isValid) {
+            field.classList.remove('error');
+            errorElement.textContent = '';
+            return true;
+        } else {
+            field.classList.add('error');
+            return false;
+        }
+    }
+    
+    // Real-time validation
+    document.getElementById('email').addEventListener('blur', function() {
+        const errorElement = document.getElementById('emailError');
+        const isValid = validateField(this, errorElement, (value) => {
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            if (!value) {
+                errorElement.textContent = 'E-posta adresi gerekli';
+                return false;
+            }
+            if (!emailRegex.test(value)) {
+                errorElement.textContent = 'Geçerli bir e-posta adresi girin';
+                return false;
+            }
+            return true;
+        });
+    });
+    
+    document.getElementById('fullName').addEventListener('blur', function() {
+        const errorElement = document.getElementById('fullNameError');
+        validateField(this, errorElement, (value) => {
+            if (!value.trim()) {
+                errorElement.textContent = 'Ad soyad gerekli';
+                return false;
+            }
+            if (value.trim().length < 2) {
+                errorElement.textContent = 'En az 2 karakter olmalı';
+                return false;
+            }
+            return true;
+        });
+    });
+    
+    // Form submission
+    form.addEventListener('submit', async function(e) {
+        e.preventDefault();
+        
+        // Validate form
+        const formData = new FormData(form);
+        const errors = [];
+        
+        // Required field validation
+        if (!formData.get('fullName')?.trim()) {
+            errors.push('Ad soyad gerekli');
+        }
+        if (!formData.get('email')?.trim()) {
+            errors.push('E-posta gerekli');
+        }
+        if (!formData.get('projectType')) {
+            errors.push('Proje türü seçin');
+        }
+        if (!formData.get('message')?.trim()) {
+            errors.push('Proje detayları gerekli');
+        }
+        if (!formData.get('gdprConsent')) {
+            errors.push('Gizlilik politikasını kabul edin');
+        }
+        
+        if (errors.length > 0) {
+            alert('Lütfen tüm gerekli alanları doldurun:\n' + errors.join('\n'));
+            return;
+        }
+        
+        // Show loading state
+        submitButton.classList.add('loading');
+        submitButton.disabled = true;
+        
+        try {
+            // Simulate API call
+            await new Promise(resolve => setTimeout(resolve, 2000));
+            
+            // In production, you would send data to your server
+            console.log('Form Data:', Object.fromEntries(formData));
+            
+            // Show success modal
+            showSuccessModal();
+            
+            // Reset form
+            form.reset();
+            charCount.textContent = '0';
+            
+            // Track form submission
+            if (typeof gtag !== 'undefined') {
+                gtag('event', 'form_submit', {
+                    event_category: 'contact',
+                    event_label: 'contact_form'
+                });
+            }
+            
+        } catch (error) {
+            console.error('Form submission error:', error);
+            alert('Bir hata oluştu. Lütfen tekrar deneyin veya doğrudan e-posta gönderin.');
+        } finally {
+            // Reset button state
+            submitButton.classList.remove('loading');
+            submitButton.disabled = false;
+        }
+    });
+    
+    console.log('📧 Contact Form Initialized');
+});
+
+// Success Modal Functions
+function showSuccessModal() {
+    const modal = document.getElementById('successModal');
+    modal.classList.add('show');
+    
+    // Auto close after 10 seconds
+    setTimeout(() => {
+        closeSuccessModal();
+    }, 10000);
+}
+
+function closeSuccessModal() {
+    const modal = document.getElementById('successModal');
+    modal.classList.remove('show');
+}
+
+// Close modal on outside click
+document.getElementById('successModal').addEventListener('click', function(e) {
+    if (e.target === this) {
+        closeSuccessModal();
+    }
+});
+
+// FAQ Interaction
+document.querySelectorAll('.faq-question').forEach(question => {
+    question.addEventListener('click', function() {
+        const answer = this.nextElementSibling;
+        const isVisible = answer.style.display === 'block';
+        
+        // Hide all answers
+        document.querySelectorAll('.faq-answer').forEach(a => {
+            a.style.display = 'none';
+        });
+        
+        // Show clicked answer if it wasn't visible
+        if (!isVisible) {
+            answer.style.display = 'block';
+        }
+    });
+});
+</script>
