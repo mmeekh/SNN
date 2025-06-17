@@ -54,16 +54,20 @@ function files(index) {
   return `./${String(index).padStart(4, '0')}.png`;
 }
 
-const frameCount = 120;
+// --- KOD GÜNCELLEMELERİ BURADA BAŞLIYOR ---
+
+const frameCount = 40; // Kare sayısı 40 olarak güncellendi.
 
 const images = [];
 const imageSeq = {
   frame: 1,
 };
 
-for (let i = 1; i <= frameCount; i++) {
+// Döngü, 1, 4, 7... şeklinde 3'er atlayan dosya adlarını yükleyecek şekilde güncellendi.
+for (let i = 0; i < frameCount; i++) {
+  const frameIndex = 1 + (i * 3);
   const img = new Image();
-  img.src = files(i);
+  img.src = files(frameIndex);
   images.push(img);
 }
 
@@ -81,11 +85,17 @@ gsap.to(imageSeq, {
   onUpdate: render,
 });
 
-images[1].onload = render;
+// İlk karenin yüklenmesi için 0. index kullanılıyor.
+if (images.length > 0) {
+    images[0].onload = render;
+}
+
 
 function render() {
-  if (images[imageSeq.frame]) {
-    scaleImage(images[imageSeq.frame], context);
+  // GSAP'nin 1'den başlayan frame'i ile array'in 0'dan başlayan index'i arasındaki fark düzeltildi.
+  const currentImage = images[imageSeq.frame - 1];
+  if (currentImage) {
+    scaleImage(currentImage, context);
   }
 }
 
@@ -125,9 +135,6 @@ ScrollTrigger.matchMedia({
       end: `600% top`,
     });
     
-    // Yeşil çizginin kaybolması için olan özel JavaScript kodu kaldırıldı.
-    // Bu davranış artık yalnızca HTML ve CSS ile yönetilmektedir.
-
     gsap.to("#page1", {
       scrollTrigger: {
         trigger: `#page1`,
