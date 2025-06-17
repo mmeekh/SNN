@@ -30,6 +30,23 @@ function locomotive() {
 }
 locomotive();
 
+// YENİ FONKSİYON: Sadece mobilse canvas'ı nav içine taşı
+function setupMobileLayout() {
+    if (window.innerWidth <= 768) {
+        const canvas = document.querySelector("canvas");
+        const nav = document.querySelector("#nav");
+        const nestText = nav.children[1]; // Nav içindeki ikinci eleman ('NEST' başlığı)
+
+        if (canvas && nav && nestText) {
+            // canvas'ı nav'ın içine, 'NEST' yazısından önceye ekle
+            nav.insertBefore(canvas, nestText);
+        }
+    }
+}
+// Fonksiyonu hemen çağır
+setupMobileLayout();
+
+
 const canvas = document.querySelector("canvas");
 const context = canvas.getContext("2d");
 
@@ -47,6 +64,8 @@ setCanvasSize();
 
 window.addEventListener("resize", function () {
   setCanvasSize();
+  // YENİ: Ekran boyutu değiştiğinde yerleşimi tekrar kontrol et (opsiyonel ama iyi bir pratik)
+  // Not: Bu basit senaryoda sayfa yenilemesi daha garanti sonuç verir.
   render();
 });
 
@@ -54,16 +73,13 @@ function files(index) {
   return `./${String(index).padStart(4, '0')}.png`;
 }
 
-// --- KOD GÜNCELLEMELERİ BURADA BAŞLIYOR ---
-
-const frameCount = 40; // Kare sayısı 40 olarak güncellendi.
+const frameCount = 40; 
 
 const images = [];
 const imageSeq = {
   frame: 1,
 };
 
-// Döngü, 1, 4, 7... şeklinde 3'er atlayan dosya adlarını yükleyecek şekilde güncellendi.
 for (let i = 0; i < frameCount; i++) {
   const frameIndex = 1 + (i * 3);
   const img = new Image();
@@ -85,14 +101,12 @@ gsap.to(imageSeq, {
   onUpdate: render,
 });
 
-// İlk karenin yüklenmesi için 0. index kullanılıyor.
 if (images.length > 0) {
     images[0].onload = render;
 }
 
 
 function render() {
-  // GSAP'nin 1'den başlayan frame'i ile array'in 0'dan başlayan index'i arasındaki fark düzeltildi.
   const currentImage = images[imageSeq.frame - 1];
   if (currentImage) {
     scaleImage(currentImage, context);
@@ -128,6 +142,7 @@ function scaleImage(img, ctx) {
 ScrollTrigger.matchMedia({
   "(min-width: 769px)": function() {
     ScrollTrigger.create({
+      // GÜNCELLEME: Orijinal, stabil pinleme yöntemine geri dönüldü
       trigger: "#page>canvas",
       pin: true,
       scroller: `#main`,

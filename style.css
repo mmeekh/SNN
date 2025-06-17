@@ -160,14 +160,18 @@ canvas {
 
 @media (max-width: 768px) {
     #nav {
-        justify-content: space-between;
-        padding: 0 28vw;
+        /* GÜNCELLEME: Navigasyon paneli büyütüldü */
+        height: 12%; 
+        justify-content: center;
+        align-items: center;
+        gap: 15px;
+        padding: 0; 
         background-color: #1A202C; 
-        height: 8%;
     }
 
     #nav > h3 {
-        font-size: 18px;
+        /* GÜNCELLEME: Yazı boyutu büyütüldü */
+        font-size: 24px; 
         margin: 0;
     }
     
@@ -179,19 +183,15 @@ canvas {
         display: none; 
     }
 
-    canvas {
-        position: fixed;
-        top: 10px;
-        left: 50%;
-        transform: translateX(-50%);
-        height: 50px;
-        width: 50px;
-        z-index: 1000;
+    #nav > canvas {
+        /* GÜNCELLEME: Kılıç animasyon alanı büyütüldü */
+        height: 60px;
+        width: 60px;
     }
     
     #page, #page1, #page2, #page3 {
-        padding-top: 85px; /* GÜNCELLENDİ: 100px'den %15 azaltıldı */
-        padding-bottom: 51px; /* GÜNCELLENDİ: 60px'den %15 azaltıldı */
+        padding-top: 85px; 
+        padding-bottom: 51px; 
         height: auto; 
         min-height: 100vh;
         display: flex;
