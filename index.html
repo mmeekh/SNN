@@ -2,474 +2,152 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sword Nest - Yapay Zeka Çözümleri</title>
+    <title>Sword Nest</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/locomotive-scroll@3.5.4/dist/locomotive-scroll.css">
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
+        .video-glow {
+            position: absolute;
+            overflow: hidden; 
+            z-index: 10; 
+            box-shadow: 0 0 25px 5px rgba(56, 161, 105, 0.6); /* Zümrüt Yeşili */
+            border-radius: 5px; 
         }
-
-        body {
-            font-family: 'Arial', sans-serif;
-            background: #0F0F0F;
-            color: #F3F4F6;
-            overflow-x: hidden;
-            cursor: none;
-        }
-
-        /* Dark Overlay */
-        .dark-overlay {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.7);
-            z-index: 1;
-            pointer-events: none;
-        }
-
-        /* Mouse Spotlight Effect */
-        .spotlight {
-            position: fixed;
-            width: 300px;
-            height: 300px;
-            border-radius: 50%;
-            background: radial-gradient(circle, transparent 0%, rgba(0, 0, 0, 0.9) 70%);
-            pointer-events: none;
-            z-index: 2;
-            transform: translate(-50%, -50%);
-            transition: all 0.1s ease;
-            mix-blend-mode: multiply;
-        }
-
-        /* Sword Container - Absolute Foreground */
-        .sword-container {
-            position: fixed;
+        .video-glow iframe { width: 100%; height: 100%; border: none; position: absolute; top: 0; left: 0; }
+        
+        #video-container { top: 68%; left: 77%; transform: translate(-50%, -50%); width: 25vw; height: calc(25vw * 9 / 16); }
+        #page > h3 { position: absolute; top: 55%; left: 5%; font-family: gilroy; font-weight: 400; line-height: 1.5; }
+        #page > h4 { position: absolute; top: 70%; left: 5%; font-family: gilroy; font-weight: 500; }
+        #video-container-page1 { top: 50%; left: 25%; transform: translate(-50%, -50%); width: 30vw; height: calc(30vw * 9 / 16); }
+        #page1 > #left-text { right: 25%; top: 50%; transform: translate(50%, -50%); }
+        
+        #page2 > #text1 {
             top: 50%;
-            left: 50%;
+            left: 25%;
             transform: translate(-50%, -50%);
-            z-index: 9999;
-            pointer-events: none;
-            width: 2000px;
-            height: 2400px;
         }
-
-        .sword-image {
-            width: 100%;
-            height: 100%;
-            object-fit: contain;
-            filter: drop-shadow(0 0 20px #38BDF8) drop-shadow(0 0 40px #38BDF8) drop-shadow(0 0 60px rgba(56, 189, 248, 0.3));
-            animation: swordGlow 3s ease-in-out infinite alternate;
+        
+        #page2 > #text2 { 
+            position: absolute; 
+            top: 26%; /* Yazı yukarı alındı */
+            left: 75%; 
+            transform: translateX(-50%); 
+            width: 450px; 
+            text-align: left; 
         }
-
-        @keyframes swordGlow {
-            0% {
-                filter: drop-shadow(0 0 20px #38BDF8) drop-shadow(0 0 40px #38BDF8) drop-shadow(0 0 60px rgba(56, 189, 248, 0.3));
-            }
-            100% {
-                filter: drop-shadow(0 0 30px #38BDF8) drop-shadow(0 0 60px #38BDF8) drop-shadow(0 0 90px rgba(56, 189, 248, 0.5));
-            }
+        #page2 > #text2 > p {
+            line-height: 1.6;
+            font-size: 14px;
         }
-
-        /* Title Reveal */
-        .hero-title {
-            position: fixed;
-            top: 15%;
-            left: 50%;
-            transform: translateX(-50%);
-            z-index: 3;
-            text-align: center;
-            opacity: 0;
-            animation: titleReveal 2s ease-out 1s forwards;
-            transition: all 0.3s ease;
+        
+        #video-container-page2 { 
+            top: 48%; /* Video yukarı alındı */
+            left: 75%; 
+            transform: translateX(-50%); 
+            width: 30vw; height: calc(30vw * 9 / 16); 
         }
+        
+        #video-container-page3 { top: 40%; left: 25%; transform: translate(-50%, -50%); width: 30vw; height: calc(30vw * 9 / 16); }
 
-        .hero-title h1 {
-            font-size: 3.5rem;
-            font-weight: bold;
-            color: #38BDF8;
-            text-shadow: 0 0 20px rgba(56, 189, 248, 0.5);
-            margin-bottom: 0.5rem;
-        }
+        /* Footer (Alt Bilgi) Stilleri */
+        #footer { position: relative; width: 100%; background-color: #1A202C; padding: 50px 0; border-top: 2px solid #2D3748; z-index: 10; }
+        #footer-content { width: 90%; margin: auto; display: flex; justify-content: space-between; align-items: center; }
+        #footer-socials { display: flex; gap: 25px; }
+        #footer-socials a { font-size: 28px; color: #A0AEC0; transition: color 0.3s ease, transform 0.3s ease; }
+        #footer-socials a:hover { color: #38A169; transform: scale(1.1); }
+        #footer-text { text-align: right; color: #A0AEC0; font-size: 14px; line-height: 1.6; }
 
-        .hero-title .subtitle {
-            font-size: 1.2rem;
-            color: #9CA3AF;
-            letter-spacing: 2px;
-        }
-
-        @keyframes titleReveal {
-            0% {
-                opacity: 0;
-                transform: translateX(-50%) translateY(50px);
-            }
-            100% {
-                opacity: 1;
-                transform: translateX(-50%) translateY(0);
-            }
-        }
-
-        /* Content Sections */
-        .content-wrapper {
-            position: relative;
-            z-index: 3;
-            min-height: 500vh;
-            padding: 100vh 0;
-        }
-
-        .section {
-            min-height: 100vh;
-            padding: 4rem 2rem;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin: 5rem 0;
-        }
-
-        .section-content {
-            max-width: 1200px;
-            width: 100%;
-            display: grid;
-            grid-template-columns: 1fr 300px 1fr;
-            gap: 4rem;
-            align-items: center;
-        }
-
-        .left-content, .right-content {
-            background: rgba(15, 15, 15, 0.9);
-            padding: 3rem;
-            border-radius: 15px;
-            border: 1px solid #9CA3AF;
-            backdrop-filter: blur(10px);
-        }
-
-        .left-content h2, .right-content h2 {
-            font-size: 2.5rem;
-            color: #38BDF8;
-            margin-bottom: 1.5rem;
-            text-shadow: 0 0 10px rgba(56, 189, 248, 0.3);
-        }
-
-        .left-content p, .right-content p {
-            font-size: 1.1rem;
-            line-height: 1.8;
-            color: #F3F4F6;
-            margin-bottom: 1.5rem;
-        }
-
-        .highlight {
-            color: #F97316;
-            font-weight: bold;
-        }
-
-        .ai-focus {
-            color: #38BDF8;
-            font-weight: bold;
-        }
-
-        /* Video Sections */
-        .video-section {
-            background: rgba(15, 15, 15, 0.95);
-            border: 2px solid #38BDF8;
-            border-radius: 20px;
-            padding: 2rem;
-            text-align: center;
-            box-shadow: 0 0 30px rgba(56, 189, 248, 0.2);
-        }
-
-        .video-placeholder {
-            width: 100%;
-            height: 250px;
-            background: linear-gradient(45deg, #0F0F0F, #9CA3AF);
-            border-radius: 10px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: #38BDF8;
-            font-size: 1.2rem;
-            margin-bottom: 1rem;
-            border: 1px solid #38BDF8;
-        }
-
-        /* Call to Action */
-        .cta-button {
-            background: linear-gradient(45deg, #F97316, #38BDF8);
-            color: white;
-            padding: 1rem 2rem;
-            border: none;
-            border-radius: 25px;
-            font-size: 1.1rem;
-            font-weight: bold;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            box-shadow: 0 5px 15px rgba(249, 115, 22, 0.3);
-        }
-
-        .cta-button:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 8px 25px rgba(249, 115, 22, 0.5);
-        }
-
-        /* Responsive Design */
+        /* Mobil için stiller */
         @media (max-width: 768px) {
-            .section-content {
-                grid-template-columns: 1fr;
-                gap: 2rem;
+            .video-glow { position: relative; width: 90vw; height: calc(90vw * 9 / 16); top: auto; left: auto; right: auto; transform: none; margin: 20px auto; border-radius: 10px; }
+            #page1 > #left-text,
+            #page2 > #text1,
+            #page2 > #text2 { 
+                position: relative; top: auto; left: auto; right: auto; transform: none; text-align: center !important; width: 90%; margin: 30px auto; padding: 0;
             }
-            
-            .sword-container {
-                width: 1400px;
-                height: 1800px;
-            }
-            
-            .hero-title h1 {
-                font-size: 2.5rem;
-            }
-            
-            .left-content, .right-content {
-                padding: 2rem;
-            }
-        }
-
-        /* Custom Cursor */
-        .custom-cursor {
-            position: fixed;
-            width: 20px;
-            height: 20px;
-            border: 2px solid #38BDF8;
-            border-radius: 50%;
-            pointer-events: none;
-            z-index: 10000;
-            transform: translate(-50%, -50%);
-            transition: all 0.1s ease;
-            background: rgba(56, 189, 248, 0.1);
+            #footer-content { flex-direction: column; gap: 30px; }
+            #footer-text { text-align: center; font-size: 12px; }
         }
     </style>
 </head>
 <body>
-    <!-- Dark Overlay -->
-    <div class="dark-overlay"></div>
-    
-    <!-- Mouse Spotlight -->
-    <div class="spotlight"></div>
-    
-    <!-- Custom Cursor -->
-    <div class="custom-cursor"></div>
-    
-    <!-- Sword Animation (Absolute Foreground) -->
-    <div class="sword-container">
-        <img src="assets/images/sword-rotation/0001.png" alt="Sword" class="sword-image" id="swordImage">
+    <div id="nav">
+        <h3><b>SWORD</b></h3>
+        <h3>NEST</h3>
     </div>
-    
-    <!-- Hero Title -->
-    <div class="hero-title">
-        <h1>SWORD NEST</h1>
-        <p class="subtitle">YAPAY ZEKA ÇÖZÜMLERİ</p>
-    </div>
-    
-    <!-- Content Wrapper -->
-    <div class="content-wrapper">
-        <!-- About Section -->
-        <section class="section">
-            <div class="section-content">
-                <div class="left-content">
-                    <h2>Dinamik & Yaratıcı</h2>
-                    <p>Sword Nest olarak, <span class="ai-focus">yapay zeka</span> teknolojilerinin gücünü kullanarak işletmenizin dijital dönüşümünde öncü çözümler sunuyoruz.</p>
-                    <p>Her proje, keskin bir kılıç gibi <span class="highlight">hassas</span> ve <span class="highlight">etkili</span> şekilde tasarlanır.</p>
-                </div>
-                <div></div> <!-- Center space for sword -->
-                <div class="right-content">
-                    <h2>AI Çözümleri</h2>
-                    <p><span class="ai-focus">Yapay zeka</span> algoritmaları, makine öğrenmesi modelleri ve derin öğrenme sistemleri ile işletmenizin verimliliğini artırıyoruz.</p>
-                    <p>Geleceğin teknolojisini bugünden işletmenize entegre ediyoruz.</p>
-                </div>
+    <div id="main">
+        <div id="page">
+            <svg id="nav-line" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1920 15">
+                <path d="M 0 8 Q 480 15 960 8 T 1920 8" />
+            </svg>
+            <div id="loop">
+                <h1><b>SWORD</b> NEST – <b><i>TEKNOLOJİYİ</i></b> <span>DEĞİL,</span> GELECEĞİ <span><i>ÜRETİYORUZ.</i></span></h1>
+                <h1><b>SWORD</b> NEST – <b><i>TEKNOLOJİYİ</i></b> <span>DEĞİL,</span> GELECEĞİ <span><i>ÜRETİYORUZ.</i></span></h1>
+                <h1><b>SWORD</b> NEST – <b><i>TEKNOLOJİYİ</i></b> <span>DEĞİL,</span> GELECEĞİ <span><i>ÜRETİYORUZ.</i></span></h1>
             </div>
-        </section>
-
-        <!-- Services Section -->
-        <section class="section">
-            <div class="section-content">
-                <div class="left-content">
-                    <h2>Hizmetlerimiz</h2>
-                    <p>• <span class="ai-focus">AI Chatbot</span> Geliştirme</p>
-                    <p>• Veri Analizi ve <span class="ai-focus">Makine Öğrenmesi</span></p>
-                    <p>• Otomatik İçerik Üretimi</p>
-                    <p>• <span class="ai-focus">Görüntü İşleme</span> Sistemleri</p>
-                </div>
-                <div></div>
-                <div class="right-content">
-                    <h2>Teknolojilerimiz</h2>
-                    <p>• Python & TensorFlow</p>
-                    <p>• <span class="ai-focus">OpenAI GPT</span> Integration</p>
-                    <p>• Computer Vision</p>
-                    <p>• Natural Language Processing</p>
-                </div>
+            <div id="video-container" class="video-glow">
+                <iframe src="https://www.youtube-nocookie.com/embed/ZC3G_Gaeod0?si=bSYwwSZ6_sn9ap_v" frameborder="0" allow="autoplay; encrypted-media; picture-in-picture" allowfullscreen></iframe>
             </div>
-        </section>
-
-        <!-- Video Demo 1 -->
-        <section class="section">
-            <div class="section-content">
-                <div class="video-section">
-                    <h2>Demo 1: AI Chatbot</h2>
-                    <div class="video-placeholder">
-                        YouTube Video Placeholder
-                        <br>
-                        <small>Embed your first demo video here</small>
-                    </div>
-                    <p>Akıllı chatbot çözümlerimizin canlı demonstrasyonu</p>
-                </div>
-                <div></div>
-                <div></div>
-            </div>
-        </section>
-
-        <!-- Video Demo 2 -->
-        <section class="section">
-            <div class="section-content">
-                <div></div>
-                <div></div>
-                <div class="video-section">
-                    <h2>Demo 2: Veri Analizi</h2>
-                    <div class="video-placeholder">
-                        YouTube Video Placeholder
-                        <br>
-                        <small>Embed your second demo video here</small>
-                    </div>
-                    <p>Makine öğrenmesi ile veri analizi süreçleri</p>
-                </div>
-            </div>
-        </section>
-
-        <!-- Video Demo 3 -->
-        <section class="section">
-            <div class="section-content">
-                <div class="video-section">
-                    <h2>Demo 3: Görüntü İşleme</h2>
-                    <div class="video-placeholder">
-                        YouTube Video Placeholder
-                        <br>
-                        <small>Embed your third demo video here</small>
-                    </div>
-                    <p>AI destekli görüntü tanıma ve işleme sistemleri</p>
-                </div>
-                <div></div>
-                <div></div>
-            </div>
-        </section>
-
-        <!-- Video Demo 4 -->
-        <section class="section">
-            <div class="section-content">
-                <div></div>
-                <div></div>
-                <div class="video-section">
-                    <h2>Demo 4: Otomasyon</h2>
-                    <div class="video-placeholder">
-                        YouTube Video Placeholder
-                        <br>
-                        <small>Embed your fourth demo video here</small>
-                    </div>
-                    <p>İş süreçlerinde AI otomasyon çözümleri</p>
-                </div>
-            </div>
-        </section>
-
-        <!-- Contact Section -->
-        <section class="section">
-            <div class="section-content">
-                <div class="left-content">
-                    <h2>İletişim</h2>
-                    <p>Projeleriniz için <span class="ai-focus">yapay zeka</span> çözümlerimizi keşfedin.</p>
-                    <p><span class="highlight">Dinamik & Yaratıcı</span> yaklaşımımızla birlikte çalışalım.</p>
-                    <button class="cta-button">Hemen İletişime Geçin</button>
-                </div>
-                <div></div>
-                <div class="right-content">
-                    <h2>Sword Nest</h2>
-                    <p>Her çözüm, bir sanat eseri gibi özenle işlenir.</p>
-                    <p>Teknoloji ve yaratıcılığın mükemmel birleşimi ile geleceği inşa ediyoruz.</p>
-                    <p><span class="ai-focus">Yapay Zeka</span> • <span class="highlight">İnovasyon</span> • <span class="ai-focus">Başarı</span></p>
-                </div>
-            </div>
-        </section>
-    </div>
-
-    <script>
-        // Sword rotation animation
-        let currentSwordIndex = 1;
-        const totalSwordImages = 120;
-        const swordImage = document.getElementById('swordImage');
+            <h3>SWORD NEST, GELECEĞİ TEKNOLOJİYLE KURGULAYAN<br>YENİ NESİL BİR ÇÖZÜM ORTAĞIDIR.<br><br>AKILLI İŞLER, OTOMATİK ÇÖZÜMLER, SÜRDÜRÜLEBİLİR BAŞARILAR.</h3>
+            <h4>...AYRINTILAR İÇİN KAYDIR</h4>
+            <canvas></canvas>
+        </div>
         
-        function updateSwordImage() {
-            // Çok daha hızlı dönüş - scroll'un 30%'inde tüm resimleri göster
-            const scrollPercent = Math.min(window.scrollY / (document.body.scrollHeight * 0.3), 1);
-            const imageIndex = Math.min(Math.floor(scrollPercent * totalSwordImages) + 1, totalSwordImages);
-            
-            if (imageIndex !== currentSwordIndex && imageIndex >= 1) {
-                currentSwordIndex = imageIndex;
-                const imageNumber = String(currentSwordIndex).padStart(4, '0');
-                swordImage.src = `assets/images/sword-rotation/${imageNumber}.png`;
-            }
-        }
+        <div id="page1">
+            <div id="video-container-page1" class="video-glow">
+                <iframe src="https://www.youtube-nocookie.com/embed/ZC3G_Gaeod0?si=bSYwwSZ6_sn9ap_v" frameborder="0" allow="autoplay; encrypted-media; picture-in-picture" allowfullscreen></iframe>
+            </div>
+            <div id="left-text">
+                <h1>WEB TASARIMI<br>OTOMASYON YAZILIMLARI<br>REKLAM & TANITIM</h1>
+                <h3>...VE İŞİNİZİ BÜYÜTEN DİĞER ÇÖZÜMÜLER</h3>
+            </div>
+        </div>
 
-        // Mouse spotlight effect
-        const spotlight = document.querySelector('.spotlight');
-        const cursor = document.querySelector('.custom-cursor');
-        
-        function updateSpotlight(e) {
-            const x = e.clientX;
-            const y = e.clientY;
-            
-            spotlight.style.left = x + 'px';
-            spotlight.style.top = y + 'px';
-            
-            cursor.style.left = x + 'px';
-            cursor.style.top = y + 'px';
-        }
+        <div id="page2">
+             <div id="video-container-page2" class="video-glow">
+                <iframe src="https://www.youtube-nocookie.com/embed/ZC3G_Gaeod0?si=bSYwwSZ6_sn9ap_v" frameborder="0" allow="autoplay; encrypted-media; picture-in-picture" allowfullscreen></iframe>
+            </div>
+            <div id="text1">
+                <h3>SWORD NEST / YAKLAŞIMIMIZ</h3>
+                <h1>YENİLİKÇİ<br>FİKİRLERLE<br>ÖNE ÇIKIN</h1>
+            </div>
+            <div id="text2">
+                <p>KOBİ'LER İÇİN MODERN VE KULLANICI ODAKLI WEB SİTELERİ TASARLIYORUZ. DİJİTAL VARLIĞINIZI GÜÇLENDİRİP, OPERASYONEL YÜKÜNÜZÜ HAFİFLETEN ÖZEL OTOMASYON VE YAZILIM ÇÖZÜMLERİ SUNUYORUZ. MARKANIZI VİDEO VE DİJİTAL PAZARLAMA İLE BİR ADIM ÖTEYE TAŞIYORUZ.</p>
+            </div>
+        </div>
 
-        // Enhanced scroll-based effects
-        function updateScrollEffects() {
-            const scrollPercent = window.scrollY / (document.body.scrollHeight - window.innerHeight);
-            const glowIntensity = 0.3 + (scrollPercent * 0.7);
-            
-            // Kılıç glow efekti
-            swordImage.style.filter = `
-                drop-shadow(0 0 ${20 * glowIntensity}px #38BDF8) 
-                drop-shadow(0 0 ${40 * glowIntensity}px #38BDF8) 
-                drop-shadow(0 0 ${60 * glowIntensity}px rgba(56, 189, 248, ${glowIntensity}))
-            `;
-            
-            // Yazıyı hareket ettir
-            const heroTitle = document.querySelector('.hero-title');
-            if (window.scrollY > 100) {
-                heroTitle.style.opacity = '0';
-                heroTitle.style.transform = 'translateX(-50%) translateY(-50px)';
-            } else {
-                heroTitle.style.opacity = '1';
-                heroTitle.style.transform = 'translateX(-50%) translateY(0)';
-            }
-        }
+        <div id="page3">
+            <div id="video-container-page3" class="video-glow">
+                <iframe src="https://www.youtube-nocookie.com/embed/ZC3G_Gaeod0?si=bSYwwSZ6_sn9ap_v" frameborder="0" allow="autoplay; encrypted-media; picture-in-picture" allowfullscreen></iframe>
+            </div>
+            <div id="text3">
+                <h3>SWORD NEST / VİZYONUMUZ</h3>
+                <h1>SADECE<br>HİZMET DEĞİL,<br>ÇÖZÜM ORTAĞIYIZ</h1>
+            </div>
+        </div>
 
-        // Event listeners
-        window.addEventListener('scroll', () => {
-            updateSwordImage();
-            updateScrollEffects();
-        });
+        <div id="footer">
+            <div id="footer-content">
+                <div id="footer-socials">
+                    <a href="https://instagram.com/kullaniciadiniz" target="_blank" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+                    <a href="https://wa.me/905000000000" target="_blank" aria-label="WhatsApp"><i class="fab fa-whatsapp"></i></a>
+                </div>
+                <div id="footer-text">
+                    <p>© 2025 Sword Nest. Tüm Hakları Saklıdır.</p>
+                    <p>Sitede yer alan tüm görseller ve video prodüksiyonları Sword Nest'e aittir.</p>
+                </div>
+            </div>
+        </div>
+    </div>
 
-        window.addEventListener('mousemove', updateSpotlight);
-
-        // Initialize
-        updateSwordImage();
-        updateScrollEffects();
-
-        // Smooth scrolling for better experience
-        document.addEventListener('DOMContentLoaded', function() {
-            document.documentElement.style.scrollBehavior = 'smooth';
-        });
-    </script>
+    <script src="https://cdn.jsdelivr.net/npm/locomotive-scroll@3.5.4/dist/locomotive-scroll.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.5/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.5/ScrollTrigger.min.js"></script>
+    <script src="script.js"></script>
 </body>
 </html>
