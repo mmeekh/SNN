@@ -2,7 +2,10 @@
     margin: 0%;
     padding: 0%;
     box-sizing: border-box;
-    font-family: gilroy;
+}
+
+body {
+    font-family: 'Montserrat', sans-serif; /* Sadece body için Montserrat */
 }
 
 html, body {
@@ -39,7 +42,7 @@ canvas {
     width: 100%;
     font-size: 100px;
     white-space: nowrap;
-    font-family: gilroy;
+    font-family: gilroy; /* Loop yazısı için orijinal font */
     color: #F7FAFC; /* Kayan yazı ana rengi: Çok Açık Gri */
 }
 

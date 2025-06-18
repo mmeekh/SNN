@@ -142,7 +142,6 @@ function scaleImage(img, ctx) {
 ScrollTrigger.matchMedia({
   "(min-width: 769px)": function() {
     ScrollTrigger.create({
-      // GÜNCELLEME: Orijinal, stabil pinleme yöntemine geri dönüldü
       trigger: "#page>canvas",
       pin: true,
       scroller: `#main`,
@@ -150,33 +149,8 @@ ScrollTrigger.matchMedia({
       end: `600% top`,
     });
     
-    gsap.to("#page1", {
-      scrollTrigger: {
-        trigger: `#page1`,
-        start: `top top`,
-        end: `bottom top`,
-        pin: true,
-        scroller: `#main`
-      }
-    });
-    gsap.to("#page2", {
-      scrollTrigger: {
-        trigger: `#page2`,
-        start: `top top`,
-        end: `bottom top`,
-        pin: true,
-        scroller: `#main`
-      }
-    });
-    gsap.to("#page3", {
-      scrollTrigger: {
-        trigger: `#page3`,
-        start: `top top`,
-        end: `bottom top`,
-        pin: true,
-        scroller: `#main`
-      }
-    });
+    // Sayfalar arası geçişlerde duraksama kaldırıldı - pin animasyonları iptal edildi
+    
   },
   "(max-width: 768px)": function() {
     // Mobilde JS ile pinleme yapılmıyor.
