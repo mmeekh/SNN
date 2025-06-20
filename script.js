@@ -1,3 +1,18 @@
+function loaderEffect() {
+    const loader = document.querySelector("#loader");
+    const mainContent = document.querySelector("#main");
+
+    // 'window.onload', görseller dahil tüm içeriğin yüklenmesini bekler.
+    window.addEventListener('load', () => {
+        // Yükleyiciyi gizle
+        loader.classList.add('hidden');
+        
+        // Ana içeriği göster
+        mainContent.classList.add('loaded');
+    });
+}
+loaderEffect();
+// --- SAYFA YÜKLENME EFEKTİ LOGIĞI SONU ---
 function locomotive() {
   gsap.registerPlugin(ScrollTrigger);
 
@@ -30,24 +45,34 @@ function locomotive() {
 }
 locomotive();
 
-// YENİ FONKSİYON: Sadece mobilse canvas'ı nav içine taşı
-function setupMobileLayout() {
-    if (window.innerWidth <= 768) {
-        const canvas = document.querySelector("canvas");
-        const nav = document.querySelector("#nav");
-        const nestText = nav.children[1]; // Nav içindeki ikinci eleman ('NEST' başlığı)
+const canvas = document.querySelector("canvas");
+const nav = document.querySelector("#nav");
+const page = document.querySelector("#page"); // Canvas'ın orijinal ebeveyni
+const nestText = nav.children[1]; // Nav içindeki 'NEST' başlığı
 
+function handleDynamicLayout() {
+    const isMobile = window.innerWidth <= 768;
+    // Canvas'ın anlık olarak navigasyon çubuğunun içinde olup olmadığını kontrol et
+    const isCanvasInNav = nav.contains(canvas);
+
+    // EĞER: Mobil ekrandaysak VE canvas navigasyonda DEĞİLSE...
+    if (isMobile && !isCanvasInNav) {
+        // Canvas'ı navigasyonun içine, 'NEST' yazısından önceye ekle
         if (canvas && nav && nestText) {
-            // canvas'ı nav'ın içine, 'NEST' yazısından önceye ekle
             nav.insertBefore(canvas, nestText);
         }
+    } 
+    // EĞER: Mobil ekranda DEĞİLSEK (masaüstü) VE canvas navigasyondaysa...
+    else if (!isMobile && isCanvasInNav) {
+        // Canvas'ı orijinal ebeveyni olan #page elementinin sonuna geri ekle
+        page.appendChild(canvas);
     }
 }
-// Fonksiyonu hemen çağır
-setupMobileLayout();
+
+handleDynamicLayout();
 
 
-const canvas = document.querySelector("canvas");
+
 const context = canvas.getContext("2d");
 
 function setCanvasSize() {
@@ -55,8 +80,8 @@ function setCanvasSize() {
     canvas.width = window.innerWidth;
     canvas.height = window.innerHeight;
   } else {
-    canvas.width = 50;
-    canvas.height = 50;
+    canvas.width = 60;
+    canvas.height = 60;
   }
 }
 
@@ -64,9 +89,8 @@ setCanvasSize();
 
 window.addEventListener("resize", function () {
   setCanvasSize();
-  // YENİ: Ekran boyutu değiştiğinde yerleşimi tekrar kontrol et (opsiyonel ama iyi bir pratik)
-  // Not: Bu basit senaryoda sayfa yenilemesi daha garanti sonuç verir.
   render();
+  handleDynamicLayout();
 });
 
 function files(index) {
@@ -148,9 +172,6 @@ ScrollTrigger.matchMedia({
       start: `top top`,
       end: `600% top`,
     });
-    
-    // Sayfalar arası geçişlerde duraksama kaldırıldı - pin animasyonları iptal edildi
-    
   },
   "(max-width: 768px)": function() {
     // Mobilde JS ile pinleme yapılmıyor.
