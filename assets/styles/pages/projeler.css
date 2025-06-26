@@ -1,0 +1,441 @@
+/* Projects Page Styles - Fixed Navigation Issue */
+
+/* Navigation position fix for projects page */
+body {
+    padding-top: 0 !important;
+}
+
+#nav {
+    position: fixed !important;
+    top: 0 !important;
+    left: 0 !important;
+    right: 0 !important;
+}
+
+/* Page wrapper fix */
+#page, #main {
+    padding-top: 0 !important;
+    margin-top: 0 !important;
+}
+
+/* Particles JS Container */
+#particles-js {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    z-index: 1;
+    pointer-events: auto;
+}
+
+/* Main container fix for navigation */
+#main {
+    padding-top: 0 !important; /* Override any padding */
+}
+
+/* Projects Hero Section */
+#projects-hero {
+    height: 60vh;
+    min-height: 400px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    background: radial-gradient(circle at center, 
+        rgba(56, 189, 248, 0.15) 0%, 
+        rgba(56, 161, 105, 0.1) 25%, 
+        var(--color-bg-secondary) 50%, 
+        rgba(249, 115, 22, 0.05) 75%, 
+        var(--color-bg-primary) 100%);
+    overflow: hidden;
+    /* Navigation yüksekliği kadar margin-top ekle */
+    margin-top: 80px;
+}
+
+/* Navigation fix for projects page */
+#nav {
+    top: 0 !important; /* Ensure navigation stays at top */
+}
+
+/* Responsive için margin-top ayarı */
+@media (max-width: 768px) {
+    #projects-hero {
+        margin-top: 70px;
+    }
+}
+
+.hero-content {
+    text-align: center;
+    z-index: 2;
+    position: relative;
+    pointer-events: none;
+}
+
+.hero-content h1,
+.hero-content p {
+    pointer-events: auto;
+}
+
+.hero-content h1 {
+    font-size: clamp(3rem, 7vw, 5rem);
+    font-weight: 600;
+    letter-spacing: 2px;
+    margin-bottom: 20px;
+    background: linear-gradient(90deg, 
+        var(--color-text-primary), 
+        var(--color-accent-blue));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.hero-content p {
+    font-size: clamp(1.2rem, 2vw, 1.5rem);
+    color: var(--color-text-secondary);
+}
+
+/* Sword Decoration - Removed problematic positioning */
+.sword-decoration {
+    display: none;
+}
+
+@keyframes swordSlide {
+    0%, 100% { transform: translate(-50%, -50%) rotate(-15deg); }
+    50% { transform: translate(-50%, -50%) rotate(15deg); }
+}
+
+/* Projects Grid */
+#projects-grid {
+    background: var(--color-bg-primary);
+    padding: 80px 0;
+    position: relative;
+    z-index: 1;
+}
+
+.projects-masonry {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+    gap: 40px;
+}
+
+.project-card {
+    position: relative;
+    cursor: pointer;
+    transition: all var(--transition-fast);
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.project-card.hidden {
+    opacity: 0;
+    transform: scale(0.9);
+    pointer-events: none;
+    position: absolute;
+}
+
+.project-card:hover {
+    transform: translateY(-10px);
+}
+
+.project-thumbnail {
+    position: relative;
+    width: 100%;
+    height: 400px;
+    overflow: hidden;
+    border-radius: 10px;
+    background: var(--color-bg-secondary);
+    border: 2px solid transparent;
+    transition: all var(--transition-fast);
+}
+
+.project-thumbnail video {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+/* Project Iframe Styles */
+.project-thumbnail iframe {
+    width: 100%;
+    height: 100%;
+    border: none;
+    border-radius: 10px;
+    transition: transform var(--transition-fast);
+}
+
+.project-card:hover .project-thumbnail iframe {
+    transform: scale(1.05);
+}
+
+.project-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(180deg, 
+        rgba(0, 0, 0, 0) 0%, 
+        rgba(0, 0, 0, 0.9) 100%);
+    display: flex;
+    align-items: flex-end;
+    padding: 30px;
+    opacity: 0;
+    transition: opacity var(--transition-fast);
+}
+
+.project-card:hover .project-overlay {
+    opacity: 1;
+}
+
+.overlay-content h3 {
+    font-size: 1.5rem;
+    color: var(--color-text-primary);
+    margin-bottom: 5px;
+}
+
+.overlay-content p {
+    color: var(--color-text-secondary);
+    margin-bottom: 15px;
+}
+
+.project-metrics {
+    display: flex;
+    gap: 15px;
+    flex-wrap: wrap;
+}
+
+.metric {
+    background: rgba(56, 189, 248, 0.2);
+    color: var(--color-accent-blue);
+    padding: 5px 12px;
+    border-radius: 20px;
+    font-size: 0.9rem;
+    font-weight: 500;
+}
+
+.project-info {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 0;
+}
+
+.project-client {
+    font-size: 1.1rem;
+    color: var(--color-text-primary);
+    font-weight: 500;
+}
+
+.project-category {
+    color: var(--color-text-secondary);
+    font-size: 0.9rem;
+}
+
+/* CTA Section */
+#projects-cta {
+    background: var(--color-bg-primary);
+    padding: 120px 0;
+    position: relative;
+    z-index: 1;
+}
+
+.cta-content {
+    text-align: center;
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.cta-content h2 {
+    font-size: clamp(2rem, 5vw, 3.5rem);
+    color: var(--color-text-primary);
+    margin-bottom: 20px;
+}
+
+.cta-content p {
+    font-size: 1.25rem;
+    color: var(--color-text-secondary);
+    margin-bottom: 40px;
+}
+
+.cta-button {
+    display: inline-flex;
+    align-items: center;
+    gap: 15px;
+    background: var(--color-accent-orange);
+    color: white;
+    padding: 20px 40px;
+    border-radius: 5px;
+    text-decoration: none;
+    font-size: 1.1rem;
+    font-weight: 500;
+    transition: all var(--transition-fast);
+}
+
+.cta-button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 30px rgba(249, 115, 22, 0.3);
+}
+
+/* Modal Styles */
+.modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.95);
+    z-index: 2000;
+    padding: 40px;
+    overflow-y: auto;
+}
+
+.modal.active {
+    display: block;
+}
+
+.modal-content {
+    max-width: 1200px;
+    margin: 0 auto;
+    background: var(--color-bg-primary);
+    border-radius: 10px;
+    overflow: hidden;
+    position: relative;
+}
+
+.modal-close {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    font-size: 2rem;
+    color: var(--color-text-secondary);
+    cursor: pointer;
+    z-index: 10;
+    transition: color var(--transition-fast);
+}
+
+.modal-close:hover {
+    color: var(--color-text-primary);
+}
+
+.modal-body {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 40px;
+    padding: 40px;
+}
+
+.modal-video {
+    position: relative;
+    padding-bottom: 56.25%;
+    height: 0;
+    overflow: hidden;
+}
+
+.modal-video iframe {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border: none;
+}
+
+.modal-info {
+    padding: 20px;
+}
+
+.modal-title {
+    font-size: 2.5rem;
+    color: var(--color-text-primary);
+    margin-bottom: 20px;
+}
+
+.modal-metrics {
+    display: flex;
+    gap: 20px;
+    flex-wrap: wrap;
+    margin-bottom: 30px;
+}
+
+.modal-metrics .metric {
+    background: var(--color-accent-blue);
+    color: white;
+    padding: 10px 20px;
+    border-radius: 25px;
+    font-size: 1rem;
+    font-weight: 500;
+}
+
+.modal-description {
+    color: var(--color-text-secondary);
+    line-height: 1.8;
+    margin-bottom: 30px;
+}
+
+.modal-process h3 {
+    color: var(--color-text-primary);
+    font-size: 1.5rem;
+    margin-bottom: 20px;
+}
+
+.modal-process ul {
+    list-style: none;
+}
+
+.modal-process li {
+    color: var(--color-text-secondary);
+    padding: 10px 0;
+    padding-left: 30px;
+    position: relative;
+}
+
+.modal-process li::before {
+    content: '⚔️';
+    position: absolute;
+    left: 0;
+}
+
+/* Footer Fix */
+#footer {
+    position: relative;
+    z-index: 1;
+}
+
+/* Container Fix */
+.container {
+    position: relative;
+    z-index: 1;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    #projects-hero {
+        height: 50vh;
+        min-height: 300px;
+    }
+
+    .projects-masonry {
+        grid-template-columns: 1fr;
+        gap: 30px;
+    }
+    
+    .project-thumbnail {
+        height: 250px;
+    }
+    
+    .modal-body {
+        grid-template-columns: 1fr;
+        gap: 30px;
+    }
+    
+    .modal-title {
+        font-size: 2rem;
+    }
+    
+    .cta-button {
+        padding: 15px 30px;
+        font-size: 1rem;
+    }
+}

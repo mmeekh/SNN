@@ -1,179 +1,277 @@
+// Initialize loader effect
 function loaderEffect() {
     const loader = document.querySelector("#loader");
     const mainContent = document.querySelector("#main");
 
-    // 'window.onload', görseller dahil tüm içeriğin yüklenmesini bekler.
     window.addEventListener('load', () => {
-        // Yükleyiciyi gizle
-        loader.classList.add('hidden');
+        if (loader) {
+            loader.classList.add('hidden');
+        }
         
-        // Ana içeriği göster
-        mainContent.classList.add('loaded');
+        if (mainContent) {
+            mainContent.classList.add('loaded');
+        }
     });
 }
 loaderEffect();
-// --- SAYFA YÜKLENME EFEKTİ LOGIĞI SONU ---
+
+// Initialize Locomotive Scroll
 function locomotive() {
-  gsap.registerPlugin(ScrollTrigger);
+    gsap.registerPlugin(ScrollTrigger);
 
-  const locoScroll = new LocomotiveScroll({
-    el: document.querySelector("#main"),
-    smooth: true,
-  });
-  locoScroll.on("scroll", ScrollTrigger.update);
+    const locoScroll = new LocomotiveScroll({
+        el: document.querySelector("#main"),
+        smooth: true,
+    });
+    
+    locoScroll.on("scroll", ScrollTrigger.update);
 
-  ScrollTrigger.scrollerProxy("#main", {
-    scrollTop(value) {
-      return arguments.length
-        ? locoScroll.scrollTo(value, 0, 0)
-        : locoScroll.scroll.instance.scroll.y;
-    },
-    getBoundingClientRect() {
-      return {
-        top: 0,
-        left: 0,
-        width: window.innerWidth,
-        height: window.innerHeight,
-      };
-    },
-    pinType: document.querySelector("#main").style.transform
-      ? "transform"
-      : "fixed",
-  });
-  ScrollTrigger.addEventListener("refresh", () => locoScroll.update());
-  ScrollTrigger.refresh();
+    ScrollTrigger.scrollerProxy("#main", {
+        scrollTop(value) {
+            return arguments.length
+                ? locoScroll.scrollTo(value, 0, 0)
+                : locoScroll.scroll.instance.scroll.y;
+        },
+        getBoundingClientRect() {
+            return {
+                top: 0,
+                left: 0,
+                width: window.innerWidth,
+                height: window.innerHeight,
+            };
+        },
+        pinType: document.querySelector("#main").style.transform
+            ? "transform"
+            : "fixed",
+    });
+    
+    ScrollTrigger.addEventListener("refresh", () => locoScroll.update());
+    ScrollTrigger.refresh();
+    
+    return locoScroll;
 }
-locomotive();
 
-const canvas = document.querySelector("canvas");
-const nav = document.querySelector("#nav");
-const page = document.querySelector("#page"); // Canvas'ın orijinal ebeveyni
-const nestText = nav.children[1]; // Nav içindeki 'NEST' başlığı
+// Make locomotive function globally available
+window.locomotive = locomotive;
 
-function handleDynamicLayout() {
-    const isMobile = window.innerWidth <= 768;
-    // Canvas'ın anlık olarak navigasyon çubuğunun içinde olup olmadığını kontrol et
-    const isCanvasInNav = nav.contains(canvas);
-
-    // EĞER: Mobil ekrandaysak VE canvas navigasyonda DEĞİLSE...
-    if (isMobile && !isCanvasInNav) {
-        // Canvas'ı navigasyonun içine, 'NEST' yazısından önceye ekle
-        if (canvas && nav && nestText) {
-            nav.insertBefore(canvas, nestText);
-        }
-    } 
-    // EĞER: Mobil ekranda DEĞİLSEK (masaüstü) VE canvas navigasyondaysa...
-    else if (!isMobile && isCanvasInNav) {
-        // Canvas'ı orijinal ebeveyni olan #page elementinin sonuna geri ekle
-        page.appendChild(canvas);
+// Initialize on DOM load
+document.addEventListener('DOMContentLoaded', () => {
+    // Initialize locomotive scroll
+    const locoScroll = locomotive();
+    
+    // Initialize sword animation for homepage
+    const mainCanvas = document.querySelector('canvas');
+    if (mainCanvas) {
+        console.log('Canvas bulundu, kılıç animasyonu başlatılıyor...');
+        
+        const swordAnim = new SwordAnimation({
+            canvas: mainCanvas,
+            scrollBehavior: 'scroll',
+            frameCount: 40, // Kılıç görseli sayısına göre ayarla
+            basePath: 'images/sword-sequence/',
+            scrollTrigger: {
+                trigger: '#page',
+                start: 'top top',
+                end: '400% top',
+                scroller: '#main'
+            }
+        });
+        
+        swordAnim.init();
+        console.log('Kılıç animasyonu başlatıldı!');
+        
+        // Global olarak erişilebilir kıl (debug için)
+        window.swordAnimation = swordAnim;
+    } else {
+        console.log('Canvas elementi bulunamadı!');
     }
-}
-
-handleDynamicLayout();
-
-
-
-const context = canvas.getContext("2d");
-
-function setCanvasSize() {
-  if (window.innerWidth > 768) {
-    canvas.width = window.innerWidth;
-    canvas.height = window.innerHeight;
-  } else {
-    canvas.width = 60;
-    canvas.height = 60;
-  }
-}
-
-setCanvasSize();
-
-window.addEventListener("resize", function () {
-  setCanvasSize();
-  render();
-  handleDynamicLayout();
+    
+    // Scroll-based navigation effects
+    let lastScroll = 0;
+    let ticking = false;
+    
+    function updateNavigation() {
+        const currentScroll = window.pageYOffset;
+        const nav = document.getElementById('nav');
+        
+        if (nav) {
+            if (currentScroll > 50) {
+                nav.classList.add('scrolled');
+            } else {
+                nav.classList.remove('scrolled');
+            }
+        }
+        
+        lastScroll = currentScroll;
+        ticking = false;
+    }
+    
+    window.addEventListener('scroll', () => {
+        if (!ticking) {
+            requestAnimationFrame(updateNavigation);
+            ticking = true;
+        }
+    });
+    
+    // Video lazy loading and performance optimization
+    const videos = document.querySelectorAll('iframe');
+    videos.forEach(video => {
+        // Intersection Observer ile videoları lazy load
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    // Video görünür olduğunda yükleme işlemini başlat
+                    const iframe = entry.target;
+                    if (!iframe.dataset.loaded) {
+                        iframe.dataset.loaded = 'true';
+                        console.log('Video yüklendi:', iframe.src);
+                    }
+                }
+            });
+        }, {
+            threshold: 0.1,
+            rootMargin: '50px'
+        });
+        
+        observer.observe(video);
+    });
+    
+    // GSAP animasyonları
+    initGSAPAnimations();
 });
 
-function files(index) {
-  return `./${String(index).padStart(4, '0')}.png`;
+// GSAP animasyonlarını başlat
+function initGSAPAnimations() {
+    // Sayfa yüklendiğinde ana başlığı animate et
+    gsap.from("#loop h1", {
+        opacity: 0,
+        y: 50,
+        duration: 1,
+        stagger: 0.2,
+        ease: "power2.out",
+        delay: 0.5
+    });
+    
+    // Video container'ları animate et
+    gsap.utils.toArray('.video-glow').forEach((video, index) => {
+        gsap.fromTo(video, 
+            {
+                opacity: 0,
+                scale: 0.8
+            },
+            {
+                opacity: 1,
+                scale: 1,
+                duration: 1,
+                ease: "power2.out",
+                scrollTrigger: {
+                    trigger: video,
+                    start: 'top 80%',
+                    end: 'bottom 20%',
+                    scroller: '#main',
+                    toggleActions: 'play none none reverse'
+                }
+            }
+        );
+    });
+    
+    // Text elementlerini animate et
+    gsap.utils.toArray('#page h3, #page h4').forEach((text, index) => {
+        gsap.fromTo(text,
+            {
+                opacity: 0,
+                x: -100
+            },
+            {
+                opacity: 1,
+                x: 0,
+                duration: 1,
+                ease: "power2.out",
+                scrollTrigger: {
+                    trigger: text,
+                    start: 'top 85%',
+                    scroller: '#main',
+                    toggleActions: 'play none none reverse'
+                }
+            }
+        );
+    });
+    
+    // Sol ve sağ text'leri animate et
+    gsap.utils.toArray('#left-text, #text1, #text2, #text3').forEach((text, index) => {
+        const direction = text.id.includes('left') || text.id === 'text1' ? -100 : 100;
+        
+        gsap.fromTo(text,
+            {
+                opacity: 0,
+                x: direction
+            },
+            {
+                opacity: 1,
+                x: 0,
+                duration: 1.2,
+                ease: "power2.out",
+                scrollTrigger: {
+                    trigger: text,
+                    start: 'top 75%',
+                    scroller: '#main',
+                    toggleActions: 'play none none reverse'
+                }
+            }
+        );
+    });
+    
+    // Footer animate et
+    gsap.fromTo('#footer',
+        {
+            opacity: 0,
+            y: 50
+        },
+        {
+            opacity: 1,
+            y: 0,
+            duration: 1,
+            ease: "power2.out",
+            scrollTrigger: {
+                trigger: '#footer',
+                start: 'top 90%',
+                scroller: '#main',
+                toggleActions: 'play none none reverse'
+            }
+        }
+    );
 }
 
-const frameCount = 40; 
-
-const images = [];
-const imageSeq = {
-  frame: 1,
+// Debug fonksiyonları
+window.debugSword = function() {
+    if (window.swordAnimation) {
+        console.log('Sword Animation Instance:', window.swordAnimation);
+        console.log('Frame Count:', window.swordAnimation.frameCount);
+        console.log('Current Frame:', window.swordAnimation.imageSeq.frame);
+        console.log('Images Loaded:', window.swordAnimation.images.length);
+        console.log('Is Loaded:', window.swordAnimation.isLoaded);
+    } else {
+        console.log('Sword animation instance bulunamadı!');
+    }
 };
 
-for (let i = 0; i < frameCount; i++) {
-  const frameIndex = 1 + (i * 3);
-  const img = new Image();
-  img.src = files(frameIndex);
-  images.push(img);
-}
-
-gsap.to(imageSeq, {
-  frame: frameCount,
-  snap: "frame",
-  ease: `none`,
-  scrollTrigger: {
-    scrub: 0.15,
-    trigger: `#page`,
-    start: `top top`,
-    end: `600% top`,
-    scroller: `#main`,
-  },
-  onUpdate: render,
+// Resize event handler
+window.addEventListener('resize', () => {
+    // ScrollTrigger'ı yenile
+    ScrollTrigger.refresh();
+    
+    // Canvas boyutunu güncelle
+    if (window.swordAnimation && window.swordAnimation.canvas) {
+        window.swordAnimation.setCanvasSize();
+        window.swordAnimation.render();
+    }
 });
 
-if (images.length > 0) {
-    images[0].onload = render;
-}
-
-
-function render() {
-  const currentImage = images[imageSeq.frame - 1];
-  if (currentImage) {
-    scaleImage(currentImage, context);
-  }
-}
-
-function scaleImage(img, ctx) {
-  var canvas = ctx.canvas;
-  var hRatio = canvas.width / img.width;
-  var vRatio = canvas.height / img.height;
-  var ratio = Math.max(hRatio, vRatio);
-
-  if (window.innerWidth > 768) {
-    ratio *= 0.95;
-  }
-
-  var centerShift_x = (canvas.width - img.width * ratio) / 2;
-  var centerShift_y = (canvas.height - img.height * ratio) / 2;
-  ctx.clearRect(0, 0, canvas.width, canvas.height);
-  ctx.drawImage(
-    img,
-    0,
-    0,
-    img.width,
-    img.height,
-    centerShift_x,
-    centerShift_y,
-    img.width * ratio,
-    img.height * ratio
-  );
-}
-
-ScrollTrigger.matchMedia({
-  "(min-width: 769px)": function() {
-    ScrollTrigger.create({
-      trigger: "#page>canvas",
-      pin: true,
-      scroller: `#main`,
-      start: `top top`,
-      end: `600% top`,
-    });
-  },
-  "(max-width: 768px)": function() {
-    // Mobilde JS ile pinleme yapılmıyor.
-  }
+// Hata yakalama
+window.addEventListener('error', (e) => {
+    console.error('JavaScript Hatası:', e.error);
 });
+
+// Console mesajı
+console.log('🗡️ Sword Nest - Ana script yüklendi!');
+console.log('🎬 Debug için window.debugSword() fonksiyonunu kullanabilirsiniz.');
