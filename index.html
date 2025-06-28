@@ -59,6 +59,22 @@
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="assets/styles/components/navigation.css">
 
+    <!-- Mobil Tespit ve Yönlendirme -->
+    <script>
+    (function() {
+        // Mobil cihaz tespiti
+        const isMobile = window.innerWidth <= 768 || 
+                         /Android|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+        // Eğer mobil cihazsa ve mobile.html'de değilsek
+        if (isMobile && !window.location.pathname.includes('mobile.html')) {
+            // Smooth redirect
+            setTimeout(() => {
+                window.location.href = 'mobile.html';
+            }, 100);
+        }
+    })();
+    </script>
+
     <script type="application/ld+json">
     {
         "@context": "https://schema.org",
