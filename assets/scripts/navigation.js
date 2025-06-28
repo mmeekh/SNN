@@ -1,4 +1,3 @@
-// Navigation functionality
 class Navigation {
     constructor() {
         this.nav = document.getElementById('nav');
@@ -11,28 +10,22 @@ class Navigation {
     }
     
     init() {
-        // Mobile menu toggle
         if (this.mobileToggle) {
             this.mobileToggle.addEventListener('click', () => this.toggleMobileMenu());
         }
         
-        // Close mobile menu on link click
         this.mobileNavLinks.forEach(link => {
             link.addEventListener('click', () => {
                 this.closeMobileMenu();
             });
         });
         
-        // Handle navigation canvas animation
         this.initNavCanvas();
         
-        // Set active page
         this.setActivePage();
         
-        // Handle page transitions
         this.initPageTransitions();
         
-        // Close mobile menu on resize
         window.addEventListener('resize', () => {
             if (window.innerWidth > 768) {
                 this.closeMobileMenu();
@@ -44,7 +37,6 @@ class Navigation {
         this.mobileToggle.classList.toggle('active');
         this.mobileMenu.classList.toggle('active');
         
-        // Prevent body scroll when menu is open
         if (this.mobileMenu.classList.contains('active')) {
             document.body.style.overflow = 'hidden';
         } else {
@@ -61,7 +53,6 @@ class Navigation {
     setActivePage() {
         const currentPage = window.location.pathname.split('/').pop() || 'index.html';
         
-        // Desktop nav
         this.navLinks.forEach(link => {
             const href = link.getAttribute('href');
             if (href === currentPage) {
@@ -69,7 +60,6 @@ class Navigation {
             }
         });
         
-        // Mobile nav
         this.mobileNavLinks.forEach(link => {
             const href = link.getAttribute('href');
             if (href === currentPage) {
@@ -82,7 +72,6 @@ class Navigation {
         const navCanvas = document.getElementById('nav-canvas');
         if (!navCanvas) return;
         
-        // Initialize mini sword animation for navigation
         const navSwordAnim = new SwordAnimation({
             canvas: navCanvas,
             scrollBehavior: 'rotate',
@@ -101,15 +90,12 @@ class Navigation {
             link.addEventListener('click', (e) => {
                 const href = link.getAttribute('href');
                 
-                // Only handle internal links
                 if (href && !href.startsWith('http') && !href.startsWith('#')) {
                     e.preventDefault();
                     
-                    // Trigger page transition
                     if (window.pageLoader) {
                         window.pageLoader.navigateTo(href);
                     } else {
-                        // Fallback navigation
                         window.location.href = href;
                     }
                 }
@@ -118,7 +104,6 @@ class Navigation {
     }
 }
 
-// Initialize navigation when DOM is ready
 document.addEventListener('DOMContentLoaded', () => {
     window.navigation = new Navigation();
 });

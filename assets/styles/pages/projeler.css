@@ -1,6 +1,4 @@
-/* Projects Page Styles - Fixed Navigation Issue */
 
-/* Navigation position fix for projects page */
 body {
     padding-top: 0 !important;
 }
@@ -12,13 +10,11 @@ body {
     right: 0 !important;
 }
 
-/* Page wrapper fix */
 #page, #main {
     padding-top: 0 !important;
     margin-top: 0 !important;
 }
 
-/* Particles JS Container */
 #particles-js {
     position: absolute;
     width: 100%;
@@ -29,12 +25,10 @@ body {
     pointer-events: auto;
 }
 
-/* Main container fix for navigation */
 #main {
-    padding-top: 0 !important; /* Override any padding */
+    padding-top: 0 !important;
 }
 
-/* Projects Hero Section */
 #projects-hero {
     height: 60vh;
     min-height: 400px;
@@ -49,16 +43,13 @@ body {
         rgba(249, 115, 22, 0.05) 75%, 
         var(--color-bg-primary) 100%);
     overflow: hidden;
-    /* Navigation yüksekliği kadar margin-top ekle */
     margin-top: 80px;
 }
 
-/* Navigation fix for projects page */
 #nav {
-    top: 0 !important; /* Ensure navigation stays at top */
+    top: 0 !important;
 }
 
-/* Responsive için margin-top ayarı */
 @media (max-width: 768px) {
     #projects-hero {
         margin-top: 70px;
@@ -105,12 +96,23 @@ body {
     50% { transform: translate(-50%, -50%) rotate(15deg); }
 }
 
-/* Projects Grid */
 #projects-grid {
     background: var(--color-bg-primary);
     padding: 80px 0;
-    position: relative;
-    z-index: 1;
+    perspective: 1200px; /* Add perspective for 3D effect */
+}
+
+.container {
+    width: 95%;
+    max-width: 1600px;
+    margin: 0 auto;
+    padding: 0 30px;
+}
+
+.projects-masonry {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+    gap: 40px;
 }
 
 .projects-masonry {
@@ -125,6 +127,8 @@ body {
     transition: all var(--transition-fast);
     opacity: 1;
     transform: translateY(0);
+    transform-style: preserve-3d; /* Enable 3D transforms */
+    will-change: transform; /* Optimize for animations */
 }
 
 .project-card.hidden {
@@ -168,51 +172,7 @@ body {
     transform: scale(1.05);
 }
 
-.project-overlay {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: linear-gradient(180deg, 
-        rgba(0, 0, 0, 0) 0%, 
-        rgba(0, 0, 0, 0.9) 100%);
-    display: flex;
-    align-items: flex-end;
-    padding: 30px;
-    opacity: 0;
-    transition: opacity var(--transition-fast);
-}
 
-.project-card:hover .project-overlay {
-    opacity: 1;
-}
-
-.overlay-content h3 {
-    font-size: 1.5rem;
-    color: var(--color-text-primary);
-    margin-bottom: 5px;
-}
-
-.overlay-content p {
-    color: var(--color-text-secondary);
-    margin-bottom: 15px;
-}
-
-.project-metrics {
-    display: flex;
-    gap: 15px;
-    flex-wrap: wrap;
-}
-
-.metric {
-    background: rgba(56, 189, 248, 0.2);
-    color: var(--color-accent-blue);
-    padding: 5px 12px;
-    border-radius: 20px;
-    font-size: 0.9rem;
-    font-weight: 500;
-}
 
 .project-info {
     display: flex;

@@ -16,7 +16,7 @@ window.initContactPage = function() {
         initContactSword();
         initContactForm();
         initFAQAccordion();
-        initMap();
+        // initMap();
         initContactParticles();
     }, 100);
 };
@@ -302,22 +302,7 @@ function initFAQAccordion() {
     });
 }
 
-// Initialize Map (placeholder - replace with actual map API)
-function initMap() {
-    const mapContainer = document.getElementById('map');
-    if (!mapContainer) return;
-    
-    // Placeholder for map
-    mapContainer.style.background = `
-        linear-gradient(rgba(26, 32, 44, 0.9), rgba(26, 32, 44, 0.9)),
-        url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><text x="50" y="50" text-anchor="middle" fill="white" font-size="8">MAP</text></svg>')
-    `;
-    mapContainer.style.backgroundSize = 'cover';
-    mapContainer.style.backgroundPosition = 'center';
-    
-    // In production, initialize actual map here
-    // Example: Google Maps, Mapbox, etc.
-}
+
 
 // Contact Particles Effect
 function initContactParticles() {
