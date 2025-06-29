@@ -346,7 +346,7 @@ function initScrollAnimations() {
             }
         );
     });
-    
+
     // Animate philosophy cards
     const philosophyCards = document.querySelectorAll('.philosophy-card');
     philosophyCards.forEach((card, index) => {
@@ -372,7 +372,7 @@ function initScrollAnimations() {
             }
         );
     });
-    
+
     // Animate metric bars
     const metricFills = document.querySelectorAll('.metric-fill');
     metricFills.forEach(fill => {
@@ -394,32 +394,38 @@ function initScrollAnimations() {
             }
         );
     });
-    
-    // Animate CTA buttons
+
+    // Animate CTA buttons - FIX
     const ctaButtons = document.querySelectorAll('.cta-button');
     ctaButtons.forEach((button, index) => {
+        // Önce butonları görünür yap
+        gsap.set(button, {
+            opacity: 1,
+            y: 0,
+            scale: 1,
+            visibility: 'visible',
+            display: 'inline-flex'
+        });
+        // Sonra animasyon ekle
         gsap.fromTo(button,
             {
-                opacity: 0,
-                y: 30,
-                scale: 0.9
+                opacity: 0.8,
+                y: 10
             },
             {
                 opacity: 1,
                 y: 0,
-                scale: 1,
                 duration: 0.6,
                 delay: index * 0.2,
-                ease: 'back.out(1.7)',
+                ease: 'power2.out',
                 scrollTrigger: {
-                    trigger: button,
-                    start: 'top 90%',
-                    toggleActions: 'play none none reverse',
+                    trigger: '#about-cta',
+                    start: 'top 80%',
+                    toggleActions: 'play none none none',
                     scroller: '#main'
                 }
             }
         );
-        
         // Enhanced hover effects
         button.addEventListener('mouseenter', () => {
             gsap.to(button, {
@@ -428,7 +434,6 @@ function initScrollAnimations() {
                 ease: 'power2.out'
             });
         });
-        
         button.addEventListener('mouseleave', () => {
             gsap.to(button, {
                 scale: 1,
