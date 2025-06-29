@@ -483,53 +483,19 @@
     transform: translateY(-2px);
     box-shadow: 0 5px 20px rgba(56, 161, 105, 0.3);
 }
+/* MOUSE TRAIL CANVAS İÇİN EK PARLAKLИК */
+#contact-sword {
+    filter: brightness(1.8) contrast(1.4) saturate(1.5) !important;
+    mix-blend-mode: screen;
+    opacity: 0.9 !important;
+}
 
-@media (max-width: 768px) {
-    #contact-hero {
-        height: 40vh;
-        min-height: 300px;
-    }
-    
-    .contact-grid {
-        grid-template-columns: 1fr;
-        gap: 40px;
-    }
-    
-    .form-row {
-        grid-template-columns: 1fr;
-        gap: 20px;
-    }
-    
-    .submit-button {
-        width: 100%;
-        justify-content: center;
-    }
-    
-    .quick-contact-btn {
-        padding: 12px 20px;
-        font-size: 0.9rem;
-    }
-    
-    .response-time {
-        flex-direction: column;
-        text-align: center;
-    }
-    
-    #contact-map {
-        height: 400px;
-    }
-    
-
-    
-    .faq-question {
-        padding: 20px;
-    }
-    
-    .faq-question h3 {
-        font-size: 1.1rem;
-    }
-    
-    .success-content {
-        padding: 40px;
-    }
+/* HERO SECTION BACKGROUND DAHA KOYU YAP Kİ TRAİL PARLAK GÖRÜNSÜN */
+#contact-hero {
+    background: linear-gradient(135deg, 
+        #0F172A 0%, 
+        #1E293B 25%, 
+        #334155 50%, 
+        #1E293B 75%, 
+        #0F172A 100%) !important;
 }

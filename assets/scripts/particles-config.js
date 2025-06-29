@@ -1,3 +1,23 @@
+// particles.js canvas yüksekliği düzeltme
+function fixParticlesCanvasHeight() {
+    const canvas = document.querySelector('#particles-js canvas');
+    if (canvas) {
+        canvas.style.height = '35vh';
+    }
+}
+
+// particlesJS yüklenince canvas yüksekliğini ayarla
+document.addEventListener('DOMContentLoaded', () => {
+    // particles.js yüklenmesi gecikebilir, bu yüzden kısa aralıklarla kontrol et
+    let tries = 0;
+    const interval = setInterval(() => {
+        fixParticlesCanvasHeight();
+        tries++;
+        if (document.querySelector('#particles-js canvas') || tries > 30) {
+            clearInterval(interval);
+        }
+    }, 100);
+});
 // Çalışan Mouse Etkileşimli Particles.js - Sword Nest
 document.addEventListener('DOMContentLoaded', function() {
     console.log('🚀 Enhanced Particles başlatılıyor...');

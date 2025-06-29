@@ -32,33 +32,6 @@
 - **Lighthouse Optimized**: Core Web Vitals uyumlu
 - **Lazy Loading**: Video ve görsel optimizasyonu
 
-## Proje Yapısı
-
-```
-sword-nest/
-├── index.html              # Ana sayfa
-├── hakkimizda.html         # Hakkımızda sayfası
-├── projeler.html           # Projeler portföyü
-├── iletisim.html           # İletişim sayfası
-├── mobile.html             # Mobil optimized sayfa
-├── style.css               # Ana CSS dosyası
-├── script.js               # Ana JavaScript dosyası
-├── assets/
-│   ├── styles/
-│   │   ├── components/     # Komponent CSS'leri
-│   │   └── pages/          # Sayfa özel CSS'leri
-│   └── scripts/
-│       ├── navigation.js   # Navigasyon sistemi
-│       ├── page-loader.js  # Sayfa geçiş efektleri
-│       ├── sword-animation.js # Kılıç animasyon sistemi
-│       ├── about.js        # Hakkımızda sayfa scripti
-│       ├── projects.js     # Projeler sayfa scripti
-│       ├── contact.js      # İletişim sayfa scripti
-│       └── particles-config.js # Parçacık konfigürasyonu
-└── .github/
-    └── workflows/
-        └── static.yml      # GitHub Pages deployment
-```
 
 ## Önemli Özellikler
 

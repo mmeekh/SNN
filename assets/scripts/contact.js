@@ -20,8 +20,25 @@ window.initContactPage = function() {
         initContactParticles();
     }, 100);
 };
-
-// Contact Particle Trail (follows cursor)
+function getRandomBrightColor() {
+        const brightColors = [
+            '#00FFFF', // Cyan - parlak
+            '#00FF88', // Bright Green - Sword Nest yeşili parlak
+            '#88FF00', // Lime
+            '#FFFF00', // Yellow
+            '#FF8800', // Orange - parlak
+            '#FF4400', // Red-Orange
+            '#FF0088', // Pink
+            '#8800FF', // Purple
+            '#0088FF', // Bright Blue
+            '#FFFFFF', // White
+            '#00FF44', // Neon Green
+            '#44FFFF', // Light Cyan
+            '#FFAA00', // Gold
+            '#FF6600'  // Bright Orange
+        ];
+        return brightColors[Math.floor(Math.random() * brightColors.length)];
+    }
 function initContactSword() {
     const canvas = document.getElementById('contact-sword');
     if (!canvas) return;
@@ -40,27 +57,32 @@ function initContactSword() {
         mouseX = e.clientX - rect.left;
         mouseY = e.clientY - rect.top;
         
-        // Create new particle at mouse position
-        particles.push({
-            x: mouseX,
-            y: mouseY,
-            size: Math.random() * 6 + 3, // Bigger particles
-            life: 1,
-            color: Math.random() > 0.5 ? '#38BDF8' : '#38A169', // Blue or Green
-            vx: (Math.random() - 0.5) * 3,
-            vy: (Math.random() - 0.5) * 3
-        });
+        // Create multiple particles at mouse position for denser trail
+        for (let i = 0; i < 3; i++) {
+            particles.push({
+                x: mouseX + (Math.random() - 0.5) * 10,
+                y: mouseY + (Math.random() - 0.5) * 10,
+                size: Math.random() * 8 + 4, // Bigger particles (4-12px)
+                life: 1,
+                // PARLAK RENKLİ PALETLER - Daha açık ve canlı renkler
+                color: getRandomBrightColor(),
+                vx: (Math.random() - 0.5) * 4,
+                vy: (Math.random() - 0.5) * 4,
+                // Extra glow properties
+                glowIntensity: Math.random() * 0.5 + 0.5, // 0.5-1.0
+                hue: Math.random() * 360 // For rainbow effect
+            });
+        }
         
-        // Keep particle count under control
-        if (particles.length > 80) { // More particles
+        // Keep particle count under control but allow more particles
+        if (particles.length > 150) { // Increased from 80 to 150
             particles.shift();
         }
     });
     
-    // Animation loop
     function animate() {
-        // Clear canvas with fade effect
-        ctx.fillStyle = 'rgba(26, 32, 44, 0.05)'; // Slower fade for more trail
+        // Clear canvas with slower fade for longer trails
+        ctx.fillStyle = 'rgba(26, 32, 44, 0.02)'; // Much slower fade (was 0.05)
         ctx.fillRect(0, 0, canvas.width, canvas.height);
         
         // Update and draw particles
@@ -70,8 +92,9 @@ function initContactSword() {
             // Update particle
             particle.x += particle.vx;
             particle.y += particle.vy;
-            particle.life -= 0.02;
-            particle.size *= 0.98;
+            particle.life -= 0.008; // Slower fade (was 0.02)
+            particle.size *= 0.996; // Much slower shrinking (was 0.98)
+            particle.hue = (particle.hue + 1) % 360; // Color shift effect
             
             // Remove dead particles
             if (particle.life <= 0 || particle.size < 0.5) {
@@ -79,35 +102,71 @@ function initContactSword() {
                 continue;
             }
             
-            // Draw particle with enhanced glow
-            ctx.shadowBlur = 25; // Stronger glow
-            ctx.shadowColor = particle.color;
+            // Calculate dynamic bright color based on hue
+            const dynamicColor = `hsl(${particle.hue}, 100%, 70%)`; // Very bright saturation and lightness
             
-            // Multiple glow layers for extra brightness
+            // MULTIPLE GLOW LAYERS for maximum brightness
+            
+            // Outer glow - largest and softest
+            ctx.save();
+            ctx.shadowBlur = 40; 
+            ctx.shadowColor = dynamicColor;
+            ctx.globalAlpha = particle.life * 0.15;
             ctx.beginPath();
-            ctx.arc(particle.x, particle.y, particle.size * 1.5, 0, Math.PI * 2);
-            ctx.fillStyle = particle.color;
-            ctx.globalAlpha = particle.life * 0.3;
+            ctx.arc(particle.x, particle.y, particle.size * 3, 0, Math.PI * 2);
+            ctx.fillStyle = dynamicColor;
             ctx.fill();
+            ctx.restore();
             
-            // Inner bright core
+            // Middle glow
+            ctx.save();
+            ctx.shadowBlur = 25;
+            ctx.shadowColor = particle.color;
+            ctx.globalAlpha = particle.life * 0.4;
+            ctx.beginPath();
+            ctx.arc(particle.x, particle.y, particle.size * 2, 0, Math.PI * 2);
+            ctx.fillStyle = particle.color;
+            ctx.fill();
+            ctx.restore();
+            
+            // Inner bright core - white center
+            ctx.save();
             ctx.shadowBlur = 15;
+            ctx.shadowColor = '#FFFFFF';
+            ctx.globalAlpha = particle.life * 0.9;
+            ctx.beginPath();
+            ctx.arc(particle.x, particle.y, particle.size * 1.2, 0, Math.PI * 2);
+            ctx.fillStyle = '#FFFFFF'; // Bright white core
+            ctx.fill();
+            ctx.restore();
+            
+            // Main particle body - very bright
+            ctx.save();
+            ctx.shadowBlur = 20;
+            ctx.shadowColor = particle.color;
+            ctx.globalAlpha = particle.life;
             ctx.beginPath();
             ctx.arc(particle.x, particle.y, particle.size, 0, Math.PI * 2);
-            ctx.fillStyle = '#FFFFFF'; // White core for extra brightness
-            ctx.globalAlpha = particle.life * 0.8;
-            ctx.fill();
-            
-            // Outer colored glow
-            ctx.shadowBlur = 30;
-            ctx.beginPath();
-            ctx.arc(particle.x, particle.y, particle.size * 0.7, 0, Math.PI * 2);
             ctx.fillStyle = particle.color;
-            ctx.globalAlpha = particle.life;
             ctx.fill();
+            ctx.restore();
             
-            ctx.shadowBlur = 0;
-            ctx.globalAlpha = 1;
+            // Extra sparkle effect for some particles
+            if (Math.random() < 0.1) { // 10% chance for sparkle
+                ctx.save();
+                ctx.shadowBlur = 30;
+                ctx.shadowColor = '#FFFFFF';
+                ctx.globalAlpha = particle.life * 0.8;
+                ctx.beginPath();
+                ctx.arc(
+                    particle.x + (Math.random() - 0.5) * 20, 
+                    particle.y + (Math.random() - 0.5) * 20, 
+                    2, 0, Math.PI * 2
+                );
+                ctx.fillStyle = '#FFFFFF';
+                ctx.fill();
+                ctx.restore();
+            }
         }
         
         requestAnimationFrame(animate);
@@ -121,6 +180,7 @@ function initContactSword() {
         canvas.height = canvas.parentElement.offsetHeight;
     });
 }
+
 
 // Contact Form Handling
 function initContactForm() {
