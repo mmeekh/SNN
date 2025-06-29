@@ -2,6 +2,20 @@
 <html lang="tr">
 <head>
     <meta charset="UTF-8">
+    <script>
+    (function() {
+        // Mobil cihaz tespiti
+        const isMobile = window.innerWidth <= 768 || 
+                         /Android|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+        // Eğer mobil cihazsa ve mobile.html'de değilsek
+        if (isMobile && !window.location.pathname.includes('mobile.html')) {
+            // Smooth redirect
+            setTimeout(() => {
+                window.location.href = 'mobile.html';
+            }, 100);
+        }
+    })();
+    </script>
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     
@@ -176,20 +190,6 @@
             <a href="projeler.html" class="nav-link" data-page="projects">Projeler</a>
             <a href="iletisim.html" class="nav-link" data-page="contact">İletişim</a>
         </nav>
-        <div class="nav-mobile-toggle">
-            <span></span>
-            <span></span>
-            <span></span>
-        </div>
-    </div>
-
-    <div class="mobile-menu">
-        <div class="mobile-menu-content">
-            <a href="index.html" class="mobile-nav-link" data-page="home">Ana Sayfa</a>
-            <a href="hakkimizda.html" class="mobile-nav-link active" data-page="about">Hakkımızda</a>
-            <a href="projeler.html" class="mobile-nav-link" data-page="projects">Projeler</a>
-            <a href="iletisim.html" class="mobile-nav-link" data-page="contact">İletişim</a>
-        </div>
     </div>
 
     <div id="main">

@@ -173,7 +173,6 @@ body {
 }
 
 
-
 .project-info {
     display: flex;
     justify-content: space-between;
@@ -235,126 +234,6 @@ body {
 .cta-button:hover {
     transform: translateY(-2px);
     box-shadow: 0 10px 30px rgba(249, 115, 22, 0.3);
-}
-
-/* Modal Styles */
-.modal {
-    display: none;
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(0, 0, 0, 0.95);
-    z-index: 2000;
-    padding: 40px;
-    overflow-y: auto;
-}
-
-.modal.active {
-    display: block;
-}
-
-.modal-content {
-    max-width: 1200px;
-    margin: 0 auto;
-    background: var(--color-bg-primary);
-    border-radius: 10px;
-    overflow: hidden;
-    position: relative;
-}
-
-.modal-close {
-    position: absolute;
-    top: 20px;
-    right: 20px;
-    font-size: 2rem;
-    color: var(--color-text-secondary);
-    cursor: pointer;
-    z-index: 10;
-    transition: color var(--transition-fast);
-}
-
-.modal-close:hover {
-    color: var(--color-text-primary);
-}
-
-.modal-body {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 40px;
-    padding: 40px;
-}
-
-.modal-video {
-    position: relative;
-    padding-bottom: 56.25%;
-    height: 0;
-    overflow: hidden;
-}
-
-.modal-video iframe {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    border: none;
-}
-
-.modal-info {
-    padding: 20px;
-}
-
-.modal-title {
-    font-size: 2.5rem;
-    color: var(--color-text-primary);
-    margin-bottom: 20px;
-}
-
-.modal-metrics {
-    display: flex;
-    gap: 20px;
-    flex-wrap: wrap;
-    margin-bottom: 30px;
-}
-
-.modal-metrics .metric {
-    background: var(--color-accent-blue);
-    color: white;
-    padding: 10px 20px;
-    border-radius: 25px;
-    font-size: 1rem;
-    font-weight: 500;
-}
-
-.modal-description {
-    color: var(--color-text-secondary);
-    line-height: 1.8;
-    margin-bottom: 30px;
-}
-
-.modal-process h3 {
-    color: var(--color-text-primary);
-    font-size: 1.5rem;
-    margin-bottom: 20px;
-}
-
-.modal-process ul {
-    list-style: none;
-}
-
-.modal-process li {
-    color: var(--color-text-secondary);
-    padding: 10px 0;
-    padding-left: 30px;
-    position: relative;
-}
-
-.modal-process li::before {
-    content: '⚔️';
-    position: absolute;
-    left: 0;
 }
 
 /* Footer Fix */

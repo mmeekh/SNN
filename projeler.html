@@ -2,8 +2,22 @@
 <html lang="tr">
 <head>
     <meta charset="UTF-8">
+    <script>
+    (function() {
+        // Mobil cihaz tespiti
+        const isMobile = window.innerWidth <= 768 || 
+                         /Android|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+        // Eğer mobil cihazsa ve mobile.html'de değilsek
+        if (isMobile && !window.location.pathname.includes('mobile.html')) {
+            // Smooth redirect
+            setTimeout(() => {
+                window.location.href = 'mobile.html';
+            }, 100);
+        }
+    })();
+    </script>
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes">
     
     <title>AI Projeler - Sword Nest | Yapay Zeka Reklamcılık Portföyü ve Sektörel Çözümler</title>
     <meta name="description" content="Sword Nest'in AI destekli reklamcılık projelerini keşfedin. Yapay zeka reklam kampanyaları, AI video üretimi, neural network pazarlama ve tüm sektörlerden artificial intelligence marketing başarı hikayeleri.">
@@ -225,21 +239,10 @@
             <a href="projeler.html" class="nav-link active" data-page="projects">Projeler</a>
             <a href="iletisim.html" class="nav-link" data-page="contact">İletişim</a>
         </nav>
-        <div class="nav-mobile-toggle">
-            <span></span>
-            <span></span>
-            <span></span>
-        </div>
+        <!-- nav-mobile-toggle kaldırıldı -->
     </div>
 
-    <div class="mobile-menu">
-        <div class="mobile-menu-content">
-            <a href="index.html" class="mobile-nav-link" data-page="home">Ana Sayfa</a>
-            <a href="hakkimizda.html" class="mobile-nav-link" data-page="about">Hakkımızda</a>
-            <a href="projeler.html" class="mobile-nav-link active" data-page="projects">Projeler</a>
-            <a href="iletisim.html" class="mobile-nav-link" data-page="contact">İletişim</a>
-        </div>
-    </div>
+    <!-- mobile-menu kaldırıldı -->
 
     <div id="main">
         <section id="projects-hero">
@@ -369,23 +372,6 @@
                 <div id="footer-text">
                     <p>© 2025 Sword Nest. Tüm Hakları Saklıdır.</p>
                     <p>Sitede yer alan tüm görseller ve video prodüksiyonları Sword Nest'e aittir.</p>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <div id="project-modal" class="modal">
-        <div class="modal-content">
-            <span class="modal-close">&times;</span>
-            <div class="modal-body">
-                <div class="modal-video">
-                    <iframe src="" frameborder="0" allowfullscreen></iframe>
-                </div>
-                <div class="modal-info">
-                    <h2 class="modal-title"></h2>
-                    <div class="modal-metrics"></div>
-                    <div class="modal-description"></div>
-                    <div class="modal-process"></div>
                 </div>
             </div>
         </div>

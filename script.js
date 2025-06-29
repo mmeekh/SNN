@@ -1,4 +1,3 @@
-// Initialize loader effect
 function loaderEffect() {
     const loader = document.querySelector("#loader");
     const mainContent = document.querySelector("#main");
@@ -15,7 +14,6 @@ function loaderEffect() {
 }
 loaderEffect();
 
-// Initialize Locomotive Scroll
 function locomotive() {
     gsap.registerPlugin(ScrollTrigger);
 
@@ -51,15 +49,11 @@ function locomotive() {
     return locoScroll;
 }
 
-// Make locomotive function globally available
 window.locomotive = locomotive;
 
-// Initialize on DOM load
 document.addEventListener('DOMContentLoaded', () => {
-    // Initialize locomotive scroll
     const locoScroll = locomotive();
     
-    // Initialize sword animation for homepage
     const mainCanvas = document.querySelector('canvas');
     if (mainCanvas) {
         console.log('Canvas bulundu, kılıç animasyonu başlatılıyor...');
@@ -80,13 +74,11 @@ document.addEventListener('DOMContentLoaded', () => {
         swordAnim.init();
         console.log('Kılıç animasyonu başlatıldı!');
         
-        // Global olarak erişilebilir kıl (debug için)
         window.swordAnimation = swordAnim;
     } else {
         console.log('Canvas elementi bulunamadı!');
     }
     
-    // Scroll-based navigation effects
     let lastScroll = 0;
     let ticking = false;
     
@@ -113,10 +105,8 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
     
-    // Video lazy loading and performance optimization
     const videos = document.querySelectorAll('iframe');
     videos.forEach(video => {
-        // Intersection Observer ile videoları lazy load
         const observer = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
                 if (entry.isIntersecting) {
@@ -136,13 +126,10 @@ document.addEventListener('DOMContentLoaded', () => {
         observer.observe(video);
     });
     
-    // GSAP animasyonları
     initGSAPAnimations();
 });
 
-// GSAP animasyonlarını başlat
 function initGSAPAnimations() {
-    // Sayfa yüklendiğinde ana başlığı animate et
     gsap.from("#loop h1", {
         opacity: 0,
         y: 50,
@@ -152,7 +139,7 @@ function initGSAPAnimations() {
         delay: 0.5
     });
     
-    // Video container'ları animate et
+    // Video conainer'ları animate et
     gsap.utils.toArray('.video-glow').forEach((video, index) => {
         gsap.fromTo(video, 
             {
