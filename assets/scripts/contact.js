@@ -60,29 +60,28 @@ function initContactSword() {
         // Create multiple particles at mouse position for denser trail
         for (let i = 0; i < 3; i++) {
             particles.push({
-                x: mouseX + (Math.random() - 0.5) * 10,
-                y: mouseY + (Math.random() - 0.5) * 10,
-                size: Math.random() * 8 + 4, // Bigger particles (4-12px)
+                // Yayılım çok düşük seviyede
+                x: mouseX + (Math.random() - 0.5) * 1,
+                y: mouseY + (Math.random() - 0.5) * 1,
+                size: Math.random() * 3 + 1,
                 life: 1,
-                // PARLAK RENKLİ PALETLER - Daha açık ve canlı renkler
                 color: getRandomBrightColor(),
-                vx: (Math.random() - 0.5) * 4,
-                vy: (Math.random() - 0.5) * 4,
-                // Extra glow properties
-                glowIntensity: Math.random() * 0.5 + 0.5, // 0.5-1.0
-                hue: Math.random() * 360 // For rainbow effect
+                vx: (Math.random() - 0.5) * 2,
+                vy: (Math.random() - 0.5) * 2,
+                glowIntensity: Math.random() * 0.5 + 0.5,
+                hue: Math.random() * 360
             });
         }
         
-        // Keep particle count under control but allow more particles
-        if (particles.length > 150) { // Increased from 80 to 150
+        // Keep particle count under control
+        if (particles.length > 150) {
             particles.shift();
         }
     });
     
     function animate() {
         // Clear canvas with slower fade for longer trails
-        ctx.fillStyle = 'rgba(26, 32, 44, 0.02)'; // Much slower fade (was 0.05)
+        ctx.fillStyle = 'rgba(26, 32, 44, 0.02)';
         ctx.fillRect(0, 0, canvas.width, canvas.height);
         
         // Update and draw particles
@@ -92,9 +91,9 @@ function initContactSword() {
             // Update particle
             particle.x += particle.vx;
             particle.y += particle.vy;
-            particle.life -= 0.008; // Slower fade (was 0.02)
-            particle.size *= 0.996; // Much slower shrinking (was 0.98)
-            particle.hue = (particle.hue + 1) % 360; // Color shift effect
+            particle.life -= 0.008;
+            particle.size *= 0.996;
+            particle.hue = (particle.hue + 1) % 360;
             
             // Remove dead particles
             if (particle.life <= 0 || particle.size < 0.5) {
@@ -102,12 +101,9 @@ function initContactSword() {
                 continue;
             }
             
-            // Calculate dynamic bright color based on hue
-            const dynamicColor = `hsl(${particle.hue}, 100%, 70%)`; // Very bright saturation and lightness
+            const dynamicColor = `hsl(${particle.hue}, 100%, 70%)`;
             
-            // MULTIPLE GLOW LAYERS for maximum brightness
-            
-            // Outer glow - largest and softest
+            // Multiple glow layers...
             ctx.save();
             ctx.shadowBlur = 40; 
             ctx.shadowColor = dynamicColor;
@@ -118,7 +114,6 @@ function initContactSword() {
             ctx.fill();
             ctx.restore();
             
-            // Middle glow
             ctx.save();
             ctx.shadowBlur = 25;
             ctx.shadowColor = particle.color;
@@ -129,18 +124,16 @@ function initContactSword() {
             ctx.fill();
             ctx.restore();
             
-            // Inner bright core - white center
             ctx.save();
             ctx.shadowBlur = 15;
             ctx.shadowColor = '#FFFFFF';
             ctx.globalAlpha = particle.life * 0.9;
             ctx.beginPath();
             ctx.arc(particle.x, particle.y, particle.size * 1.2, 0, Math.PI * 2);
-            ctx.fillStyle = '#FFFFFF'; // Bright white core
+            ctx.fillStyle = '#FFFFFF';
             ctx.fill();
             ctx.restore();
             
-            // Main particle body - very bright
             ctx.save();
             ctx.shadowBlur = 20;
             ctx.shadowColor = particle.color;
@@ -151,8 +144,7 @@ function initContactSword() {
             ctx.fill();
             ctx.restore();
             
-            // Extra sparkle effect for some particles
-            if (Math.random() < 0.1) { // 10% chance for sparkle
+            if (Math.random() < 0.1) {
                 ctx.save();
                 ctx.shadowBlur = 30;
                 ctx.shadowColor = '#FFFFFF';
@@ -164,7 +156,7 @@ function initContactSword() {
                     2, 0, Math.PI * 2
                 );
                 ctx.fillStyle = '#FFFFFF';
-                ctx.fill();
+                ctx.fill(); 
                 ctx.restore();
             }
         }
@@ -174,7 +166,6 @@ function initContactSword() {
     
     animate();
     
-    // Handle resize
     window.addEventListener('resize', () => {
         canvas.width = window.innerWidth;
         canvas.height = canvas.parentElement.offsetHeight;
