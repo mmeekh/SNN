@@ -553,9 +553,15 @@
                 justify-content: center;
             }
         }
+
+        /* YENİ EKLENECEK KOD */
+        section[id] {
+            scroll-margin-top: 75px; /* Sabit menü yüksekliğine göre ayarlayın */
+        }
+        /* YENİ EKLENECEK KOD BİTİŞİ */
     </style>
 </head>
-<body>
+<body id="page-top">
     <!-- Header -->
     <header class="header">
         <div class="logo">
@@ -571,7 +577,7 @@
         <button class="close-menu" onclick="toggleMenu()">
             <i class="fas fa-times"></i>
         </button>
-        <a href="#hero">Ana Sayfa</a>
+        <a href="#page-top">Ana Sayfa</a>
         <a href="#services">Hizmetlerimiz</a>
         <a href="#videos">Projeler</a>
         <a href="#faq">SSS</a>
@@ -893,17 +899,6 @@
                 }
             });
         });
-
-        // Parallax effect for hero background
-        window.addEventListener('scroll', () => {
-            const scrolled = window.pageYOffset;
-            const hero = document.querySelector('.hero');
-            if (hero) {
-                const speed = scrolled * 0.5;
-                hero.style.transform = `translateY(${speed}px)`;
-            }
-        });
-
         // Add scroll indicator
         const scrollIndicator = document.createElement('div');
         scrollIndicator.style.cssText = `
