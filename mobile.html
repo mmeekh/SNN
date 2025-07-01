@@ -558,11 +558,132 @@
         section[id] {
             scroll-margin-top: 75px; /* Sabit menü yüksekliğine göre ayarlayın */
         }
-        /* YENİ EKLENECEK KOD BİTİŞİ */
+
+        .cookie-consent {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            z-index: 1001; /* Her şeyin üstünde */
+            
+            /* Modern Cam Efekti */
+            background: rgba(10, 10, 10, 0.85);
+            backdrop-filter: blur(15px);
+            -webkit-backdrop-filter: blur(15px);
+
+            /* Üstte Parlayan Çizgi ve Gölge */
+            border-top: 1px solid var(--accent-green);
+            box-shadow: 0 -5px 30px rgba(0, 255, 136, 0.15);
+
+            padding: 20px;
+
+            /* Animasyonlu Giriş */
+            transform: translateY(100%);
+            transition: transform 0.5s cubic-bezier(0.2, 0.8, 0.2, 1);
+        }
+
+        .cookie-consent.show {
+            transform: translateY(0);
+        }
+
+        /* Banner İçeriği (Yazı ve Butonlar) */
+        .cookie-content {
+            display: flex;
+            align-items: center;
+            justify-content: center; /* Varsayılan olarak ortalı */
+            flex-direction: column; /* Mobil için dikey hizalama */
+            text-align: center;
+            gap: 15px;
+        }
+
+        .cookie-text h4 {
+            font-size: 1rem;
+            font-weight: 600;
+            margin-bottom: 5px;
+            letter-spacing: 0.5px;
+        }
+
+        /* Animasyonlu Çerez İkonu */
+        .cookie-text h4 .cookie-icon {
+            display: inline-block;
+            animation: cookie-spin 3s linear infinite;
+            margin-left: 8px;
+            vertical-align: -2px;
+        }
+
+        @keyframes cookie-spin {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
+        .cookie-text p {
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+            line-height: 1.5;
+            max-width: 90%;
+            margin: 0 auto;
+        }
+
+        .cookie-actions {
+            display: flex;
+            gap: 15px;
+            margin-top: 10px;
+        }
+
+        /* Genel Buton Stili */
+        .cookie-btn {
+            padding: 12px 28px;
+            border: none;
+            border-radius: 50px; /* Tam yuvarlak kenarlar */
+            font-weight: 600;
+            font-size: 0.9rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            letter-spacing: 0.5px;
+        }
+
+        /* Kabul Butonu */
+        .cookie-accept {
+            background: linear-gradient(45deg, var(--accent-green), var(--accent-blue));
+            color: var(--primary-bg);
+            box-shadow: 0 4px 15px rgba(0, 255, 136, 0.2);
+        }
+
+        /* Reddet Butonu */
+        .cookie-reject {
+            background-color: transparent;
+            border: 1px solid var(--border-color);
+            color: var(--text-secondary);
+        }
+
+        /* Butonlara Hover Efekti */
+        .cookie-btn:hover {
+            transform: translateY(-3px) scale(1.05);
+            filter: brightness(1.1);
+        }
+
+        .cookie-reject:hover {
+            border-color: var(--text-secondary);
+            color: var(--text-primary);
+        }
+
+        @media (min-width: 480px) {
+            .cookie-content {
+                flex-direction: row;
+                justify-content: space-between;
+                text-align: left;
+            }
+            .cookie-text p {
+                max-width: 100%;
+                margin: 0;
+            }
+            .cookie-actions {
+                margin-top: 0;
+            }
+        }
     </style>
 </head>
 <body id="page-top">
-    <!-- Header -->
     <header class="header">
         <div class="logo">
             <span class="sword">SWORD</span> NEST
@@ -572,7 +693,6 @@
         </button>
     </header>
 
-    <!-- Mobile Menu -->
     <nav class="mobile-menu" id="mobileMenu">
         <button class="close-menu" onclick="toggleMenu()">
             <i class="fas fa-times"></i>
@@ -584,9 +704,7 @@
         <a href="#contact">İletişim</a>
     </nav>
 
-    <!-- Main Content -->
     <main class="main">
-        <!-- Hero Section -->
         <section class="hero" id="hero">
             <div class="hero-content">
                 <h1>Yapay Zeka × İnsan Yaratıcılığı</h1>
@@ -609,7 +727,6 @@
             </div>
         </section>
 
-        <!-- Services Section -->
         <section class="services" id="services">
             <h2 class="section-title">Hizmetlerimiz</h2>
             <div class="services-slider">
@@ -646,7 +763,6 @@
                 </div>
             </div>
         </section>
-        <!-- Video Showcase -->
         <section class="videos" id="videos">
             <h2 class="section-title">Başarı Hikayeleri</h2>
             <div class="video-slider">
@@ -778,7 +894,6 @@
                 </div>
             </div>
         </section>
-        <!-- CTA Section -->
         <section class="cta" id="contact">
             <h2>Geleceğin Markası Olmaya Hazır mısınız?</h2>
             <p>AI destekli yaratıcılık ile markanızı bir sonraki seviyeye taşıyalım</p>
@@ -805,7 +920,6 @@
         </section>
     </main>
 
-    <!-- Footer -->
     <footer class="footer">
         <p>© 2025 Sword Nest. Tüm Hakları Saklıdır.</p>
         <p>Sitede yer alan tüm görseller ve video prodüksiyonları Sword Nest'e aittir.</p>
@@ -1024,5 +1138,21 @@
 
         console.log('🗡️ Sword Nest Mobile Interface Loaded Successfully!');
     </script>
+
+    <div id="cookie-consent" class="cookie-consent">
+        <div class="cookie-container">
+            <div class="cookie-content">
+                <div class="cookie-text">
+                    <h4>Çerezler 🍪</h4>
+                    <p>Daha iyi deneyim için çerez kullanıyoruz.</p>
+                </div>
+                <div class="cookie-actions">
+                    <button class="cookie-btn cookie-accept">Kabul</button>
+                    <button class="cookie-btn cookie-reject">Reddet</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="assets/scripts/cookie-consent.js"></script>
 </body>
 </html>
