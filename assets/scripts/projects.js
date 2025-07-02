@@ -1,13 +1,4 @@
-// HERO HEIGHT FIX - CSS override
-document.addEventListener('DOMContentLoaded', () => {
-    const projectsHero = document.getElementById('projects-hero');
-    if (projectsHero) {
-        projectsHero.style.height = '35vh';
-        projectsHero.style.minHeight = '280px';
-        projectsHero.style.setProperty('height', '35vh', 'important');
-        projectsHero.style.setProperty('min-height', '280px', 'important');
-    }
-});
+
 function lazyLoadVideos() {
     const videos = document.querySelectorAll('.project-thumbnail iframe');
     const videoObserver = new IntersectionObserver((entries) => {
@@ -28,10 +19,6 @@ function lazyLoadVideos() {
         videoObserver.observe(video);
     });
 }
-
-document.addEventListener('DOMContentLoaded', () => {
-    initProjectsPage();
-});
 
 window.initProjectsPage = function() {
     setTimeout(() => {

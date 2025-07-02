@@ -54,9 +54,7 @@ class CookieConsent {
     
     showConsent() {
         this.consentBox.classList.add('show');
-        // Mobil cihazlarda altta boşluk bırakmak genellikle iyi bir UX değildir,
-        // bu yüzden bu satırı daha güvenli hale getirebilir veya kaldırabiliriz.
-        // Şimdilik bırakalım.
+
         document.body.style.paddingBottom = this.consentBox.offsetHeight + 'px';
     }
     

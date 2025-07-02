@@ -1,11 +1,10 @@
-// particles.js canvas yüksekliği düzeltme
 function fixParticlesCanvasHeight() {
     const canvas = document.querySelector('#particles-js canvas');
     if (canvas) {
-        canvas.style.height = '35vh';
+        // Değişiklik: Yüksekliği ebeveyn elementine göre %100 yap
+        canvas.style.height = '100%'; 
     }
 }
-
 // particlesJS yüklenince canvas yüksekliğini ayarla
 document.addEventListener('DOMContentLoaded', () => {
     // particles.js yüklenmesi gecikebilir, bu yüzden kısa aralıklarla kontrol et
