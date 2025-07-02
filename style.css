@@ -488,53 +488,9 @@ canvas {
     transform: scale(1.05);
     box-shadow: 0 5px 25px rgba(56, 161, 105, 0.5);
 }
-<<<<<<< HEAD
 .cookie-details.hidden {
     display: none;
 }
-=======
-
-/* Mobile Responsive */
-@media (max-width: 768px) {
-    .cookie-container {
-        padding: 20px;
-    }
-    
-    .cookie-content {
-        flex-direction: column;
-        text-align: center;
-        gap: 20px;
-    }
-    
-    .cookie-icon {
-        font-size: 2.5rem;
-    }
-    
-    .cookie-text h4 {
-        font-size: 1.1rem;
-    }
-    
-    .cookie-text p {
-        font-size: 0.85rem;
-    }
-    
-    .cookie-actions {
-        width: 100%;
-        justify-content: center;
-    }
-    
-    .cookie-btn {
-        padding: 10px 20px;
-        font-size: 0.85rem;
-    }
-    
-    .cookie-category {
-        padding: 15px;
-    }
-}
-
-/* Animasyonlu giriş için ek sınıf */
->>>>>>> parent of 9814415 (Update style.css)
 .cookie-consent.animate-in {
     animation: slideUp 0.5s ease-out forwards;
 }
