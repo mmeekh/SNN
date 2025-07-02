@@ -26,7 +26,7 @@ html, body {
 }
 
 /* ==========================================================================
-   2. Main Container and Page Structure
+   2. Ana Konteyner ve Sayfa Yapısı
    ========================================================================== */
 
 #main {
@@ -50,13 +50,13 @@ canvas {
 }
 
 /* ==========================================================================
-   3. Navigation
+   3. Navigasyon
    ========================================================================== */
 
 #nav {
     display: flex;
     align-items: center;
-    justify-content: space-between;
+    justify-content: space-between;  /* Bu satır değişti */
     height: 80px;
     width: 100%;
     position: fixed;
@@ -77,6 +77,7 @@ canvas {
     font-weight: 400;
     font-size: 22px;
     margin: 0;
+    /* position ve left satırları kaldırıldı */
 }
 
 .nav-brand h3 b {
@@ -84,7 +85,7 @@ canvas {
 }
 
 #nav-line {
-    position: absolute;
+    position: absolute; 
     top: 79px;
     left: 0;
     width: 100%;
@@ -105,15 +106,17 @@ canvas {
     stroke-linecap: round;
 }
 
+/* Sayfa geçişlerinde içerik stabilitesi için nav yüksekliği kadar boşluk bırak */
 .page-stable {
     min-height: 80px;
     width: 100%;
 }
 
 /* ==========================================================================
-   4. Page Content Elements (Desktop)
+   4. Sayfa İçerik Elemanları (Masaüstü)
    ========================================================================== */
 
+/* Dönen Yazı Animasyonu */
 #loop {
     display: flex;
     position: absolute;
@@ -144,63 +147,67 @@ canvas {
     100% { transform: translateX(-100%); }
 }
 
+/* Genel Metin Stilleri */
 #page > h3, #page > h4, #page1 > #right-text > h3, #page1 > #left-text > h3,
 #page2 > #text1 > h3, #page2 > #text2 > p, #page3 > #text3 > h3 {
-    color: var(--color-text-secondary);
+    color: var(--color-text-secondary); 
 }
 
+/* Sayfalardaki Metin Bloklarının Pozisyonları */
 #page > h3 { position: absolute; top: 55%; left: 5%; font-weight: 400; line-height: 1.5; }
 #page > h4 { position: absolute; top: 70%; left: 5%; font-weight: 500; }
 
-#page1 > #right-text { position: absolute; top: 30%; left: 10%; }
+#page1 > #right-text { position: absolute; top: 30%; left: 10%; } /* Kullanılmıyor gibi görünüyor */
 #page2 > #text1 {
     position: absolute;
     top: 50%;
-    left: 10%;
-    width: 40%;
-    transform: translateY(-50%);
-    text-align: left;
+    left: 10%; /* Kenara makul bir boşluk */
+    width: 40%; /* Genişlik tanımı */
+    transform: translateY(-50%); /* Dikeyde ortalama */
+    text-align: left; /* Metni sola hizala */
 }
 #page2 > #text2 { position: absolute; top: 26%; left: 75%; transform: translateX(-50%); width: 450px; text-align: left; }
 #page3 > #text3 { position: absolute; top: 40%; right: 10%; text-align: end; }
 
+/* SORUNU ÇÖZEN DÜZENLENMİŞ BÖLÜM (Masaüstü) */
 #page1 > #left-text {
     position: absolute;
     top: 50%;
-    right: 10%;
-    width: 40%;
-    transform: translateY(-50%);
-    text-align: right;
+    right: 10%; /* Kenara daha makul bir boşluk */
+    width: 40%; /* Genişlik tanımı */
+    transform: translateY(-50%); /* Sadece dikeyde ortalama */
+    text-align: right; /* Metni sağa hizala */
 }
 
+/* Metin Blokları Font Boyutları */
 #page1 > #left-text > h1,
 #page2 > #text1 > h1,
 #page3 > #text3 > h1 {
     color: var(--color-text-primary);
     line-height: 1.5;
 }
-
-#page1 > #left-text > h1 { font-size: 4.2vw; }
-#page2 > #text1 > h1 { font-size: 5.2vw; }
-#page3 > #text3 > h1 { font-size: 6.2vw; }
+#page1 > #left-text > h1 { font-size: clamp(2rem, 4vw + 0.5rem, 3.125rem); }
+#page2 > #text1 > h1 { font-size: clamp(2.25rem, 5vw + 0.5rem, 3.75rem); }
+#page3 > #text3 > h1 { font-size: clamp(2.5rem, 6vw + 0.5rem, 4.375rem); }
 #page2 > #text2 > p { font-size: 14px; line-height: 1.6; }
 
+/* Video Konteynerları */
 .video-glow {
     position: absolute;
-    overflow: hidden;
+    overflow: hidden; 
     z-index: 95;
     box-shadow: 0 0 25px 5px rgba(56, 161, 105, 0.6);
-    border-radius: 5px;
+    border-radius: 5px; 
     pointer-events: auto;
 }
 
-.video-glow iframe {
-    width: 100%;
-    height: 100%;
-    border: none;
-    position: absolute;
-    top: 0;
-    left: 0;
+.video-glow iframe { 
+    width: 100%; 
+    height: 100%; 
+    border: none; 
+    position: absolute; 
+    top: 0; 
+    left: 0; 
 }
 
 #video-container { top: 68%; left: 77%; transform: translate(-50%, -50%); width: 30vw; height: calc(30vw * 9 / 16); }
@@ -208,52 +215,53 @@ canvas {
 #video-container-page2 { top: 48%; left: 75%; transform: translateX(-50%); width: 30vw; height: calc(30vw * 9 / 16); }
 #video-container-page3 { top: 40%; left: 25%; transform: translate(-50%, -50%); width: 30vw; height: calc(30vw * 9 / 16); }
 
+
 /* ==========================================================================
    5. Footer
    ========================================================================== */
 
-#footer {
-    position: relative;
-    width: 100%;
-    background-color: var(--color-bg-primary);
-    padding: 50px 0;
-    border-top: 2px solid var(--color-border);
+#footer { 
+    position: relative; 
+    width: 100%; 
+    background-color: var(--color-bg-primary); 
+    padding: 50px 0; 
+    border-top: 2px solid var(--color-border); 
     z-index: 999;
 }
 
-#footer-content {
-    width: 90%;
-    margin: auto;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
+#footer-content { 
+    width: 90%; 
+    margin: auto; 
+    display: flex; 
+    justify-content: space-between; 
+    align-items: center; 
 }
 
-#footer-socials {
-    display: flex;
-    gap: 25px;
+#footer-socials { 
+    display: flex; 
+    gap: 25px; 
 }
 
-#footer-socials a {
-    font-size: 28px;
-    color: var(--color-text-secondary);
-    transition: color var(--transition-fast), transform var(--transition-fast);
+#footer-socials a { 
+    font-size: 28px; 
+    color: var(--color-text-secondary); 
+    transition: color var(--transition-fast), transform var(--transition-fast); 
 }
 
-#footer-socials a:hover {
-    color: var(--color-accent-green);
-    transform: scale(1.1);
+#footer-socials a:hover { 
+    color: var(--color-accent-green); 
+    transform: scale(1.1); 
 }
 
-#footer-text {
-    text-align: right;
-    color: var(--color-text-secondary);
-    font-size: 14px;
-    line-height: 1.6;
+#footer-text { 
+    text-align: right; 
+    color: var(--color-text-secondary); 
+    font-size: 14px; 
+    line-height: 1.6; 
 }
 
 /* ==========================================================================
-   6. Page Transition Effects
+   6. Sayfa Geçiş Efektleri
    ========================================================================== */
 
 .page-transition {
@@ -480,9 +488,53 @@ canvas {
     transform: scale(1.05);
     box-shadow: 0 5px 25px rgba(56, 161, 105, 0.5);
 }
+<<<<<<< HEAD
 .cookie-details.hidden {
     display: none;
 }
+=======
+
+/* Mobile Responsive */
+@media (max-width: 768px) {
+    .cookie-container {
+        padding: 20px;
+    }
+    
+    .cookie-content {
+        flex-direction: column;
+        text-align: center;
+        gap: 20px;
+    }
+    
+    .cookie-icon {
+        font-size: 2.5rem;
+    }
+    
+    .cookie-text h4 {
+        font-size: 1.1rem;
+    }
+    
+    .cookie-text p {
+        font-size: 0.85rem;
+    }
+    
+    .cookie-actions {
+        width: 100%;
+        justify-content: center;
+    }
+    
+    .cookie-btn {
+        padding: 10px 20px;
+        font-size: 0.85rem;
+    }
+    
+    .cookie-category {
+        padding: 15px;
+    }
+}
+
+/* Animasyonlu giriş için ek sınıf */
+>>>>>>> parent of 9814415 (Update style.css)
 .cookie-consent.animate-in {
     animation: slideUp 0.5s ease-out forwards;
 }
