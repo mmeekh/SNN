@@ -16,12 +16,11 @@ class SwordAnimation {
         this.animationId = null;
         this.loadedCount = 0;
         
-        // Performance optimizations
         this.preloadedImages = new Map();
         this.loadingQueue = [];
         this.maxConcurrentLoads = 6; // Limit concurrent image loads
         this.currentlyLoading = 0;
-    }
+    }   
     
     init() {
         if (!this.canvas || !this.context) return;
@@ -63,7 +62,6 @@ class SwordAnimation {
         return `${this.basePath}${String(index).padStart(4, '0')}.png`;
     }
     
-    // OPTIMIZED IMAGE LOADING - Main Performance Fix
     optimizedImageLoad(callback) {
         console.log('🗡️ Starting optimized image loading...');
         
@@ -78,7 +76,6 @@ class SwordAnimation {
             }
         }
         
-        // Load priority frames first, then regular frames
         this.loadingQueue = [...priorityFrames, ...regularFrames];
         this.images = new Array(this.frameCount); // Pre-allocate array
         
@@ -87,7 +84,6 @@ class SwordAnimation {
     }
     
     processLoadingQueue(callback) {
-        // Check if we can start more loads
         while (this.currentlyLoading < this.maxConcurrentLoads && this.loadingQueue.length > 0) {
             const frameIndex = this.loadingQueue.shift();
             this.loadSingleImage(frameIndex, callback);
@@ -105,7 +101,6 @@ class SwordAnimation {
         
         const img = new Image();
         
-        // Add important performance attributes
         img.crossOrigin = 'anonymous';
         img.loading = 'eager'; // Force immediate loading for critical images
         
@@ -124,7 +119,6 @@ class SwordAnimation {
                 this.render();
             }
             
-            // Continue loading queue
             this.processLoadingQueue(callback);
         };
         
@@ -133,11 +127,9 @@ class SwordAnimation {
             this.currentlyLoading--;
             this.loadedCount++; // Count as loaded to prevent infinite waiting
             
-            // Continue loading queue even on error
             this.processLoadingQueue(callback);
         };
         
-        // Start loading with cache-busting for development
         const cacheBuster = window.location.hostname === 'localhost' ? `?v=${Date.now()}` : '';
         img.src = this.files(frameIndex) + cacheBuster;
     }
