@@ -5,14 +5,19 @@
 }
 
 :root {
-    --color-bg-primary: #1A202C;
-    --color-bg-secondary: #0F0F0F;
-    --color-text-primary: #F7FAFC;
-    --color-text-secondary: #A0AEC0;
-    --color-accent-blue: #38BDF8;
-    --color-accent-green: #38A169;
-    --color-accent-orange: #F97316;
-    --color-border: #2D3748;
+    /* Mobil ile aynı renk paleti */
+    --color-bg-primary: #0A0A0A;
+    --color-bg-secondary: #1A1A1A;
+    --color-card-bg: #1F1F1F;
+    --color-text-primary: #FFFFFF;
+    --color-text-secondary: #A0A0A0;
+    --color-accent-green: #00FF88;
+    --color-accent-blue: #00D4FF;
+    --color-accent-orange: #FF6B35;
+    --color-border: #333333;
+    --glow-green: rgba(0, 255, 136, 0.3);
+    --glow-blue: rgba(0, 212, 255, 0.3);
+    --glow-orange: rgba(255, 107, 53, 0.3);
     --transition-fast: 0.3s ease;
     --transition-medium: 0.6s ease;
 }
@@ -56,28 +61,28 @@ canvas {
 #nav {
     display: flex;
     align-items: center;
-    justify-content: space-between;  /* Bu satır değişti */
+    justify-content: space-between;
     height: 80px;
     width: 100%;
     position: fixed;
     z-index: 1000;
     padding: 0 30px;
-    background: rgba(26, 32, 44, 0.95);
+    background: rgba(10, 10, 10, 0.95);
     backdrop-filter: blur(10px);
     transition: all var(--transition-fast);
+    border-bottom: 1px solid var(--color-border);
 }
 
 #nav.scrolled {
     height: 70px;
-    background: rgba(26, 32, 44, 0.98);
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+    background: rgba(10, 10, 10, 0.98);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
 }
 
 .nav-brand h3 {
     font-weight: 400;
     font-size: 22px;
     margin: 0;
-    /* position ve left satırları kaldırıldı */
 }
 
 .nav-brand h3 b {
@@ -134,8 +139,14 @@ canvas {
     animation: anim 15s linear infinite;
 }
 
-#loop > h1 b { color: var(--color-accent-green); }
-#loop > h1 i { color: var(--color-text-secondary); font-style: italic; }
+#loop > h1 b { 
+    color: var(--color-accent-green); 
+    text-shadow: 0 0 20px var(--glow-green);
+}
+#loop > h1 i { 
+    color: var(--color-text-secondary); 
+    font-style: italic; 
+}
 #loop > h1 > span {
     -webkit-text-stroke: 1.2px var(--color-text-secondary);
     color: transparent;
@@ -154,29 +165,53 @@ canvas {
 }
 
 /* Sayfalardaki Metin Bloklarının Pozisyonları */
-#page > h3 { position: absolute; top: 55%; left: 5%; font-weight: 400; line-height: 1.5; }
-#page > h4 { position: absolute; top: 70%; left: 5%; font-weight: 500; }
+#page > h3 { 
+    position: absolute; 
+    top: 55%; 
+    left: 5%; 
+    font-weight: 400; 
+    line-height: 1.5; 
+}
+#page > h4 { 
+    position: absolute; 
+    top: 70%; 
+    left: 5%; 
+    font-weight: 500;
+    color: var(--color-accent-blue);
+    text-shadow: 0 0 10px var(--glow-blue);
+}
 
-#page1 > #right-text { position: absolute; top: 30%; left: 10%; } /* Kullanılmıyor gibi görünüyor */
+#page1 > #right-text { position: absolute; top: 30%; left: 10%; }
 #page2 > #text1 {
     position: absolute;
     top: 50%;
-    left: 10%; /* Kenara makul bir boşluk */
-    width: 40%; /* Genişlik tanımı */
-    transform: translateY(-50%); /* Dikeyde ortalama */
-    text-align: left; /* Metni sola hizala */
+    left: 10%;
+    width: 40%;
+    transform: translateY(-50%);
+    text-align: left;
 }
-#page2 > #text2 { position: absolute; top: 26%; left: 75%; transform: translateX(-50%); width: 450px; text-align: left; }
-#page3 > #text3 { position: absolute; top: 40%; right: 10%; text-align: end; }
+#page2 > #text2 { 
+    position: absolute; 
+    top: 26%; 
+    left: 75%; 
+    transform: translateX(-50%); 
+    width: 450px; 
+    text-align: left; 
+}
+#page3 > #text3 { 
+    position: absolute; 
+    top: 40%; 
+    right: 10%; 
+    text-align: end; 
+}
 
-/* SORUNU ÇÖZEN DÜZENLENMİŞ BÖLÜM (Masaüstü) */
 #page1 > #left-text {
     position: absolute;
     top: 50%;
-    right: 10%; /* Kenara daha makul bir boşluk */
-    width: 40%; /* Genişlik tanımı */
-    transform: translateY(-50%); /* Sadece dikeyde ortalama */
-    text-align: right; /* Metni sağa hizala */
+    right: 10%;
+    width: 40%;
+    transform: translateY(-50%);
+    text-align: right;
 }
 
 /* Metin Blokları Font Boyutları */
@@ -185,10 +220,23 @@ canvas {
 #page3 > #text3 > h1 {
     color: var(--color-text-primary);
     line-height: 1.5;
+    text-shadow: 0 0 30px rgba(255, 255, 255, 0.1);
 }
 #page1 > #left-text > h1 { font-size: clamp(2rem, 4vw + 0.5rem, 3.125rem); }
-#page2 > #text1 > h1 { font-size: clamp(2.25rem, 5vw + 0.5rem, 3.75rem); }
-#page3 > #text3 > h1 { font-size: clamp(2.5rem, 6vw + 0.5rem, 4.375rem); }
+#page2 > #text1 > h1 { 
+    font-size: clamp(2.25rem, 5vw + 0.5rem, 3.75rem);
+    background: linear-gradient(135deg, var(--color-accent-green), var(--color-accent-blue));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+#page3 > #text3 > h1 { 
+    font-size: clamp(2.5rem, 6vw + 0.5rem, 4.375rem);
+    background: linear-gradient(135deg, var(--color-accent-blue), var(--color-accent-orange));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
 #page2 > #text2 > p { font-size: 14px; line-height: 1.6; }
 
 /* Video Konteynerları */
@@ -196,9 +244,15 @@ canvas {
     position: absolute;
     overflow: hidden; 
     z-index: 95;
-    box-shadow: 0 0 25px 5px rgba(56, 161, 105, 0.6);
-    border-radius: 5px; 
+    box-shadow: 0 0 25px 5px var(--glow-green);
+    border-radius: 8px; 
     pointer-events: auto;
+    transition: all var(--transition-fast);
+}
+
+.video-glow:hover {
+    box-shadow: 0 0 40px 8px var(--glow-blue);
+    transform: scale(1.02);
 }
 
 .video-glow iframe { 
@@ -210,11 +264,34 @@ canvas {
     left: 0; 
 }
 
-#video-container { top: 68%; left: 77%; transform: translate(-50%, -50%); width: 30vw; height: calc(30vw * 9 / 16); }
-#video-container-page1 { top: 50%; left: 25%; transform: translate(-50%, -50%); width: 30vw; height: calc(30vw * 9 / 16); }
-#video-container-page2 { top: 48%; left: 75%; transform: translateX(-50%); width: 30vw; height: calc(30vw * 9 / 16); }
-#video-container-page3 { top: 40%; left: 25%; transform: translate(-50%, -50%); width: 30vw; height: calc(30vw * 9 / 16); }
-
+#video-container { 
+    top: 68%; 
+    left: 77%; 
+    transform: translate(-50%, -50%); 
+    width: 30vw; 
+    height: calc(30vw * 9 / 16); 
+}
+#video-container-page1 { 
+    top: 50%; 
+    left: 25%; 
+    transform: translate(-50%, -50%); 
+    width: 30vw; 
+    height: calc(30vw * 9 / 16); 
+}
+#video-container-page2 { 
+    top: 48%; 
+    left: 75%; 
+    transform: translateX(-50%); 
+    width: 30vw; 
+    height: calc(30vw * 9 / 16); 
+}
+#video-container-page3 { 
+    top: 40%; 
+    left: 25%; 
+    transform: translate(-50%, -50%); 
+    width: 30vw; 
+    height: calc(30vw * 9 / 16); 
+}
 
 /* ==========================================================================
    5. Footer
@@ -227,11 +304,11 @@ canvas {
     padding: 50px 0; 
     border-top: 2px solid var(--color-border); 
     z-index: 999;
-    /* Footer stabilization */
-    transform: none !important; /* Override any JS transforms */
-    will-change: auto; /* Don't optimize for transforms */
-    contain: layout style; /* Optimize rendering */
+    transform: none !important;
+    will-change: auto;
+    contain: layout style;
 }
+
 #footer.footer-stable {
     opacity: 1 !important;
     transform: none !important;
@@ -244,8 +321,7 @@ canvas {
     display: flex; 
     justify-content: space-between; 
     align-items: center;
-    /* Flexbox stabilization */
-    min-height: 60px; /* Minimum height to prevent collapse */
+    min-height: 60px;
 }
 
 #footer-socials { 
@@ -257,14 +333,14 @@ canvas {
     font-size: 28px; 
     color: var(--color-text-secondary); 
     transition: color var(--transition-fast), transform var(--transition-fast); 
-    /* Stabilize social links */
     display: block;
     line-height: 1;
 }
 
 #footer-socials a:hover { 
     color: var(--color-accent-green); 
-    transform: scale(1.1); 
+    transform: scale(1.1);
+    text-shadow: 0 0 15px var(--glow-green);
 }
 
 #footer-text { 
@@ -272,7 +348,6 @@ canvas {
     color: var(--color-text-secondary); 
     font-size: 14px; 
     line-height: 1.6;
-    /* Prevent text shifting */
     flex-shrink: 0;
 }
 
@@ -296,6 +371,7 @@ canvas {
     transform: none;
     position: relative;
 }
+
 /* ==========================================================================
    6. Sayfa Geçiş Efektleri
    ========================================================================== */
@@ -330,15 +406,15 @@ canvas {
 .hidden { display: none; }
 .loaded { opacity: 1; transition: opacity 0.6s ease; }
 
-/* Cookie Consent Styles */
+/* Cookie Consent Styles - Modern Mobil Palette */
 .cookie-consent {
     position: fixed;
     bottom: 0;
     left: 0;
     right: 0;
-    background: rgba(26, 32, 44, 0.98);
+    background: rgba(10, 10, 10, 0.98);
     backdrop-filter: blur(20px);
-    border-top: 2px solid #38A169;
+    border-top: 2px solid var(--color-accent-green);
     z-index: 9999;
     transform: translateY(100%);
     transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
@@ -364,8 +440,9 @@ canvas {
 
 .cookie-icon {
     font-size: 3rem;
-    color: #38A169;
+    color: var(--color-accent-green);
     animation: cookieBite 2s ease-in-out infinite;
+    text-shadow: 0 0 20px var(--glow-green);
 }
 
 @keyframes cookieBite {
@@ -380,14 +457,14 @@ canvas {
 }
 
 .cookie-text h4 {
-    color: #F7FAFC;
+    color: var(--color-text-primary);
     font-size: 1.3rem;
     margin-bottom: 8px;
     font-weight: 600;
 }
 
 .cookie-text p {
-    color: #A0AEC0;
+    color: var(--color-text-secondary);
     font-size: 0.95rem;
     line-height: 1.5;
 }
@@ -413,42 +490,44 @@ canvas {
 }
 
 .cookie-accept {
-    background: linear-gradient(135deg, #38A169 0%, #38BDF8 100%);
+    background: linear-gradient(135deg, var(--color-accent-green) 0%, var(--color-accent-blue) 100%);
     color: white;
 }
 
 .cookie-accept:hover {
     transform: translateY(-2px);
-    box-shadow: 0 5px 20px rgba(56, 161, 105, 0.4);
+    box-shadow: 0 5px 20px var(--glow-green);
 }
 
 .cookie-settings {
     background: transparent;
-    color: #38BDF8;
-    border: 1px solid #38BDF8;
+    color: var(--color-accent-blue);
+    border: 1px solid var(--color-accent-blue);
 }
 
 .cookie-settings:hover {
-    background: rgba(56, 189, 248, 0.1);
+    background: rgba(0, 212, 255, 0.1);
     transform: translateY(-2px);
+    box-shadow: 0 0 15px var(--glow-blue);
 }
 
 .cookie-reject {
     background: transparent;
-    color: #A0AEC0;
-    border: 1px solid #2D3748;
+    color: var(--color-text-secondary);
+    border: 1px solid var(--color-border);
 }
 
 .cookie-reject:hover {
-    border-color: #F97316;
-    color: #F97316;
+    border-color: var(--color-accent-orange);
+    color: var(--color-accent-orange);
+    box-shadow: 0 0 10px var(--glow-orange);
 }
 
 /* Cookie Details Panel */
 .cookie-details {
     margin-top: 30px;
     padding-top: 30px;
-    border-top: 1px solid #2D3748;
+    border-top: 1px solid var(--color-border);
     animation: slideDown 0.3s ease-out;
 }
 
@@ -466,15 +545,16 @@ canvas {
 .cookie-category {
     margin-bottom: 20px;
     padding: 20px;
-    background: rgba(255, 255, 255, 0.02);
+    background: var(--color-card-bg);
     border-radius: 10px;
-    border: 1px solid #2D3748;
+    border: 1px solid var(--color-border);
     transition: all 0.3s ease;
 }
 
 .cookie-category:hover {
-    border-color: #38A169;
-    background: rgba(56, 161, 105, 0.05);
+    border-color: var(--color-accent-green);
+    background: rgba(0, 255, 136, 0.05);
+    box-shadow: 0 0 15px rgba(0, 255, 136, 0.1);
 }
 
 .category-header {
@@ -487,7 +567,7 @@ canvas {
     width: 20px;
     height: 20px;
     cursor: pointer;
-    accent-color: #38A169;
+    accent-color: var(--color-accent-green);
     margin-top: 2px;
 }
 
@@ -498,13 +578,13 @@ canvas {
 
 .category-header strong {
     display: block;
-    color: #F7FAFC;
+    color: var(--color-text-primary);
     margin-bottom: 5px;
     font-size: 1rem;
 }
 
 .category-header span {
-    color: #A0AEC0;
+    color: var(--color-text-secondary);
     font-size: 0.85rem;
     line-height: 1.4;
 }
@@ -515,15 +595,16 @@ canvas {
 }
 
 .cookie-save-settings {
-    background: linear-gradient(135deg, #38A169 0%, #38BDF8 100%);
+    background: linear-gradient(135deg, var(--color-accent-green) 0%, var(--color-accent-blue) 100%);
     color: white;
     padding: 14px 32px;
 }
 
 .cookie-save-settings:hover {
     transform: scale(1.05);
-    box-shadow: 0 5px 25px rgba(56, 161, 105, 0.5);
+    box-shadow: 0 5px 25px var(--glow-green);
 }
+
 /* Animated entry extra class */
 .cookie-consent.animate-in {
     animation: slideUp 0.5s ease-out forwards;

@@ -1,4 +1,4 @@
-/* About Page Styles - Completely Redesigned */
+/* About Page Styles - Modern Mobile Color Palette */
 .about-section {
     position: relative;
     width: 100%;
@@ -12,14 +12,14 @@
     padding: 80px 0;
 }
 
-/* Hero Section */
+/* Hero Section - Updated Colors */
 #about-hero {
     height: 100vh;
     display: flex;
     align-items: center;
     justify-content: center;
     position: relative;
-    background: linear-gradient(135deg, var(--color-bg-primary) 0%, rgba(56, 189, 248, 0.1) 100%);
+    background: linear-gradient(135deg, var(--color-bg-primary) 0%, rgba(0, 212, 255, 0.1) 100%);
 }
 
 .hero-content {
@@ -39,6 +39,7 @@
     -webkit-text-fill-color: transparent;
     background-clip: text;
     animation: gradientShift 3s ease-in-out infinite alternate;
+    text-shadow: 0 0 30px rgba(0, 255, 136, 0.2);
 }
 
 @keyframes gradientShift {
@@ -70,6 +71,7 @@
     font-weight: 700;
     color: var(--color-accent-blue);
     margin-bottom: 10px;
+    text-shadow: 0 0 20px rgba(0, 212, 255, 0.4);
 }
 
 .hero-stats .stat-label {
@@ -96,9 +98,9 @@
     width: 100%;
     height: 100%;
     background: 
-        radial-gradient(circle at 20% 20%, rgba(56, 189, 248, 0.1) 0%, transparent 50%),
-        radial-gradient(circle at 80% 80%, rgba(56, 161, 105, 0.1) 0%, transparent 50%),
-        radial-gradient(circle at 40% 60%, rgba(249, 115, 22, 0.05) 0%, transparent 50%);
+        radial-gradient(circle at 20% 20%, rgba(0, 212, 255, 0.1) 0%, transparent 50%),
+        radial-gradient(circle at 80% 80%, rgba(0, 255, 136, 0.1) 0%, transparent 50%),
+        radial-gradient(circle at 40% 60%, rgba(255, 107, 53, 0.05) 0%, transparent 50%);
     animation: patternFloat 20s ease-in-out infinite;
 }
 
@@ -108,7 +110,7 @@
     66% { transform: translate(-15px, 15px) rotate(-1deg); }
 }
 
-/* Mission Section */
+/* Mission Section - Updated Colors */
 #about-mission {
     background: var(--color-bg-primary);
     padding: 120px 0;
@@ -155,7 +157,14 @@
 .node:nth-child(2) { top: 30%; right: 10%; animation-delay: 0.4s; }
 .node:nth-child(3) { bottom: 30%; left: 10%; animation-delay: 0.8s; }
 .node:nth-child(4) { bottom: 10%; right: 20%; animation-delay: 1.2s; }
-.node:nth-child(5) { top: 50%; left: 50%; transform: translate(-50%, -50%); animation-delay: 1.6s; background: var(--color-accent-green); box-shadow: 0 0 20px var(--color-accent-green); }
+.node:nth-child(5) { 
+    top: 50%; 
+    left: 50%; 
+    transform: translate(-50%, -50%); 
+    animation-delay: 1.6s; 
+    background: var(--color-accent-green); 
+    box-shadow: 0 0 20px var(--color-accent-green); 
+}
 
 @keyframes pulse {
     0% { transform: scale(1); opacity: 0.7; }
@@ -184,6 +193,7 @@
     margin-bottom: 30px;
     color: var(--color-accent-green);
     font-weight: 700;
+    text-shadow: 0 0 30px rgba(0, 255, 136, 0.3);
 }
 
 .mission-content .lead {
@@ -209,13 +219,14 @@
 .point-icon {
     width: 60px;
     height: 60px;
-    background: rgba(56, 189, 248, 0.1);
+    background: rgba(0, 212, 255, 0.1);
     border: 2px solid var(--color-accent-blue);
     border-radius: 50%;
     display: flex;
     align-items: center;
     justify-content: center;
     flex-shrink: 0;
+    box-shadow: 0 0 15px rgba(0, 212, 255, 0.2);
 }
 
 .point-icon i {
@@ -235,7 +246,7 @@
     line-height: 1.6;
 }
 
-/* Vision Section */
+/* Vision Section - Updated Colors */
 #about-vision {
     background: var(--color-bg-secondary);
     padding: 120px 0;
@@ -268,7 +279,7 @@
 }
 
 .scenario {
-    background: rgba(255, 255, 255, 0.02);
+    background: var(--color-card-bg);
     border: 1px solid var(--color-border);
     border-radius: 15px;
     padding: 40px;
@@ -279,7 +290,8 @@
 .scenario:hover {
     transform: translateY(-10px);
     border-color: var(--color-accent-blue);
-    background: rgba(56, 189, 248, 0.05);
+    background: rgba(0, 212, 255, 0.05);
+    box-shadow: 0 20px 40px rgba(0, 212, 255, 0.1);
 }
 
 .scenario-visual {
@@ -331,6 +343,7 @@
 .ai-creativity-icon i {
     font-size: 3rem;
     color: var(--color-accent-orange);
+    text-shadow: 0 0 20px rgba(255, 107, 53, 0.4);
 }
 
 .creativity-sparks {
@@ -342,6 +355,7 @@
 .creativity-sparks span {
     position: absolute;
     animation: sparkle 2s ease-in-out infinite;
+    color: var(--color-accent-green);
 }
 
 .creativity-sparks span:nth-child(1) { animation-delay: 0s; }
@@ -365,7 +379,7 @@
     line-height: 1.6;
 }
 
-/* Innovation Lab Section */
+/* Innovation Lab Section - Updated Colors */
 #innovation-lab {
     background: var(--color-bg-primary);
     padding: 120px 0;
@@ -381,6 +395,7 @@
     color: var(--color-accent-blue);
     margin-bottom: 20px;
     font-weight: 700;
+    text-shadow: 0 0 30px rgba(0, 212, 255, 0.3);
 }
 
 .lab-header p {
@@ -395,7 +410,7 @@
 }
 
 .tech-item {
-    background: rgba(255, 255, 255, 0.02);
+    background: var(--color-card-bg);
     border: 1px solid var(--color-border);
     border-radius: 10px;
     padding: 30px;
@@ -406,18 +421,20 @@
 .tech-item:hover {
     transform: translateY(-5px);
     border-color: var(--color-accent-green);
-    background: rgba(56, 161, 105, 0.05);
+    background: rgba(0, 255, 136, 0.05);
+    box-shadow: 0 15px 30px rgba(0, 255, 136, 0.1);
 }
 
 .tech-icon {
     width: 70px;
     height: 70px;
-    background: var(--color-accent-green);
+    background: linear-gradient(135deg, var(--color-accent-green), var(--color-accent-blue));
     border-radius: 50%;
     display: flex;
     align-items: center;
     justify-content: center;
     margin: 0 auto 20px;
+    box-shadow: 0 0 20px rgba(0, 255, 136, 0.3);
 }
 
 .tech-icon i {
@@ -437,7 +454,7 @@
     line-height: 1.5;
 }
 
-/* Impact Section */
+/* Impact Section - Updated Colors */
 #about-impact {
     background: var(--color-bg-secondary);
     padding: 120px 0;
@@ -483,6 +500,7 @@
     justify-content: center;
     margin: 0 auto 20px;
     position: relative;
+    box-shadow: 0 0 20px rgba(255, 107, 53, 0.3);
 }
 
 .stat-circle::before {
@@ -490,7 +508,7 @@
     position: absolute;
     width: 130px;
     height: 130px;
-    border: 1px solid rgba(249, 115, 22, 0.3);
+    border: 1px solid rgba(255, 107, 53, 0.3);
     border-radius: 50%;
     animation: ripple 3s ease-in-out infinite;
 }
@@ -504,6 +522,7 @@
     font-size: 2rem;
     font-weight: 700;
     color: var(--color-accent-orange);
+    text-shadow: 0 0 15px rgba(255, 107, 53, 0.4);
 }
 
 .impact-stat h4 {
@@ -537,10 +556,16 @@
 }
 
 .story-card {
-    background: rgba(255, 255, 255, 0.02);
+    background: var(--color-card-bg);
     border: 1px solid var(--color-border);
     border-radius: 15px;
     padding: 30px;
+    transition: all var(--transition-fast);
+}
+
+.story-card:hover {
+    border-color: var(--color-accent-green);
+    box-shadow: 0 10px 30px rgba(0, 255, 136, 0.1);
 }
 
 .story-before-after {
@@ -608,13 +633,14 @@
     background: linear-gradient(90deg, var(--color-accent-blue), var(--color-accent-green));
     border-radius: 4px;
     animation: fillBar 2s ease-out;
+    box-shadow: 0 0 10px rgba(0, 255, 136, 0.3);
 }
 
 @keyframes fillBar {
     from { width: 0%; }
 }
 
-/* Philosophy Section */
+/* Philosophy Section - Updated Colors */
 #about-philosophy {
     background: var(--color-bg-primary);
     padding: 120px 0;
@@ -635,7 +661,7 @@
 }
 
 .philosophy-card {
-    background: rgba(255, 255, 255, 0.02);
+    background: var(--color-card-bg);
     border: 1px solid var(--color-border);
     border-radius: 15px;
     padding: 40px;
@@ -646,18 +672,20 @@
 .philosophy-card:hover {
     transform: translateY(-10px);
     border-color: var(--color-accent-blue);
-    background: rgba(56, 189, 248, 0.05);
+    background: rgba(0, 212, 255, 0.05);
+    box-shadow: 0 20px 40px rgba(0, 212, 255, 0.1);
 }
 
 .philosophy-icon {
     width: 80px;
     height: 80px;
-    background: linear-gradient(135deg, #31befa, #38A169);
+    background: linear-gradient(135deg, var(--color-accent-blue), var(--color-accent-green));
     border-radius: 50%;
     display: flex;
     align-items: center;
     justify-content: center;
     margin: 0 auto 25px;
+    box-shadow: 0 0 25px rgba(0, 255, 136, 0.3);
 }
 
 .philosophy-icon i {
@@ -677,9 +705,9 @@
     line-height: 1.6;
 }
 
-/* CTA Section */
+/* CTA Section - Updated Colors */
 #about-cta {
-    background: linear-gradient(135deg, var(--color-bg-primary) 0%, rgba(56, 189, 248, 0.1) 100%);
+    background: linear-gradient(135deg, var(--color-bg-primary) 0%, rgba(0, 212, 255, 0.1) 100%);
     padding: 120px 0;
 }
 
@@ -725,13 +753,14 @@
 }
 
 .cta-button.primary {
-    background: var(--color-accent-orange);
+    background: linear-gradient(135deg, var(--color-accent-orange), var(--color-accent-green));
     color: white;
+    box-shadow: 0 5px 20px rgba(255, 107, 53, 0.3);
 }
 
 .cta-button.primary:hover {
     transform: translateY(-3px);
-    box-shadow: 0 15px 40px rgba(249, 115, 22, 0.4);
+    box-shadow: 0 15px 40px rgba(255, 107, 53, 0.4);
 }
 
 .cta-button.secondary {
@@ -744,7 +773,7 @@
     background: var(--color-accent-blue);
     color: white;
     transform: translateY(-3px);
-    box-shadow: 0 15px 40px rgba(56, 189, 248, 0.4);
+    box-shadow: 0 15px 40px rgba(0, 212, 255, 0.4);
 }
 
 .cta-button::before {

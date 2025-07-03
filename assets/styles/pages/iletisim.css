@@ -1,7 +1,7 @@
-
+/* Updated FAQ Title Animation with New Colors */
 @keyframes faqGreenCycle {
   0% { color: var(--color-text-primary); }
-  50% { color: #38A169; }
+  50% { color: var(--color-accent-green); }
  100% { color: var(--color-text-primary); }
 }
 
@@ -9,6 +9,7 @@
   animation: faqGreenCycle 2.5s infinite linear alternate;
 }
 
+/* Contact Hero Section - Updated Colors */
 #contact-hero {
     height: 50vh;
     min-height: 400px;
@@ -31,6 +32,7 @@
     font-weight: 600;
     margin-bottom: 20px;
     color: var(--color-text-primary);
+    text-shadow: 0 0 30px rgba(255, 255, 255, 0.2);
 }
 
 .hero-content p {
@@ -44,8 +46,11 @@
     left: 0;
     width: 100%;
     height: 100%;
-    opacity: 0.3;
+    opacity: 0.9;
     z-index: 1;
+    /* Enhanced brightness for mouse trail */
+    filter: brightness(1.8) contrast(1.4) saturate(1.5);
+    mix-blend-mode: screen;
 }
 
 .hero-particles {
@@ -58,6 +63,7 @@
     z-index: 0;
 }
 
+/* Contact Form Section - Updated Colors */
 #contact-form-section {
     background: var(--color-bg-primary);
     padding: 80px 0;
@@ -79,6 +85,7 @@
     font-size: 2rem;
     color: var(--color-accent-green);
     margin-bottom: 10px;
+    text-shadow: 0 0 20px rgba(0, 255, 136, 0.3);
 }
 
 .form-header p {
@@ -129,7 +136,7 @@
 
 .form-group select {
     cursor: pointer;
-    background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23A0AEC0' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6,9 12,15 18,9'%3e%3c/polyline%3e%3c/svg%3e");
+    background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23A0A0A0' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6,9 12,15 18,9'%3e%3c/polyline%3e%3c/svg%3e");
     background-repeat: no-repeat;
     background-position: right 8px center;
     background-size: 16px;
@@ -148,8 +155,9 @@
     left: 0;
     width: 0;
     height: 2px;
-    background: var(--color-accent-blue);
+    background: linear-gradient(90deg, var(--color-accent-blue), var(--color-accent-green));
     transition: width var(--transition-fast);
+    box-shadow: 0 0 8px rgba(0, 212, 255, 0.3);
 }
 
 .form-group:focus-within label {
@@ -167,12 +175,13 @@
     border-bottom-color: var(--color-accent-blue);
 }
 
+/* Submit Button - Updated Colors */
 .submit-button {
     position: relative;
     display: inline-flex;
     align-items: center;
     gap: 15px;
-    background: var(--color-accent-orange);
+    background: linear-gradient(135deg, var(--color-accent-orange), var(--color-accent-green));
     color: white;
     padding: 18px 40px;
     border: none;
@@ -184,11 +193,12 @@
     overflow: hidden;
     margin-top: 20px;
     align-self: flex-start;
+    box-shadow: 0 5px 20px rgba(255, 107, 53, 0.3);
 }
 
 .submit-button:hover {
     transform: translateY(-2px);
-    box-shadow: 0 10px 30px rgba(249, 115, 22, 0.3);
+    box-shadow: 0 10px 30px rgba(255, 107, 53, 0.4);
 }
 
 .submit-button::before {
@@ -222,12 +232,19 @@
     display: block;
 }
 
+/* Info Cards - Updated Colors */
 .info-card {
-    background: rgba(255, 255, 255, 0.02);
+    background: var(--color-card-bg);
     border: 1px solid var(--color-border);
     border-radius: 10px;
     padding: 30px;
     margin-bottom: 30px;
+    transition: all var(--transition-fast);
+}
+
+.info-card:hover {
+    border-color: var(--color-accent-green);
+    box-shadow: 0 10px 30px rgba(0, 255, 136, 0.1);
 }
 
 .info-card h3 {
@@ -245,7 +262,8 @@
     left: 0;
     width: 50px;
     height: 2px;
-    background: var(--color-accent-blue);
+    background: linear-gradient(90deg, var(--color-accent-blue), var(--color-accent-green));
+    box-shadow: 0 0 8px rgba(0, 212, 255, 0.3);
 }
 
 .info-item {
@@ -267,6 +285,7 @@
     margin: 0;
 }
 
+/* Quick Contact Buttons - Updated Colors */
 .quick-contact {
     display: flex;
     flex-direction: column;
@@ -287,31 +306,35 @@
 
 .quick-contact-btn.whatsapp {
     background: #25D366;
+    box-shadow: 0 5px 15px rgba(37, 211, 102, 0.3);
 }
 
 .quick-contact-btn.whatsapp:hover {
     background: #20BA5A;
     transform: translateY(-2px);
-    box-shadow: 0 5px 20px rgba(37, 211, 102, 0.3);
+    box-shadow: 0 8px 25px rgba(37, 211, 102, 0.4);
 }
 
 .quick-contact-btn.instagram {
     background: linear-gradient(45deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%);
+    box-shadow: 0 5px 15px rgba(220, 39, 67, 0.3);
 }
 
 .quick-contact-btn.instagram:hover {
     transform: translateY(-2px);
-    box-shadow: 0 5px 20px rgba(220, 39, 67, 0.3);
+    box-shadow: 0 8px 25px rgba(220, 39, 67, 0.4);
 }
 
+/* Response Time Card - Updated Colors */
 .response-time {
     display: flex;
     align-items: center;
     gap: 20px;
-    background: rgba(56, 189, 248, 0.1);
-    border: 1px solid rgba(56, 189, 248, 0.3);
+    background: rgba(0, 212, 255, 0.1);
+    border: 1px solid rgba(0, 212, 255, 0.3);
     border-radius: 10px;
     padding: 25px;
+    box-shadow: 0 5px 20px rgba(0, 212, 255, 0.1);
 }
 
 .response-icon {
@@ -323,6 +346,7 @@
     align-items: center;
     justify-content: center;
     flex-shrink: 0;
+    box-shadow: 0 0 20px rgba(0, 212, 255, 0.4);
 }
 
 .response-icon i {
@@ -340,6 +364,7 @@
     font-weight: 600;
     color: var(--color-accent-blue);
     margin: 0;
+    text-shadow: 0 0 10px rgba(0, 212, 255, 0.3);
 }
 
 .response-note {
@@ -348,8 +373,7 @@
     margin: 0;
 }
 
-
-
+/* FAQ Section - Updated Colors */
 #contact-faq {
     background: var(--color-bg-primary);
     padding: 80px 0;
@@ -373,11 +397,13 @@
     border-radius: 10px;
     overflow: hidden;
     transition: all var(--transition-fast);
+    background: var(--color-card-bg);
 }
 
 .faq-item.active {
     border-color: var(--color-accent-blue);
-    background: rgba(56, 189, 248, 0.05);
+    background: rgba(0, 212, 255, 0.05);
+    box-shadow: 0 5px 20px rgba(0, 212, 255, 0.1);
 }
 
 .faq-question {
@@ -390,7 +416,7 @@
 }
 
 .faq-question:hover {
-    background: rgba(255, 255, 255, 0.02);
+    background: rgba(0, 255, 136, 0.02);
 }
 
 .faq-question h3 {
@@ -406,6 +432,7 @@
 
 .faq-item.active .faq-question i {
     transform: rotate(45deg);
+    color: var(--color-accent-blue);
 }
 
 .faq-answer {
@@ -425,6 +452,7 @@
     margin: 0;
 }
 
+/* Success Modal - Updated Colors */
 .modal {
     display: none;
     position: fixed;
@@ -449,12 +477,14 @@
     text-align: center;
     max-width: 500px;
     border: 2px solid var(--color-accent-green);
+    box-shadow: 0 20px 60px rgba(0, 255, 136, 0.2);
 }
 
 .success-icon {
     font-size: 4rem;
     color: var(--color-accent-green);
     margin-bottom: 20px;
+    text-shadow: 0 0 20px rgba(0, 255, 136, 0.4);
 }
 
 .success-content h2 {
@@ -469,7 +499,7 @@
 }
 
 .modal-close-btn {
-    background: var(--color-accent-green);
+    background: linear-gradient(135deg, var(--color-accent-green), var(--color-accent-blue));
     color: white;
     border: none;
     padding: 15px 40px;
@@ -477,25 +507,65 @@
     font-size: 1rem;
     cursor: pointer;
     transition: all var(--transition-fast);
+    box-shadow: 0 5px 20px rgba(0, 255, 136, 0.3);
 }
 
 .modal-close-btn:hover {
     transform: translateY(-2px);
-    box-shadow: 0 5px 20px rgba(56, 161, 105, 0.3);
-}
-/* MOUSE TRAIL CANVAS İÇİN EK PARLAKLИК */
-#contact-sword {
-    filter: brightness(1.8) contrast(1.4) saturate(1.5) !important;
-    mix-blend-mode: screen;
-    opacity: 0.9 !important;
+    box-shadow: 0 8px 30px rgba(0, 255, 136, 0.4);
 }
 
-/* HERO SECTION BACKGROUND DAHA KOYU YAP Kİ TRAİL PARLAK GÖRÜNSÜN */
+/* Enhanced Hero Background for Better Mouse Trail Visibility */
 #contact-hero {
     background: linear-gradient(135deg, 
-        #0F172A 0%, 
-        #1E293B 25%, 
-        #334155 50%, 
-        #1E293B 75%, 
-        #0F172A 100%) !important;
+        #0A0A0A 0%, 
+        #1A1A1A 25%, 
+        #333333 50%, 
+        #1A1A1A 75%, 
+        #0A0A0A 100%);
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .contact-grid {
+        grid-template-columns: 1fr;
+        gap: 40px;
+    }
+    
+    .form-row {
+        grid-template-columns: 1fr;
+        gap: 20px;
+    }
+    
+    #contact-hero {
+        height: 40vh;
+        min-height: 300px;
+    }
+    
+    .hero-content h1 {
+        font-size: clamp(2rem, 8vw, 2.5rem);
+    }
+    
+    .submit-button {
+        width: 100%;
+        justify-content: center;
+    }
+    
+    .response-time {
+        flex-direction: column;
+        text-align: center;
+        gap: 15px;
+    }
+    
+    .info-card {
+        padding: 20px;
+    }
+    
+    .faq-question {
+        padding: 20px;
+    }
+    
+    .faq-answer p {
+        padding: 0 20px 20px;
+    }
 }
