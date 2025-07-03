@@ -148,19 +148,23 @@ class CookieConsent {
     }
     
     loadAnalytics() {
-        // ... (YOUR-GA-ID'yi kendi ID'nle değiştirdiğinden emin ol)
+        const gaId = 'G-FHXW3S23M5'; 
+
         if (typeof gtag === 'undefined') {
             const script = document.createElement('script');
             script.async = true;
-            script.src = 'https://www.googletagmanager.com/gtag/js?id=YOUR-GA-ID'; // Kendi ID'ni gir
+            // Script kaynağına kimlik ekleniyor
+            script.src = `https://www.googletagmanager.com/gtag/js?id=${gaId}`; 
             document.head.appendChild(script);
             
             script.onload = () => {
                 window.dataLayer = window.dataLayer || [];
                 function gtag(){dataLayer.push(arguments);}
                 gtag('js', new Date());
-                gtag('config', 'YOUR-GA-ID'); // Kendi ID'ni gir
-                console.log('Analytics loaded');
+                
+                // Yapılandırma için kimlik kullanılıyor
+                gtag('config', gaId); 
+                console.log('Analytics loaded for ID:', gaId);
             };
         }
     }
