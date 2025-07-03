@@ -1,27 +1,33 @@
-// Modular Sword Animation Class
 class SwordAnimation {
     constructor(options = {}) {
         this.canvas = options.canvas;
         this.context = this.canvas ? this.canvas.getContext('2d') : null;
-        this.frameCount = options.frameCount || 40; // Görsellerine göre bu değeri ayarla (örn: 40 kare için)
+        this.frameCount = options.frameCount || 40;
         this.basePath = options.basePath || 'images/sword-sequence/';
-        this.scrollBehavior = options.scrollBehavior || 'scroll'; // scroll, rotate, follow, fixed
+        this.scrollBehavior = options.scrollBehavior || 'scroll';
         this.scrollTrigger = options.scrollTrigger || null;
         this.autoplay = options.autoplay || false;
-        this.size = options.size || 'full'; // full, small, medium
+        this.size = options.size || 'full';
         
         this.images = [];
         this.imageSeq = { frame: 1 };
         this.rotation = 0;
         this.isLoaded = false;
         this.animationId = null;
+        this.loadedCount = 0;
+        
+        // Performance optimizations
+        this.preloadedImages = new Map();
+        this.loadingQueue = [];
+        this.maxConcurrentLoads = 6; // Limit concurrent image loads
+        this.currentlyLoading = 0;
     }
     
     init() {
         if (!this.canvas || !this.context) return;
         
         this.setCanvasSize();
-        this.loadImages(() => {
+        this.optimizedImageLoad(() => {
             this.isLoaded = true;
             this.setupAnimation();
             this.render();
@@ -57,31 +63,83 @@ class SwordAnimation {
         return `${this.basePath}${String(index).padStart(4, '0')}.png`;
     }
     
-    loadImages(callback) {
-        let loadedCount = 0;
+    // OPTIMIZED IMAGE LOADING - Main Performance Fix
+    optimizedImageLoad(callback) {
+        console.log('🗡️ Starting optimized image loading...');
+        
+        // Create loading queue with priority (load first and last frames first)
+        const priorityFrames = [1, Math.floor(this.frameCount / 2), this.frameCount];
+        const regularFrames = [];
         
         for (let i = 0; i < this.frameCount; i++) {
-            const frameIndex = 1 + (i * 3); // 0001, 0004, 0007, 0010... şeklinde 3'er artarak
-            const img = new Image();
-            
-            img.onload = () => {
-                loadedCount++;
-                if (loadedCount === this.frameCount && callback) {
-                    callback();
-                }
-            };
-            
-            img.onerror = () => {
-                console.error(`Görsel yüklenemedi: ${this.files(frameIndex)}`);
-                loadedCount++;
-                if (loadedCount === this.frameCount && callback) {
-                    callback();
-                }
-            };
-            
-            img.src = this.files(frameIndex);
-            this.images.push(img);
+            const frameIndex = 1 + (i * 3); // 0001, 0004, 0007, etc.
+            if (!priorityFrames.includes(frameIndex)) {
+                regularFrames.push(frameIndex);
+            }
         }
+        
+        // Load priority frames first, then regular frames
+        this.loadingQueue = [...priorityFrames, ...regularFrames];
+        this.images = new Array(this.frameCount); // Pre-allocate array
+        
+        // Start loading with throttling
+        this.processLoadingQueue(callback);
+    }
+    
+    processLoadingQueue(callback) {
+        // Check if we can start more loads
+        while (this.currentlyLoading < this.maxConcurrentLoads && this.loadingQueue.length > 0) {
+            const frameIndex = this.loadingQueue.shift();
+            this.loadSingleImage(frameIndex, callback);
+        }
+        
+        // If no more images to load and all are loaded, call callback
+        if (this.loadingQueue.length === 0 && this.currentlyLoading === 0 && this.loadedCount === this.frameCount) {
+            console.log('🗡️ All sword images loaded successfully!');
+            callback();
+        }
+    }
+    
+    loadSingleImage(frameIndex, callback) {
+        this.currentlyLoading++;
+        
+        const img = new Image();
+        
+        // Add important performance attributes
+        img.crossOrigin = 'anonymous';
+        img.loading = 'eager'; // Force immediate loading for critical images
+        
+        img.onload = () => {
+            const arrayIndex = Math.floor((frameIndex - 1) / 3);
+            this.images[arrayIndex] = img;
+            this.loadedCount++;
+            this.currentlyLoading--;
+            
+            console.log(`✅ Loaded frame ${frameIndex} (${this.loadedCount}/${this.frameCount})`);
+            
+            // If this is one of the first few frames, enable basic animation
+            if (this.loadedCount >= 3 && !this.isLoaded) {
+                this.isLoaded = true;
+                this.setupAnimation();
+                this.render();
+            }
+            
+            // Continue loading queue
+            this.processLoadingQueue(callback);
+        };
+        
+        img.onerror = () => {
+            console.error(`❌ Failed to load frame: ${frameIndex}`);
+            this.currentlyLoading--;
+            this.loadedCount++; // Count as loaded to prevent infinite waiting
+            
+            // Continue loading queue even on error
+            this.processLoadingQueue(callback);
+        };
+        
+        // Start loading with cache-busting for development
+        const cacheBuster = window.location.hostname === 'localhost' ? `?v=${Date.now()}` : '';
+        img.src = this.files(frameIndex) + cacheBuster;
     }
     
     setupAnimation() {
@@ -162,12 +220,24 @@ class SwordAnimation {
         this.animationId = requestAnimationFrame(() => this.animate());
     }
     
+    // OPTIMIZED RENDER FUNCTION
     render() {
-        if (!this.isLoaded) return;
+        if (!this.isLoaded || this.loadedCount === 0) return;
         
-        const currentImage = this.images[Math.floor(this.imageSeq.frame - 1)];
-        if (currentImage && currentImage.complete) {
+        // Clamp frame to available range
+        const frameIndex = Math.max(0, Math.min(Math.floor(this.imageSeq.frame - 1), this.images.length - 1));
+        const currentImage = this.images[frameIndex];
+        
+        if (currentImage && currentImage.complete && currentImage.naturalWidth > 0) {
             this.scaleImage(currentImage, this.context);
+        } else if (this.loadedCount > 0) {
+            // Fallback to first loaded image if current frame isn't ready
+            for (let i = 0; i < this.images.length; i++) {
+                if (this.images[i] && this.images[i].complete) {
+                    this.scaleImage(this.images[i], this.context);
+                    break;
+                }
+            }
         }
     }
     
@@ -178,7 +248,7 @@ class SwordAnimation {
         let ratio = Math.max(hRatio, vRatio);
         
         if (window.innerWidth > 768 && this.size === 'full') {
-            ratio *= 0.90; // %5 daha küçük (0.95'ten 0.90'a)
+            ratio *= 0.90; // %10 smaller for better fit
         }
         
         const centerShift_x = (canvas.width - img.width * ratio) / 2;
@@ -200,6 +270,15 @@ class SwordAnimation {
             cancelAnimationFrame(this.animationId);
         }
         
+        // Clear images from memory
+        this.images.forEach(img => {
+            if (img) {
+                img.src = '';
+            }
+        });
+        this.images = [];
+        this.preloadedImages.clear();
+        
         // Kill ScrollTrigger instances
         if (this.scrollTrigger) {
             ScrollTrigger.getAll().forEach(trigger => {
@@ -210,7 +289,28 @@ class SwordAnimation {
             });
         }
     }
+    
+    // Debug method
+    getLoadingStatus() {
+        return {
+            loaded: this.loadedCount,
+            total: this.frameCount,
+            percentage: Math.round((this.loadedCount / this.frameCount) * 100),
+            isReady: this.isLoaded,
+            queueRemaining: this.loadingQueue.length,
+            currentlyLoading: this.currentlyLoading
+        };
+    }
 }
 
 // Export for use in other scripts
 window.SwordAnimation = SwordAnimation;
+
+// Add global debug function
+window.debugSwordLoading = function() {
+    if (window.swordAnimation) {
+        console.log('🗡️ Sword Loading Status:', window.swordAnimation.getLoadingStatus());
+    } else {
+        console.log('❌ No sword animation instance found');
+    }
+};
