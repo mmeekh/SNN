@@ -23,7 +23,12 @@ function locomotive() {
     });
     
     locoScroll.on("scroll", ScrollTrigger.update);
-
+    const footer = document.querySelector('#footer');
+    if (footer) {
+        locoScroll.on('scroll', (obj) => {
+            footer.style.transform = `translateY(-${obj.scroll.y}px)`;
+        });
+    }
     ScrollTrigger.scrollerProxy("#main", {
         scrollTop(value) {
             return arguments.length
