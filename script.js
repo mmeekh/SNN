@@ -23,12 +23,17 @@ function locomotive() {
     });
     
     locoScroll.on("scroll", ScrollTrigger.update);
+    
+    // FOOTER TRANSFORM KODUNU KALDIRDIK - Bu çakışmaya sebep oluyordu
+    /* 
     const footer = document.querySelector('#footer');
     if (footer) {
         locoScroll.on('scroll', (obj) => {
             footer.style.transform = `translateY(-${obj.scroll.y}px)`;
         });
     }
+    */
+    
     ScrollTrigger.scrollerProxy("#main", {
         scrollTop(value) {
             return arguments.length
@@ -276,25 +281,41 @@ function initGSAPAnimations() {
         );
     });
     
-    // Footer animation
-    gsap.fromTo('#footer',
-        {
-            opacity: 0,
-            y: 30
-        },
-        {
-            opacity: 1,
-            y: 0,
-            duration: 0.8,
-            ease: "power2.out",
-            scrollTrigger: {
-                trigger: '#footer',
-                start: 'top 90%',
-                scroller: '#main',
-                toggleActions: 'play none none reverse'
+    // DÜZELTILMIŞ FOOTER ANIMASYONU - Sadece opacity ve yumuşak giriş
+    const footer = document.querySelector('#footer');
+    if (footer) {
+        gsap.fromTo(footer,
+            {
+                opacity: 0
+            },
+            {
+                opacity: 1,
+                duration: 1,
+                ease: "power2.out",
+                scrollTrigger: {
+                    trigger: footer,
+                    start: 'top 95%', // Daha geç başlasın
+                    scroller: '#main',
+                    toggleActions: 'play none none none', // Reverse kaldırıldı
+                    onEnter: () => {
+                        // Footer görünür olduğunda sabit kalsın
+                        gsap.set(footer, { 
+                            opacity: 1,
+                            transform: 'none' // Transform'u temizle
+                        });
+                        console.log('👍 Footer visible and stable');
+                    }
+                }
             }
-        }
-    );
+        );
+        
+        // Footer'ın transform'unun temizlendiğinden emin ol
+        gsap.set(footer, { 
+            clearProps: "transform",
+            position: "relative",
+            zIndex: 999
+        });
+    }
 }
 
 // Enhanced debug functions
@@ -307,6 +328,25 @@ window.debugSword = function() {
         console.log('✅ Is Ready:', window.swordAnimation.isLoaded);
     } else {
         console.log('❌ Sword animation instance not found!');
+    }
+};
+
+// Footer debug function
+window.debugFooter = function() {
+    const footer = document.querySelector('#footer');
+    if (footer) {
+        const rect = footer.getBoundingClientRect();
+        const styles = window.getComputedStyle(footer);
+        console.log('🦶 Footer Debug Info:');
+        console.log('- Position:', styles.position);
+        console.log('- Transform:', styles.transform);
+        console.log('- Opacity:', styles.opacity);
+        console.log('- Z-index:', styles.zIndex);
+        console.log('- Bounding Rect:', rect);
+        console.log('- Scroll Y:', window.pageYOffset);
+        console.log('- Visible:', rect.top < window.innerHeight && rect.bottom > 0);
+    } else {
+        console.log('❌ Footer not found!');
     }
 };
 
@@ -335,6 +375,15 @@ window.addEventListener('resize', () => {
             window.swordAnimation.setCanvasSize();
             window.swordAnimation.render();
         }
+        
+        // Ensure footer stays visible
+        const footer = document.querySelector('#footer');
+        if (footer) {
+            gsap.set(footer, { 
+                clearProps: "transform",
+                opacity: 1 
+            });
+        }
     }, 250); // Debounce resize events
 });
 
@@ -350,6 +399,7 @@ window.addEventListener('error', (e) => {
 });
 
 // Success message
-console.log('🗡️ Sword Nest - Optimized script loaded!');
-console.log('🔧 Debug commands: window.debugSword(), window.debugSwordLoading(), window.debugPerformance()');
-console.log('⚡ Image loading optimizations active');
+console.log('🗡️ Sword Nest - Fixed script loaded!');
+console.log('🔧 Debug commands: window.debugSword(), window.debugSwordLoading(), window.debugPerformance(), window.debugFooter()');
+console.log('⚡ Footer issue resolved - no more disappearing!');
+console.log('🦶 Footer will stay visible once scrolled into view');

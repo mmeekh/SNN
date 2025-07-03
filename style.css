@@ -227,6 +227,15 @@ canvas {
     padding: 50px 0; 
     border-top: 2px solid var(--color-border); 
     z-index: 999;
+    /* Footer stabilization */
+    transform: none !important; /* Override any JS transforms */
+    will-change: auto; /* Don't optimize for transforms */
+    contain: layout style; /* Optimize rendering */
+}
+#footer.footer-stable {
+    opacity: 1 !important;
+    transform: none !important;
+    position: relative !important;
 }
 
 #footer-content { 
@@ -234,7 +243,9 @@ canvas {
     margin: auto; 
     display: flex; 
     justify-content: space-between; 
-    align-items: center; 
+    align-items: center;
+    /* Flexbox stabilization */
+    min-height: 60px; /* Minimum height to prevent collapse */
 }
 
 #footer-socials { 
@@ -246,6 +257,9 @@ canvas {
     font-size: 28px; 
     color: var(--color-text-secondary); 
     transition: color var(--transition-fast), transform var(--transition-fast); 
+    /* Stabilize social links */
+    display: block;
+    line-height: 1;
 }
 
 #footer-socials a:hover { 
@@ -257,9 +271,31 @@ canvas {
     text-align: right; 
     color: var(--color-text-secondary); 
     font-size: 14px; 
-    line-height: 1.6; 
+    line-height: 1.6;
+    /* Prevent text shifting */
+    flex-shrink: 0;
 }
 
+#main {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+#footer {
+    margin-top: auto;
+}
+
+#footer.debug {
+    border: 2px solid red !important;
+    background: rgba(255, 0, 0, 0.1) !important;
+}
+
+#footer.animation-complete {
+    opacity: 1;
+    transform: none;
+    position: relative;
+}
 /* ==========================================================================
    6. Sayfa Geçiş Efektleri
    ========================================================================== */
