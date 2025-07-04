@@ -70,13 +70,62 @@ canvas {
     background: rgba(10, 10, 10, 0.95);
     backdrop-filter: blur(10px);
     transition: all var(--transition-fast);
-    border-bottom: 1px solid var(--color-border);
+    border-bottom: 3px solid var(--color-accent-green);
+    box-shadow: 
+        0 3px 15px var(--glow-green),           /* Ana glow */
+        0 3px 30px rgba(0, 255, 136, 0.4),     /* Dış glow */
+        0 1px 0px rgba(0, 255, 136, 0.8);      /* İç parlama */
+    position: relative;
 }
 
 #nav.scrolled {
     height: 70px;
     background: rgba(10, 10, 10, 0.98);
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+    box-shadow: 
+        0 4px 20px rgba(0, 0, 0, 0.5),         /* Siyah gölge */
+        0 3px 20px var(--glow-green),          /* Yeşil glow */
+        0 3px 40px rgba(0, 255, 136, 0.6),     /* Güçlü dış glow */
+        0 1px 0px rgba(0, 255, 136, 1);        /* Parlak iç çizgi */
+}
+#nav::after {
+    content: '';
+    position: absolute;
+    bottom: -3px; /* Border'ın üstünde */
+    left: 0;
+    width: 100%;
+    height: 3px;
+    background: linear-gradient(90deg, 
+        transparent 0%, 
+        rgba(0, 255, 136, 0.8) 20%, 
+        rgba(0, 255, 136, 1) 50%, 
+        rgba(0, 255, 136, 0.8) 80%, 
+        transparent 100%);
+    filter: blur(1px);
+    animation: navGlowPulse 2s ease-in-out infinite alternate;
+    pointer-events: none;
+}
+#nav:hover {
+    box-shadow: 
+        0 4px 25px rgba(0, 0, 0, 0.6),
+        0 3px 25px var(--glow-green),
+        0 3px 50px rgba(0, 255, 136, 0.8),
+        0 1px 0px rgba(0, 255, 136, 1);
+}
+#nav:hover::after {
+    animation-duration: 1s; /* Hızlı animasyon */
+    opacity: 1;
+}
+#nav::before {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 60%;
+    height: 1px;
+    background: rgba(255, 255, 255, 0.6);
+    filter: blur(1px);
+    animation: centerGlow 3s ease-in-out infinite;
 }
 
 .nav-brand h3 {
@@ -90,31 +139,45 @@ canvas {
 }
 
 #nav-line {
-    position: absolute; 
-    top: 79px;
-    left: 0;
-    width: 100%;
-    height: 15px;
-    z-index: 80;
-    pointer-events: none;
-    transition: top var(--transition-fast);
-}
-
-#nav.scrolled #nav-line {
-    top: 69px;
+    display: none;
 }
 
 #nav-line path {
     fill: none;
     stroke: var(--color-accent-green);
-    stroke-width: 2.5;
+    stroke-width: 3; 
     stroke-linecap: round;
+    filter: drop-shadow(0 0 8px var(--glow-green)); 
 }
 
-/* Sayfa geçişlerinde içerik stabilitesi için nav yüksekliği kadar boşluk bırak */
 .page-stable {
     min-height: 80px;
     width: 100%;
+}
+@keyframes navGlowPulse {
+    0% { 
+        opacity: 0.6;
+        transform: scaleY(1);
+        box-shadow: 0 0 10px var(--glow-green);
+    }
+    100% { 
+        opacity: 1;
+        transform: scaleY(1.2);
+        box-shadow: 0 0 25px var(--glow-green);
+    }
+}
+@keyframes centerGlow {
+    0%, 100% { 
+        width: 60%;
+        opacity: 0.4;
+    }
+    50% { 
+        width: 80%;
+        opacity: 0.8;
+    }
+}
+#nav-line path {
+    animation: navLinePulse 3s ease-in-out infinite;
 }
 
 /* ==========================================================================

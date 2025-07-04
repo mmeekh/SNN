@@ -11,6 +11,7 @@ body {
     right: 0 !important;
     background: rgba(10, 10, 10, 0.95);
     border-bottom: 1px solid var(--color-border);
+    height: 80px;
 }
 
 #page, #main {
@@ -25,13 +26,13 @@ body {
     top: 0;
     left: 0;
     z-index: 1;
+    pointer-events: none;
 }
 
 #main {
     padding-top: 0 !important;
 }
 
-/* Projects Hero Section - Updated Colors */
 #projects-hero {
     height: 50vh !important;
     min-height: 400px !important;
@@ -46,7 +47,8 @@ body {
         rgba(255, 107, 53, 0.05) 75%, 
         var(--color-bg-primary) 100%);
     overflow: hidden;
-    margin-top: 80px;
+    margin-top: 0;
+    padding-top: 80px;
 }
 
 #nav {
@@ -65,7 +67,7 @@ body {
     text-align: center;
     z-index: 2;
     position: relative;
-    pointer-events: none;
+    pointer-events: auto;
 }
 
 .hero-content h1,
@@ -396,53 +398,4 @@ body {
         grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
         gap: 30px;
     }
-}
-
-@media (max-width: 768px) {
-    .projects-masonry {
-        grid-template-columns: 1fr;
-        gap: 20px;
-    }
-    
-    .container {
-        padding: 0 20px;
-    }
-    
-    .project-thumbnail {
-        height: 250px;
-    }
-    
-    .project-info {
-        padding: 15px;
-    }
-    
-    .cta-content h2 {
-        font-size: clamp(1.5rem, 6vw, 2.5rem);
-    }
-    
-    .cta-button {
-        padding: 18px 30px;
-        font-size: 1rem;
-    }
-}
-
-/* Accessibility Enhancements */
-.project-card:focus {
-    outline: 2px solid var(--color-accent-blue);
-    outline-offset: 2px;
-}
-
-.cta-button:focus {
-    outline: 2px solid var(--color-accent-green);
-    outline-offset: 2px;
-}
-
-/* Performance Optimizations */
-.project-card {
-    contain: layout style paint;
-    will-change: transform;
-}
-
-.project-thumbnail iframe {
-    will-change: transform;
 }
