@@ -32,11 +32,18 @@ class SwordAnimation {
             this.render();
         });
         
-        // Handle resize
-        window.addEventListener('resize', () => {
-            this.setCanvasSize();
-            this.render();
-        });
+        // Handle resize with Event Manager
+        if (window.eventManager) {
+            this.resizeListenerId = window.eventManager.addResizeListener(() => {
+                this.setCanvasSize();
+                this.render();
+            }, `sword-resize-${this.canvas.id || 'main'}`);
+        } else {
+            window.addEventListener('resize', () => {
+                this.setCanvasSize();
+                this.render();
+            });
+        }
     }
     
     setCanvasSize() {
@@ -260,6 +267,11 @@ class SwordAnimation {
     destroy() {
         if (this.animationId) {
             cancelAnimationFrame(this.animationId);
+        }
+        
+        // Remove Event Manager listeners
+        if (window.eventManager && this.resizeListenerId) {
+            window.eventManager.removeResizeListener(this.resizeListenerId);
         }
         
         // Clear images from memory

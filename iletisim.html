@@ -3,29 +3,34 @@
 <head>
     
     <meta charset="UTF-8">
+
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <!-- Mobil Yönlendirme Sistemi -->
     <script>
     (function() {
         // Mobil cihaz tespiti
         const isMobile = window.innerWidth <= 768 || 
-                         /Android|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
-        // Eğer mobil cihazsa ve mobile.html'de değilsek
-        if (isMobile && !window.location.pathname.includes('mobile.html')) {
-            // Smooth redirect
+                        /Android|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+        
+        // Eğer mobil cihazsa mobile.html'e yönlendir
+        if (isMobile) {
+            console.log('📱 Mobil cihaz tespit edildi, mobile.html\'e yönlendiriliyor...');
             setTimeout(() => {
                 window.location.href = 'mobile.html';
             }, 100);
+        } else {
+            console.log('🖥️ Desktop cihaz tespit edildi, desktop interface yükleniyor...');
         }
     })();
     </script>
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    
     
     <title>İletişim - Sword Nest | AI Reklam Ajansı İstanbul | Yapay Zeka Pazarlama İletişim</title>
     <meta name="description" content="Sword Nest AI reklam ajansı ile iletişime geçin. İstanbul merkezli yapay zeka pazarlama uzmanlarımızdan teklif alın. Artificial intelligence marketing danışmanlığı için +90 516 162 21 46 arayın.">
     <meta name="keywords" content="AI reklam ajansı istanbul, yapay zeka pazarlama iletişim, artificial intelligence marketing contact, neural network reklam ajansı telefon, sword nest iletişim, AI marketing agency istanbul contact, yapay zeka reklam şirketi adres">
-    <meta name="author" content="Sword Nest AI Marketing Agency">
-    <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1">
+    <meta name="author" content="Sword Nest">
+    <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1">
     
     
     <link rel="canonical" href="https://swordnest.com/iletisim.html">
@@ -273,9 +278,7 @@
 
 <body>
     
-    <div id="page-transition" class="page-transition">
-        <div class="sword-slash"></div>
-    </div>
+
 
     
     <div id="nav">
@@ -491,6 +494,7 @@
         </div>
     </div>
 
+    <script src="assets/scripts/event-manager.js"></script>
     <script src="assets/scripts/contact.js"></script>
 
     <div id="cookie-consent" class="cookie-consent">

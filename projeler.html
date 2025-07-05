@@ -2,27 +2,33 @@
 <html lang="tr">
 <head>
     <meta charset="UTF-8">
+
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes">
+    
+    <!-- Mobil Yönlendirme Sistemi -->
     <script>
     (function() {
         // Mobil cihaz tespiti
         const isMobile = window.innerWidth <= 768 || 
-                         /Android|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
-        // Eğer mobil cihazsa ve mobile.html'de değilsek
-        if (isMobile && !window.location.pathname.includes('mobile.html')) {
-            // Smooth redirect
+                        /Android|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+        
+        // Eğer mobil cihazsa mobile.html'e yönlendir
+        if (isMobile) {
+            console.log('📱 Mobil cihaz tespit edildi, mobile.html\'e yönlendiriliyor...');
             setTimeout(() => {
                 window.location.href = 'mobile.html';
             }, 100);
+        } else {
+            console.log('🖥️ Desktop cihaz tespit edildi, desktop interface yükleniyor...');
         }
     })();
     </script>
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes">
     
     <title>AI Projeler - Sword Nest | Yapay Zeka Reklamcılık Portföyü ve Sektörel Çözümler</title>
     <meta name="description" content="Sword Nest'in AI destekli reklamcılık projelerini keşfedin. Yapay zeka reklam kampanyaları, AI video üretimi, neural network pazarlama ve tüm sektörlerden artificial intelligence marketing başarı hikayeleri.">
     <meta name="keywords" content="AI reklam projeleri, yapay zeka reklamcılık, artificial intelligence marketing, AI video production, neural network advertising, machine learning reklam, generative AI campaigns, AI driven marketing, automated advertising, smart marketing solutions">
-    <meta name="author" content="Sword Nest AI Marketing Agency">
+    <meta name="author" content="Sword Nest">
     <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1">
     
     <link rel="canonical" href="https://swordnest.com/projeler.html">
@@ -226,9 +232,7 @@
 </head>
 
 <body>
-    <div id="page-transition" class="page-transition">
-        <div class="sword-slash"></div>
-    </div>
+
     <div id="nav">
         <div class="nav-brand">
             <h3><b>SWORD</b> NEST</h3>
@@ -374,6 +378,7 @@
         </div>
     </div>
 
+    <script src="assets/scripts/event-manager.js"></script>
     <script src="assets/scripts/projects.js"></script>
     <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
     <script src="assets/scripts/particles-config.js"></script>

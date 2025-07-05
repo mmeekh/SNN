@@ -1,7 +1,7 @@
 class Navigation {
     constructor() {
         this.nav = document.getElementById('nav');
-        this.mobileToggle = document.querySelector('. obile-toggle');
+        this.mobileToggle = document.querySelector('.nav-mobile-toggle');
         this.mobileMenu = document.querySelector('.mobile-menu');
         this.navLinks = document.querySelectorAll('.nav-link');
         this.mobileNavLinks = document.querySelectorAll('.mobile-nav-link');
@@ -11,13 +11,21 @@ class Navigation {
     
     init() {
         if (this.mobileToggle) {
-            this.mobileToggle.addEventListener('click', () => this.toggleMobileMenu());
+            if (window.eventManager) {
+                window.eventManager.addClickListener(this.mobileToggle, () => this.toggleMobileMenu(), 'mobile-toggle');
+            } else {
+                this.mobileToggle.addEventListener('click', () => this.toggleMobileMenu());
+            }
         }
         
         this.mobileNavLinks.forEach(link => {
-            link.addEventListener('click', () => {
-                this.closeMobileMenu();
-            });
+            if (window.eventManager) {
+                window.eventManager.addClickListener(link, () => this.closeMobileMenu(), 'mobile-nav-link');
+            } else {
+                link.addEventListener('click', () => {
+                    this.closeMobileMenu();
+                });
+            }
         });
         
         this.initNavCanvas();
@@ -26,11 +34,20 @@ class Navigation {
         
         this.initPageTransitions();
         
-        window.addEventListener('resize', () => {
-            if (window.innerWidth > 768) {
-                this.closeMobileMenu();
-            }
-        });
+        // Use Event Manager for resize handling
+        if (window.eventManager) {
+            window.eventManager.addResizeListener(() => {
+                if (window.innerWidth > 768) {
+                    this.closeMobileMenu();
+                }
+            }, 'navigation-resize');
+        } else {
+            window.addEventListener('resize', () => {
+                if (window.innerWidth > 768) {
+                    this.closeMobileMenu();
+                }
+            });
+        }
     }
     
     toggleMobileMenu() {
@@ -84,23 +101,8 @@ class Navigation {
     }
     
     initPageTransitions() {
-        const links = [...this.navLinks, ...this.mobileNavLinks];
-        
-        links.forEach(link => {
-            link.addEventListener('click', (e) => {
-                const href = link.getAttribute('href');
-                
-                if (href && !href.startsWith('http') && !href.startsWith('#')) {
-                    e.preventDefault();
-                    
-                    if (window.pageLoader) {
-                        window.pageLoader.navigateTo(href);
-                    } else {
-                        window.location.href = href;
-                    }
-                }
-            });
-        });
+        // Sayfa geçiş efekti iptal edildi - normal link davranışı kullanılıyor
+        console.log('🗡️ Page transitions disabled - using normal navigation');
     }
 }
 

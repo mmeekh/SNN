@@ -5,6 +5,27 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     
+    <!-- Mobil Yönlendirme Sistemi -->
+    <script>
+    (function() {
+        // Mobil cihaz tespiti
+        const isMobile = window.innerWidth <= 768 || 
+                        /Android|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+        
+        // Eğer mobil cihazsa ve index.html'deysek mobile.html'e yönlendir
+        if (isMobile && window.location.pathname.endsWith('index.html') || 
+            isMobile && window.location.pathname.endsWith('/') || 
+            isMobile && window.location.pathname === '') {
+            console.log('📱 Mobil cihaz tespit edildi, mobile.html\'e yönlendiriliyor...');
+            setTimeout(() => {
+                window.location.href = 'mobile.html';
+            }, 100);
+        } else if (!isMobile) {
+            console.log('🖥️ Desktop cihaz tespit edildi, desktop interface yükleniyor...');
+        }
+    })();
+    </script>
+    
     <title>Sword Nest - Yapay Zeka Destekli Reklam Ajansı | AI Video Üretimi</title>
     <meta name="description" content="Sword Nest, yapay zeka ve insan yaratıcılığının kesişim noktasında yeni nesil reklam stratejileri ile geleceği inşa ediyor. AI video üretimi, sinematik hikayeler ve marka dönüşümü.">
     <meta name="keywords" content="yapay zeka reklam, AI video üretimi, reklam ajansı, yapay zeka pazarlama, sinematik reklam filmi, marka stratejisi, dijital dönüşüm, neural network marketing">
@@ -59,20 +80,7 @@
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="assets/styles/components/navigation.css">
 
-    <script>
-    (function() {
-        // Mobil cihaz tespiti
-        const isMobile = window.innerWidth <= 768 || 
-                         /Android|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
-        // Eğer mobil cihazsa ve mobile.html'de değilsek
-        if (isMobile && !window.location.pathname.includes('mobile.html')) {
-            // Smooth redirect
-            setTimeout(() => {
-                window.location.href = 'mobile.html';
-            }, 100);
-        }
-    })();
-    </script>
+
 
     <script type="application/ld+json">
     {
@@ -184,9 +192,7 @@
 </head>
 
 <body>
-    <div id="page-transition" class="page-transition">
-        <div class="sword-slash"></div>
-    </div>
+
 
     <div id="nav">
         <div class="nav-brand">
@@ -198,7 +204,21 @@
             <a href="projeler.html" class="nav-link" data-page="projects">Projeler</a>
             <a href="iletisim.html" class="nav-link" data-page="contact">İletişim</a>
         </nav>
+        <div class="nav-mobile-toggle">
+            <span></span>
+            <span></span>
+            <span></span>
         </div>
+    </div>
+
+    <div class="mobile-menu">
+        <div class="mobile-menu-content">
+            <a href="index.html" class="mobile-nav-link active" data-page="home">Ana Sayfa</a>
+            <a href="hakkimizda.html" class="mobile-nav-link" data-page="about">Hakkımızda</a>
+            <a href="projeler.html" class="mobile-nav-link" data-page="projects">Projeler</a>
+            <a href="iletisim.html" class="mobile-nav-link" data-page="contact">İletişim</a>
+        </div>
+    </div>
 
     <div id="main">
         <div id="page">
@@ -268,9 +288,8 @@
     <script src="https://cdn.jsdelivr.net/npm/locomotive-scroll@3.5.4/dist/locomotive-scroll.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.5/gsap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.5/ScrollTrigger.min.js"></script>
+    <script src="assets/scripts/event-manager.js"></script>
     <script src="assets/scripts/navigation.js"></script>
-    <script src="assets/scripts/page-loader.js"></script>
-    <script src="assets/scripts/sword-animation.js"></script>
     <script src="script.js"></script>
 
     <div id="cookie-consent" class="cookie-consent">

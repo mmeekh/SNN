@@ -24,16 +24,6 @@ function locomotive() {
     
     locoScroll.on("scroll", ScrollTrigger.update);
     
-    // FOOTER TRANSFORM KODUNU KALDIRDIK - Bu çakışmaya sebep oluyordu
-    /* 
-    const footer = document.querySelector('#footer');
-    if (footer) {
-        locoScroll.on('scroll', (obj) => {
-            footer.style.transform = `translateY(-${obj.scroll.y}px)`;
-        });
-    }
-    */
-    
     ScrollTrigger.scrollerProxy("#main", {
         scrollTop(value) {
             return arguments.length
@@ -61,139 +51,150 @@ function locomotive() {
 
 window.locomotive = locomotive;
 
-// OPTIMIZED IMAGE PRELOADING FUNCTION
-function preloadCriticalSwordImages() {
-    console.log('🚀 Preloading critical sword images...');
+// KILIÇ ANİMASYONU - ESKİ ÇALIŞAN VERSİYONA GÖRE DÜZELTİLDİ
+let canvas, nav, page, nestText, context;
+let frameCount = 40; // 0001, 0004, 0007, ..., 0118 = 40 frame
+let images = [];
+let imageSeq = { frame: 1 };
+
+function initSwordAnimation() {
+    canvas = document.querySelector("canvas");
+    nav = document.querySelector("#nav");
+    page = document.querySelector("#page");
     
-    const basePath = 'images/sword-sequence/';
-    const criticalFrames = [1, 4, 7, 10]; // First few frames for immediate display
-    
-    criticalFrames.forEach(frameIndex => {
-        const img = new Image();
-        img.crossOrigin = 'anonymous';
-        img.loading = 'eager';
-        
-        const frameFile = `${basePath}${String(frameIndex).padStart(4, '0')}.png`;
-        
-        img.onload = () => {
-            console.log(`⚡ Critical frame ${frameIndex} preloaded`);
-        };
-        
-        img.onerror = () => {
-            console.warn(`⚠️ Failed to preload critical frame ${frameIndex}`);
-        };
-        
-        img.src = frameFile;
+    if (!canvas || !nav || !page) {
+        console.error('❌ Required elements not found for sword animation');
+        return;
+    }
+
+    function handleDynamicLayout() {
+        const isMobile = window.innerWidth <= 768;
+        const isCanvasInNav = nav.contains(canvas);
+
+        if (isMobile && !isCanvasInNav) {
+            if (canvas && nav) {
+                // Mobilde canvas'ı nav-brand'den sonra ekle
+                const navBrand = nav.querySelector('.nav-brand');
+                if (navBrand) {
+                    nav.insertBefore(canvas, navBrand.nextSibling);
+                }
+            }
+        } else if (!isMobile && isCanvasInNav) {
+            page.appendChild(canvas);
+        }
+    }
+
+    handleDynamicLayout();
+
+    context = canvas.getContext("2d");
+
+    function setCanvasSize() {
+        if (window.innerWidth > 768) {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        } else {
+            canvas.width = 60;
+            canvas.height = 60;
+        }
+    }
+
+    setCanvasSize();
+
+    window.addEventListener("resize", function () {
+        setCanvasSize();
+        render();
+        handleDynamicLayout();
     });
+
+    function files(index) {
+        return `images/sword-sequence/${String(index).padStart(4, '0')}.png`;
+    }
+
+    // Load images
+    for (let i = 0; i < frameCount; i++) {
+        const frameIndex = 1 + (i * 3);
+        const img = new Image();
+        img.src = files(frameIndex);
+        images.push(img);
+    }
+
+    gsap.to(imageSeq, {
+        frame: frameCount,
+        snap: "frame",
+        ease: "none",
+        scrollTrigger: {
+            scrub: 0.15,
+            trigger: "#page",
+            start: "top top",
+            end: "400% top",
+            scroller: "#main",
+        },
+        onUpdate: render,
+    });
+
+    if (images.length > 0) {
+        images[0].onload = render;
+    }
+
+    function render() {
+        const currentImage = images[imageSeq.frame - 1];
+        if (currentImage) {
+            scaleImage(currentImage, context);
+        }
+    }
+
+    function scaleImage(img, ctx) {
+        var canvas = ctx.canvas;
+        var hRatio = canvas.width / img.width;
+        var vRatio = canvas.height / img.height;
+        var ratio = Math.max(hRatio, vRatio);
+
+        if (window.innerWidth > 768) {
+            ratio *= 0.85;
+        }
+
+        var centerShift_x = (canvas.width - img.width * ratio) / 2;
+        var centerShift_y = (canvas.height - img.height * ratio) / 2;
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        ctx.drawImage(
+            img,
+            0,
+            0,
+            img.width,
+            img.height,
+            centerShift_x,
+            centerShift_y,
+            img.width * ratio,
+            img.height * ratio
+        );
+    }
+
+    ScrollTrigger.matchMedia({
+        "(min-width: 769px)": function() {
+            ScrollTrigger.create({
+                trigger: "#page>canvas",
+                pin: true,
+                scroller: "#main",
+                start: "top top",
+                end: "600% top",
+            });
+        },
+        "(max-width: 768px)": function() {
+            // Mobilde JS ile pinleme yapılmıyor.
+        }
+    });
+    
+    console.log('🗡️ Sword animation initialized successfully!');
 }
 
 document.addEventListener('DOMContentLoaded', () => {
     console.log('🗡️ Sword Nest loading...');
     
-    // Start critical image preloading immediately
-    preloadCriticalSwordImages();
-    
     // Initialize locomotive scroll
     const locoScroll = locomotive();
     
-    // Initialize sword animation with optimized settings
-    const mainCanvas = document.querySelector('canvas');
-    if (mainCanvas) {
-        console.log('🎯 Canvas found, initializing optimized sword animation...');
-        
-        const swordAnim = new SwordAnimation({
-            canvas: mainCanvas,
-            scrollBehavior: 'scroll',
-            frameCount: 40, // Adjust based on your actual image count
-            basePath: 'images/sword-sequence/',
-            scrollTrigger: {
-                trigger: '#page',
-                start: 'top top',
-                end: '400% top',
-                scroller: '#main'
-            }
-        });
-        
-        // Initialize with performance monitoring
-        const startTime = performance.now();
-        swordAnim.init();
-        
-        // Monitor loading progress
-        const loadingMonitor = setInterval(() => {
-            const status = swordAnim.getLoadingStatus();
-            console.log(`🗡️ Loading progress: ${status.percentage}% (${status.loaded}/${status.total})`);
-            
-            if (status.percentage >= 100) {
-                clearInterval(loadingMonitor);
-                const loadTime = performance.now() - startTime;
-                console.log(`✅ Sword animation fully loaded in ${Math.round(loadTime)}ms`);
-            }
-        }, 1000);
-        
-        // Clear monitor after 30 seconds max
-        setTimeout(() => clearInterval(loadingMonitor), 30000);
-        
-        window.swordAnimation = swordAnim;
-        console.log('🚀 Optimized sword animation initialized!');
-    } else {
-        console.log('❌ Canvas element not found!');
-    }
-    
-    // Optimize scroll handling
-    let lastScroll = 0;
-    let scrollTicking = false;
-    
-    function updateNavigation() {
-        const currentScroll = window.pageYOffset;
-        const nav = document.getElementById('nav');
-        
-        if (nav) {
-            if (currentScroll > 50) {
-                nav.classList.add('scrolled');
-            } else {
-                nav.classList.remove('scrolled');
-            }
-        }
-        
-        lastScroll = currentScroll;
-        scrollTicking = false;
-    }
-    
-    window.addEventListener('scroll', () => {
-        if (!scrollTicking) {
-            requestAnimationFrame(updateNavigation);
-            scrollTicking = true;
-        }
-    });
-    
-    // Optimized video lazy loading
-    const videoObserver = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                const iframe = entry.target;
-                if (!iframe.dataset.loaded) {
-                    iframe.dataset.loaded = 'true';
-                    console.log('🎬 Video loaded:', iframe.src);
-                    
-                    // Preload video thumbnail
-                    if (iframe.src.includes('youtube.com')) {
-                        const videoId = iframe.src.match(/embed\/([^?]+)/)?.[1];
-                        if (videoId) {
-                            const thumbnail = new Image();
-                            thumbnail.src = `https://img.youtube.com/vi/${videoId}/maxresdefault.jpg`;
-                        }
-                    }
-                }
-            }
-        });
-    }, {
-        threshold: 0.1,
-        rootMargin: '100px' // Load videos before they're fully visible
-    });
-    
-    document.querySelectorAll('iframe').forEach(iframe => {
-        videoObserver.observe(iframe);
-    });
+    // Initialize sword animation
+    initSwordAnimation();
     
     // Initialize animations with delay to prioritize image loading
     setTimeout(() => {
@@ -281,54 +282,29 @@ function initGSAPAnimations() {
         );
     });
     
-    // DÜZELTILMIŞ FOOTER ANIMASYONU - Sadece opacity ve yumuşak giriş
+    // SADELEŞTİRİLMİŞ FOOTER ANİMASYONU - Sadece opacity
     const footer = document.querySelector('#footer');
     if (footer) {
         gsap.fromTo(footer,
-            {
-                opacity: 0
-            },
-            {
-                opacity: 1,
-                duration: 1,
-                ease: "power2.out",
-                scrollTrigger: {
-                    trigger: footer,
-                    start: 'top 95%', // Daha geç başlasın
-                    scroller: '#main',
-                    toggleActions: 'play none none none', // Reverse kaldırıldı
-                    onEnter: () => {
-                        // Footer görünür olduğunda sabit kalsın
-                        gsap.set(footer, { 
-                            opacity: 1,
-                            transform: 'none' // Transform'u temizle
-                        });
-                        console.log('👍 Footer visible and stable');
-                    }
-                }
-            }
+            { opacity: 0 },
+            { opacity: 1, duration: 1, ease: "power2.out" }
         );
-        
-        // Footer'ın transform'unun temizlendiğinden emin ol
-        gsap.set(footer, { 
-            clearProps: "transform",
-            position: "relative",
-            zIndex: 999
-        });
     }
 }
 
 // Enhanced debug functions
 window.debugSword = function() {
-    if (window.swordAnimation) {
-        console.log('🗡️ Sword Animation Instance:', window.swordAnimation);
-        console.log('📊 Loading Status:', window.swordAnimation.getLoadingStatus());
-        console.log('🎬 Current Frame:', window.swordAnimation.imageSeq.frame);
-        console.log('🖼️ Images Loaded:', window.swordAnimation.images.filter(img => img && img.complete).length);
-        console.log('✅ Is Ready:', window.swordAnimation.isLoaded);
-    } else {
-        console.log('❌ Sword animation instance not found!');
-    }
+    console.log('🗡️ Sword Animation Debug:');
+    console.log('- Canvas:', canvas);
+    console.log('- Context:', context);
+    console.log('- Images loaded:', images.filter(img => img && img.complete).length);
+    console.log('- Current frame:', imageSeq.frame);
+    console.log('- Frame count:', frameCount);
+    console.log('- First image src:', images[0]?.src);
+    console.log('- Last image src:', images[images.length-1]?.src);
+    console.log('- Images array length:', images.length);
+    console.log('- Canvas size:', canvas ? `${canvas.width}x${canvas.height}` : 'N/A');
+    console.log('- Canvas position:', canvas ? canvas.getBoundingClientRect() : 'N/A');
 };
 
 // Footer debug function
@@ -356,35 +332,25 @@ window.debugPerformance = function() {
     console.log('- Page Load:', performance.timing.loadEventEnd - performance.timing.navigationStart, 'ms');
     console.log('- DOM Ready:', performance.timing.domContentLoadedEventEnd - performance.timing.navigationStart, 'ms');
     console.log('- First Paint:', performance.getEntriesByType('paint')[0]?.startTime || 'N/A', 'ms');
-    
-    if (window.swordAnimation) {
-        console.log('- Sword Status:', window.swordAnimation.getLoadingStatus());
-    }
 };
 
 // Optimized resize handler
-let resizeTimeout;
 window.addEventListener('resize', () => {
-    clearTimeout(resizeTimeout);
-    resizeTimeout = setTimeout(() => {
-        // Refresh ScrollTrigger
-        ScrollTrigger.refresh();
-        
-        // Update canvas size
-        if (window.swordAnimation && window.swordAnimation.canvas) {
-            window.swordAnimation.setCanvasSize();
-            window.swordAnimation.render();
-        }
-        
-        // Ensure footer stays visible
-        const footer = document.querySelector('#footer');
-        if (footer) {
-            gsap.set(footer, { 
-                clearProps: "transform",
-                opacity: 1 
-            });
-        }
-    }, 250); // Debounce resize events
+    // Refresh ScrollTrigger
+    ScrollTrigger.refresh();
+    
+    // Update canvas size
+    setCanvasSize();
+    render();
+    
+    // Ensure footer stays visible
+    const footer = document.querySelector('#footer');
+    if (footer) {
+        gsap.set(footer, { 
+            clearProps: "transform",
+            opacity: 1 
+        });
+    }
 });
 
 // Error handling with detailed logging
@@ -400,6 +366,6 @@ window.addEventListener('error', (e) => {
 
 // Success message
 console.log('🗡️ Sword Nest - Fixed script loaded!');
-console.log('🔧 Debug commands: window.debugSword(), window.debugSwordLoading(), window.debugPerformance(), window.debugFooter()');
+console.log('🔧 Debug commands: window.debugSword(), window.debugPerformance(), window.debugFooter()');
 console.log('⚡ Footer issue resolved - no more disappearing!');
 console.log('🦶 Footer will stay visible once scrolled into view');

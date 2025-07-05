@@ -37,6 +37,10 @@ html, body {
 #main {
     position: relative;
     overflow: hidden;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    padding-bottom: 120px;
 }
 
 #page, #page1, #page2, #page3 {
@@ -360,16 +364,12 @@ canvas {
    5. Footer
    ========================================================================== */
 
-#footer { 
-    position: relative; 
-    width: 100%; 
-    background-color: var(--color-bg-primary); 
-    padding: 50px 0; 
-    border-top: 2px solid var(--color-border); 
+#footer {
+    margin-top: auto;
+    position: relative;
     z-index: 999;
-    transform: none !important;
-    will-change: auto;
-    contain: layout style;
+    background-color: var(--color-bg-primary);
+    border-top: 2px solid var(--color-border);
 }
 
 #footer.footer-stable {
@@ -414,16 +414,6 @@ canvas {
     flex-shrink: 0;
 }
 
-#main {
-    min-height: 100vh;
-    display: flex;
-    flex-direction: column;
-}
-
-#footer {
-    margin-top: auto;
-}
-
 #footer.debug {
     border: 2px solid red !important;
     background: rgba(255, 0, 0, 0.1) !important;
@@ -438,33 +428,6 @@ canvas {
 /* ==========================================================================
    6. Sayfa Geçiş Efektleri
    ========================================================================== */
-
-.page-transition {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    z-index: 10000;
-    pointer-events: none;
-    opacity: 0;
-}
-
-.page-transition.active {
-    pointer-events: all;
-    opacity: 1;
-}
-
-.sword-slash {
-    position: absolute;
-    top: 50%;
-    left: -100%;
-    width: 200%;
-    height: 2px;
-    background: linear-gradient(90deg, transparent 0%, var(--color-accent-blue) 45%, #fff 50%, var(--color-accent-blue) 55%, transparent 100%);
-    transform: translateY(-50%) rotate(-15deg);
-    box-shadow: 0 0 20px var(--color-accent-blue);
-}
 
 .hidden { display: none; }
 .loaded { opacity: 1; transition: opacity 0.6s ease; }
@@ -681,5 +644,185 @@ canvas {
     to {
         transform: translateY(0);
         opacity: 1;
+    }
+}
+
+/* ==========================================================================
+   RESPONSIVE DESIGN - MOBILE FIRST APPROACH
+   ========================================================================== */
+
+@media (max-width: 768px) {
+    /* Navigation adjustments */
+    #nav {
+        padding: 0 20px;
+        height: 70px;
+        justify-content: flex-start;
+        gap: 15px;
+    }
+    
+    .nav-brand h3 {
+        font-size: 12px;
+    }
+    
+    /* Main content adjustments */
+    #page, #page1, #page2, #page3 {
+        height: 100vh;
+        padding: 20px;
+    }
+    
+    /* Text adjustments */
+    #page > h3 {
+        font-size: 14px;
+        line-height: 1.4;
+        top: 60%;
+        left: 5%;
+        right: 5%;
+    }
+    
+    #page > h4 {
+        font-size: 12px;
+        top: 75%;
+    }
+    
+    #page1 > #left-text > h1 {
+        font-size: clamp(1.5rem, 6vw, 2.5rem);
+        line-height: 1.2;
+    }
+    
+    #page1 > #left-text > h3 {
+        font-size: 14px;
+    }
+    
+    #page2 > #text1 > h1 {
+        font-size: clamp(1.8rem, 7vw, 3rem);
+        line-height: 1.1;
+    }
+    
+    #page2 > #text1 > h3 {
+        font-size: 12px;
+    }
+    
+    #page2 > #text2 > p {
+        font-size: 12px;
+        line-height: 1.5;
+    }
+    
+    #page3 > #text3 > h1 {
+        font-size: clamp(1.8rem, 7vw, 3rem);
+        line-height: 1.1;
+    }
+    
+    #page3 > #text3 > h3 {
+        font-size: 12px;
+    }
+    
+    /* Video container adjustments */
+    .video-glow {
+        width: 90%;
+        max-width: 400px;
+        margin: 20px auto;
+    }
+    
+    .video-glow iframe {
+        width: 100%;
+        height: 200px;
+    }
+    
+    /* Loop text adjustments */
+    #loop {
+        font-size: 40px;
+        top: 25%;
+    }
+    
+    #loop > h1 {
+        font-size: clamp(2rem, 8vw, 4rem);
+    }
+    
+    /* Footer adjustments */
+    #footer {
+        padding: 30px 20px;
+    }
+    
+    #footer-content {
+        flex-direction: column;
+        gap: 20px;
+        text-align: center;
+    }
+    
+    /* Canvas adjustments for mobile */
+    #nav canvas {
+        width: 60px;
+        height: 60px;
+        position: relative;
+        z-index: 100;
+        margin-left: 10px;
+    }
+    
+    /* Hide nav menu on mobile when canvas is present */
+    #nav .nav-menu {
+        display: none;
+    }
+    
+    /* Hide mobile toggle on mobile when canvas is present */
+    #nav .nav-mobile-toggle {
+        display: none;
+    }
+    
+    /* Cookie consent adjustments */
+    .cookie-content {
+        flex-direction: column;
+        text-align: center;
+        gap: 20px;
+    }
+    
+    .cookie-actions {
+        justify-content: center;
+    }
+    
+    .cookie-btn {
+        padding: 10px 20px;
+        font-size: 0.85rem;
+    }
+}
+
+@media (max-width: 480px) {
+    /* Extra small devices */
+    #nav {
+        padding: 0 15px;
+    }
+    
+    .nav-brand h3 {
+        font-size: 16px;
+    }
+    
+    #page, #page1, #page2, #page3 {
+        padding: 15px;
+    }
+    
+    #loop {
+        font-size: 30px;
+    }
+    
+    #loop > h1 {
+        font-size: clamp(1.5rem, 6vw, 3rem);
+    }
+    
+    .video-glow iframe {
+        height: 180px;
+    }
+    
+    #footer {
+        padding: 20px 15px;
+    }
+}
+
+@media (min-width: 769px) {
+    /* Desktop specific adjustments */
+    .mobile-menu {
+        display: none !important;
+    }
+    
+    .nav-mobile-toggle {
+        display: none !important;
     }
 }

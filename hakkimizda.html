@@ -2,28 +2,34 @@
 <html lang="tr">
 <head>
     <meta charset="UTF-8">
+
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <!-- Mobil Yönlendirme Sistemi -->
     <script>
     (function() {
         // Mobil cihaz tespiti
         const isMobile = window.innerWidth <= 768 || 
-                         /Android|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
-        // Eğer mobil cihazsa ve mobile.html'de değilsek
-        if (isMobile && !window.location.pathname.includes('mobile.html')) {
-            // Smooth redirect
+                        /Android|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+        
+        // Eğer mobil cihazsa mobile.html'e yönlendir
+        if (isMobile) {
+            console.log('📱 Mobil cihaz tespit edildi, mobile.html\'e yönlendiriliyor...');
             setTimeout(() => {
                 window.location.href = 'mobile.html';
             }, 100);
+        } else {
+            console.log('🖥️ Desktop cihaz tespit edildi, desktop interface yükleniyor...');
         }
     })();
     </script>
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     
     <title>Hakkımızda - Sword Nest | AI Destekli Reklam Ajansı Misyon ve Vizyon</title>
     <meta name="description" content="Sword Nest'in misyonu: Yapay zeka ve insan yaratıcılığının kesişim noktasında yeni nesil reklam stratejileri. AI teknolojileri, Neural Network marketing ve inovasyon üssümüz hakkında bilgi edinin.">
     <meta name="keywords" content="sword nest hakkında, AI reklam ajansı misyon, yapay zeka pazarlama vizyonu, neural network reklam, generative AI marketing, sword nest lab, AI innovation hub, reklam ajansı istanbul">
     <meta name="author" content="Sword Nest">
-    <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1">
+    <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1">
     
     <link rel="canonical" href="https://swordnest.com/hakkimizda.html">
     
@@ -176,9 +182,7 @@
 </head>
 
 <body>
-    <div id="page-transition" class="page-transition">
-        <div class="sword-slash"></div>
-    </div>
+
 
     <div id="nav">
         <div class="nav-brand">
@@ -556,6 +560,7 @@
         </div>
     </div>
 
+    <script src="assets/scripts/event-manager.js"></script>
     <script src="assets/scripts/about.js"></script>
 
     <div id="cookie-consent" class="cookie-consent">

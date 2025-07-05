@@ -22,20 +22,34 @@ class PageLoader {
     }
     
     async navigateTo(url) {
-        if (this.isTransitioning) return;
+        console.log('🗡️ Page transition started:', url);
+        
+        if (this.isTransitioning) {
+            console.log('⚠️ Already transitioning, skipping...');
+            return;
+        }
         
         this.isTransitioning = true;
         
-        // Play transition out
-        await this.transitionOut();
-        
-        // Load new page
-        await this.loadPage(url, true);
-        
-        // Play transition in
-        await this.transitionIn();
-        
-        this.isTransitioning = false;
+        try {
+            // Play transition out
+            console.log('🎬 Playing transition out...');
+            await this.transitionOut();
+            
+            // Load new page
+            console.log('📄 Loading new page...');
+            await this.loadPage(url, true);
+            
+            // Play transition in
+            console.log('🎬 Playing transition in...');
+            await this.transitionIn();
+            
+            console.log('✅ Page transition completed');
+        } catch (error) {
+            console.error('❌ Page transition error:', error);
+        } finally {
+            this.isTransitioning = false;
+        }
     }
     
     async transitionOut() {
@@ -326,4 +340,15 @@ class PageLoader {
 // Initialize page loader when DOM is ready
 document.addEventListener('DOMContentLoaded', () => {
     window.pageLoader = new PageLoader();
+    console.log('🎯 PageLoader initialized');
 });
+
+// Debug function
+window.debugPageTransition = function() {
+    console.log('🗡️ Page Transition Debug:');
+    console.log('- PageLoader instance:', window.pageLoader);
+    console.log('- Transition element:', document.getElementById('page-transition'));
+    console.log('- Sword slash element:', document.querySelector('.sword-slash'));
+    console.log('- Is transitioning:', window.pageLoader?.isTransitioning);
+    console.log('- Current URL:', window.location.href);
+};
